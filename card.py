@@ -1,6 +1,5 @@
 class Card:
-    def __init__ (self, title, question, answer, category, cardID = 0):
-        self.title = title
+    def __init__ (self, question, answer, category, cardID = 0):
         self.question = question
         self.answer = answer
         self.category = category
@@ -9,4 +8,4 @@ class Card:
         self.tableName = "Cardholder"
 
     def makeRequestBody(self):
-        return '{"title" : f"{self.title}", "question" : f"{self.question}", "answer" : f"{self.answer}", "category" : f"{self.category}"}'
+        return {"question" : self.question, "answer" : self.answer, "category" : self.category}
