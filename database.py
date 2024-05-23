@@ -56,6 +56,3 @@ class Database:
             self.__password = cfp.get("Database", "password")
         except:
             print("config.ini is missing or wrong")
-
-#db = Database()
-#print(db.getDataFromTableWithFilter("users", "id" , "1"))
