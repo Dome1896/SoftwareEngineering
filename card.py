@@ -7,3 +7,6 @@ class Card:
         self.cardID = cardID
 
         self.tableName = "Cardholder"
+
+    def makeRequestBody(self):
+        return "{"title" : f"{self.title}", "question" : f"{self.question}", "answer" : f"{self.answer}", }"
