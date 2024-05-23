@@ -1,6 +1,5 @@
 import requests
 from configparser import ConfigParser
-from supabase import *
 class Database:
     
     def __init__(self):
