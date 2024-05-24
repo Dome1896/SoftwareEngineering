@@ -11,7 +11,15 @@ from card import Card
 db = Database()
 card = Card( "tst", "tsest", "testcate")
 db.setDataToDB(card)
-test = db.getAllDataFromOneTable("Cardholder")
+
+# Alle Daten aus der Tabelle abrufen
+all_users = db.getAllDataFromOneTable("Cardholder")
+print(all_users)
+
+# Daten aus der Tabelle mit Filter abrufen
+filtered_card = db.getDataFromTableWithFilter("Cardholder", "id", "17")
+print(filtered_card)
+
 hs = 0
 # Starte die Anwendung
 # if __name__ == '__main__':
