@@ -12,8 +12,10 @@ class MyFloatLayout(FloatLayout):
     cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
     cardIndex = 0
 
-    toolbar_expanded = True  # Zustand der Toolbar
+    def get_categories(self):
+        return Controller.getAllCategories()
 
+    toolbar_expanded = True  # Zustand der Toolbar
     def toggle_toolbar(self):
         button = self.ids.t_button
         toolbar = self.ids.toolbar
@@ -61,9 +63,7 @@ class MyFloatLayout(FloatLayout):
             self.ids.category_label.text = "Herzlichen Glückwunsch!"
 
 class P(FloatLayout):
-
-    def get_categories(self):
-        return Controller.getAllCategories()
+    pass
 
 class MyApp(App):
     def build(self):
