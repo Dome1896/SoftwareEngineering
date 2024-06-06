@@ -3,10 +3,19 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from kivy.animation import Animation
 from kivy.uix.label import Label
+from kivy.uix.accordion import AccordionItem
+from kivy.uix.actionbar import ActionBar, ActionView, ActionPrevious, ActionButton
+from kivy.uix.gridlayout import GridLayout
+from controller import Controller
 from kivy.uix.boxlayout import BoxLayout
-from kivy.lang import Builder
-
+ 
+ 
 class MyFloatLayout(FloatLayout):
+
+    cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
+    card = Controller.extractOneCardFromCardList(cardList)
+
+
     def collapse_toolbar(self):
         toolbar = self.ids.toolbar
         button = self.ids.t_button
@@ -72,17 +81,30 @@ class MyFloatLayout(FloatLayout):
                 show.ids.cards_box.add_widget(card_layout)
 
         popupWindow.open()
- 
+
+    def show_card(self, card_id):
+        card = Controller.getCard(card_id)
+        if card:
+            self.ids.question_label.text = card.question
+            self.ids.answer_label.text = card.answer
+            self.ids.category_label.text = card.category
+        else:
+            print("Card not found")
  
 class P(FloatLayout):
     pass
  
-class ShowCards(FloatLayout):
-    pass
-
+ 
 class MyApp(App):
     def build(self):
-        return MyFloatLayout()
 
+        return MyFloatLayout()
+    
+    def createCard(self, question, answer, category):
+        Controller.createCard(question=question,answer=answer,category=category)
+ 
+class ShowCards(FloatLayout):
+    pass
+ 
 if __name__ == "__main__":
     MyApp().run()
