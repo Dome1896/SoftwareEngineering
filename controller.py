@@ -29,4 +29,15 @@ class Controller(App):
             return card
         return None
 
+    @classmethod
+    def getAllCategories(cls):
+        categories = cls.db.getAllUniqueValuesFromColumn("Cardholder", "category")
+        categoriesList = []
+        for category in categories:
+            i = category["category"]
+            if i not in categoriesList:
+                categoriesList.append(i)
+        return categoriesList
+
+
 

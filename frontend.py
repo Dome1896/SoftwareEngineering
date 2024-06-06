@@ -19,7 +19,7 @@ class MyFloatLayout(FloatLayout):
         button_anim = Animation(pos_hint={'x': 0.0001}, duration=0.2)
         toolbar_anim.start(toolbar)
         button_anim.start(button)
- 
+
     def expand_toolbar(self):
         toolbar = self.ids.toolbar
         button = self.ids.t_button
@@ -27,10 +27,10 @@ class MyFloatLayout(FloatLayout):
         button_anim = Animation(pos_hint={'x': 0.205}, duration=0.2)
         toolbar_anim.start(toolbar)
         button_anim.start(button)
- 
+
     def btn(self):
         self.show_popup()
- 
+
     def show_popup(self):
         show = P()
         popupWindow = Popup(title="Add Flashcard", content=show, size_hint=(None, None), size=(400, 400))
@@ -58,8 +58,10 @@ class MyFloatLayout(FloatLayout):
             self.ids.category_label.text = "Herzlichen Glückwunsch!"
 
 class P(FloatLayout):
-    pass
- 
+
+    def get_categories(self):
+        return Controller.getAllCategories()
+
 class MyApp(App):
     def build(self):
         return MyFloatLayout()

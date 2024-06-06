@@ -3,6 +3,7 @@ from kivy.app import App
 from kivy.uix.label import Label
 from database import Database
 from card import Card
+from controller import Controller
 
 db = Database()
 card = Card("tst", "tsest", "testcate")
@@ -17,3 +18,5 @@ print(filtered_card)
 
 cards = db.getDataFromTableWithFilter(tableName="Cardholder", attributeKey="category", attributeValue="Softwareentwicklung")
 print(cards)
+print(db.getAllUniqueValuesFromColumn("Cardholder", "category"))
+print(Controller.getAllCategories())
