@@ -6,14 +6,31 @@ from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from controller import Controller
+from kivy.uix.dropdown import DropDown
+from kivy.uix.button import Button
 from kivy.properties import StringProperty
 
 class MyFloatLayout(FloatLayout):
-    cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
     cardIndex = 0
-
-    def get_categories(self):
-        return Controller.getAllCategories()
+    cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
+    # dropdown for categories
+    dropdown = DropDown()
+    
+    def create_dropdown(self):
+        # get all categories from database
+        categories = Controller.getAllCategories() 
+        for category in categories:
+            # create buttons
+            btn = Button(text=category, size_hint_y=None, height=44)
+            print(btn)
+            btn.bind(on_release=lambda btn: self.dropdown.select(btn.text))
+            # place button
+            self.dropdown.add_widget(btn)
+    
+    # when button with category is clicked
+    def select_category(self, category):
+        cardList = Controller.getAllCardsForCategory(category=category)
+        self.ids.mainbutton.text = category
 
     toolbar_expanded = True  # Zustand der Toolbar
     def toggle_toolbar(self):
