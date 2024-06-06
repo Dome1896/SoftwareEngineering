@@ -9,3 +9,5 @@ class Card:
 
     def makeRequestBody(self):
         return {"question" : self.question, "answer" : self.answer, "category" : self.category}
+
+## Fick die Dicken
