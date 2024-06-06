@@ -6,9 +6,15 @@ from kivy.uix.label import Label
 from kivy.uix.accordion import AccordionItem
 from kivy.uix.actionbar import ActionBar, ActionView, ActionPrevious, ActionButton
 from kivy.uix.gridlayout import GridLayout
- 
- 
+from controller import Controller
+
+# root in my.kv
 class MyFloatLayout(FloatLayout):
+
+    cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
+    card = Controller.extractOneCardFromCardList(cardList)
+
+
     def collapse_toolbar(self):
         toolbar = self.ids.toolbar
         button = self.ids.t_button
@@ -36,15 +42,30 @@ class MyFloatLayout(FloatLayout):
         show = P()
         popupWindow = Popup(title="Add Flashcard", content=show, size_hint=(None, None), size=(400, 400))
         popupWindow.open()
- 
+
+    def show_card(self, card_id):
+        card = Controller.getCard(card_id)
+        if card:
+            self.ids.question_label.text = card.question
+            self.ids.answer_label.text = card.answer
+            self.ids.category_label.text = card.category
+        else:
+            print("Card not found")
  
 class P(FloatLayout):
     pass
- 
- 
+
+
+ #app in my.kv
 class MyApp(App):
     def build(self):
+
         return MyFloatLayout()
+    def createCard(self, question, answer, category):
+        Controller.createCard(question, answer, category)
+
+
+
  
  
 if __name__ == "__main__":
