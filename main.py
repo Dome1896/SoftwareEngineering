@@ -4,10 +4,6 @@ from kivy.uix.label import Label
 from database import Database
 from card import Card
 
-class MyApp(App):
-     def build(self):
-        # Erstelle ein Label-Widget
-        return Label(text="Hello, Kivy!")
 db = Database()
 card = Card( "tst", "tsest", "testcate")
 db.setDataToDB(card)
@@ -20,9 +16,5 @@ print(all_users)
 filtered_card = db.getDataFromTableWithFilter("Cardholder", "id", "17")
 print(filtered_card)
 
-hs = 0
 
-if __name__ == '__main__':
-
-     MyApp().run()
     
