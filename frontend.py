@@ -3,17 +3,15 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from kivy.animation import Animation
 from kivy.uix.label import Label
-from kivy.uix.accordion import AccordionItem
-from kivy.uix.actionbar import ActionBar, ActionView, ActionPrevious, ActionButton
-from kivy.uix.gridlayout import GridLayout
+from kivy.uix.boxlayout import BoxLayout
+from kivy.lang import Builder
 from controller import Controller
 from kivy.properties import StringProperty
-from kivy.uix.boxlayout import BoxLayout
+
 class MyFloatLayout(FloatLayout):
 
     cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
     card = Controller.extractOneCardFromCardList(cardList)
-
 
     def collapse_toolbar(self):
         toolbar = self.ids.toolbar
@@ -48,9 +46,8 @@ class MyFloatLayout(FloatLayout):
             value2 = show.ids.questionAnswer.text
             value3 = show.ids.questionCategory.text
 
-            # Werte in eine Textdatei speichern
-            with open('output.txt', 'a') as f:
-                f.write(f'{value1},{value2},{value3}\n')
+            # Werte in die Datenbank speichern
+            Controller.createCard(question=value1, answer=value2, category=value3)
 
             popupWindow.dismiss()
 
@@ -68,7 +65,7 @@ class MyFloatLayout(FloatLayout):
             self.ids.category_label.text = self.card.category
         except:
             self.ids.question_label.text = "Das wars!"
-            self.ids.answer_label.text = "Du hast alle Karten er Kategorie gelernt!"
+            self.ids.answer_label.text = "Du hast alle Karten der Kategorie gelernt!"
             self.ids.category_label.text = "Herzlichen Glückwunsch!"
 
 
@@ -76,20 +73,16 @@ class MyFloatLayout(FloatLayout):
         show = ShowCards()
         popupWindow = Popup(title="Show Cards", content=show, size_hint=(None, None), size=(400, 600))
 
-        # Werte aus der Datei lesen
-        with open('output.txt', 'r') as f:
-            lines = f.readlines()
+        # Karten aus der Datenbank abrufen
+        cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
 
         # Erstellen und Hinzufügen von Labels für jede Karte
-        for line in lines:
-            values = line.strip().split(',')
-            if len(values) == 3:
-                question, answer, category = values
-                card_layout = BoxLayout(orientation='vertical', size_hint_y=None, height=100)
-                card_layout.add_widget(Label(text=f'Question: {question}', size_hint_y=None, height=30, font_size=16))
-                card_layout.add_widget(Label(text=f'Answer: {answer}', size_hint_y=None, height=30, font_size=16))
-                card_layout.add_widget(Label(text=f'Category: {category}', size_hint_y=None, height=30, font_size=16))
-                show.ids.cards_box.add_widget(card_layout)
+        for card in cardList:
+            card_layout = BoxLayout(orientation='vertical', size_hint_y=None, height=100)
+            card_layout.add_widget(Label(text=f'Question: {card.question}', size_hint_y=None, height=30, font_size=16))
+            card_layout.add_widget(Label(text=f'Answer: {card.answer}', size_hint_y=None, height=30, font_size=16))
+            card_layout.add_widget(Label(text=f'Category: {card.category}', size_hint_y=None, height=30, font_size=16))
+            show.ids.cards_box.add_widget(card_layout)
 
         popupWindow.open()
 
@@ -105,17 +98,12 @@ class MyFloatLayout(FloatLayout):
 class P(FloatLayout):
     pass
  
- 
-class MyApp(App):
-    def build(self):
-
-        return MyFloatLayout()
-    
-    def createCard(self, question, answer, category):
-        Controller.createCard(question=question,answer=answer,category=category)
- 
 class ShowCards(FloatLayout):
     pass
+
+class MyApp(App):
+    def build(self):
+        return MyFloatLayout()
  
 if __name__ == "__main__":
     MyApp().run()
