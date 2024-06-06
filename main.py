@@ -9,18 +9,18 @@ class MyApp(App):
         # Erstelle ein Label-Widget
         return Label(text="Hello, Kivy!")
 db = Database()
-card = Card( "tst", "tsest", "testcate")
+card = Card("tst", "tsest", "testcate")
 db.setDataToDB(card)
-
 # Alle Daten aus der Tabelle abrufen
 all_users = db.getAllDataFromOneTable("Cardholder")
 print(all_users)
 
 # Daten aus der Tabelle mit Filter abrufen
-filtered_card = db.getDataFromTableWithFilter("Cardholder", "id", "17")
+filtered_card = db.getDataFromTableWithFilter("Cardholder", "cardID", "17")
 print(filtered_card)
 
-hs = 0
+cards = db.getDataFromTableWithFilter(tableName="Cardholder", attributeKey="category", attributeValue="Softwareentwicklung")
+print(cards)
 
 if __name__ == '__main__':
 
