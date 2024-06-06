@@ -61,6 +61,12 @@ class MyFloatLayout(FloatLayout):
     def showCardsWindow(self):
         self.showCards_popup()
 
+    def nextCard(self):
+        self.card = Controller.extractOneCardFromCardList(self.cardList)
+        self.ids.question_label.text = self.card.question
+        self.ids.answer_label.text = self.card.answer
+        self.ids.category_label.text = self.card.category
+
     def showCards_popup(self):
         show = ShowCards()
         popupWindow = Popup(title="Show Cards", content=show, size_hint=(None, None), size=(400, 600))
