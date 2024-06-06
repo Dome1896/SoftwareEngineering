@@ -7,9 +7,8 @@ from kivy.uix.accordion import AccordionItem
 from kivy.uix.actionbar import ActionBar, ActionView, ActionPrevious, ActionButton
 from kivy.uix.gridlayout import GridLayout
 from controller import Controller
+from kivy.properties import StringProperty
 from kivy.uix.boxlayout import BoxLayout
- 
- 
 class MyFloatLayout(FloatLayout):
 
     cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
@@ -60,6 +59,18 @@ class MyFloatLayout(FloatLayout):
  
     def showCardsWindow(self):
         self.showCards_popup()
+
+    def nextCard(self):
+        try:
+            self.card = Controller.extractOneCardFromCardList(self.cardList)
+            self.ids.question_label.text = self.card.question
+            self.ids.answer_label.text = self.card.answer
+            self.ids.category_label.text = self.card.category
+        except:
+            self.ids.question_label.text = "Das wars!"
+            self.ids.answer_label.text = "Du hast alle Karten er Kategorie gelernt!"
+            self.ids.category_label.text = "Herzlichen Glückwunsch!"
+
 
     def showCards_popup(self):
         show = ShowCards()

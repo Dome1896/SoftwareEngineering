@@ -3,3 +3,5 @@ Test2,Test2,Test
 Test3,Test3,Test
 Wie viel Peps haben wir noch	,Ein,Ja
 Ne	,Ne,Ne
+Was ist der sinn von Git?,Git vereinfacht die Versionierung und Zusammenarbeit in der Softwareentwicklung,Softwareentwicklung
+Was ist Python?,Python ist eine Anfängefreundlich Programmiersprache.,Softwareentwicklung
