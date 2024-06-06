@@ -12,25 +12,28 @@ class MyFloatLayout(FloatLayout):
     cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
     cardIndex = 0
 
-    def collapse_toolbar(self):
-        toolbar = self.ids.toolbar
-        button = self.ids.t_button
-        toolbar_anim = Animation(pos_hint={'x': -0.2}, duration=0.2)
-        button_anim = Animation(pos_hint={'x': 0.0001}, duration=0.2)
-        toolbar_anim.start(toolbar)
-        button_anim.start(button)
+    toolbar_expanded = True  # Zustand der Toolbar
 
-    def expand_toolbar(self):
-        toolbar = self.ids.toolbar
+    def toggle_toolbar(self):
         button = self.ids.t_button
-        toolbar_anim = Animation(pos_hint={'x': 0}, duration=0.2)
-        button_anim = Animation(pos_hint={'x': 0.205}, duration=0.2)
+        toolbar = self.ids.toolbar
+
+        if self.toolbar_expanded:
+            # Animation to hide toolbar
+            toolbar_anim = Animation(pos_hint={'x': -0.2}, duration=0.2)
+            button_anim = Animation(pos_hint={'x': 0.01}, duration=0.2)
+        else:
+            # Animation to show toolbar
+            toolbar_anim = Animation(pos_hint={'x': 0}, duration=0.2)
+            button_anim = Animation(pos_hint={'x': 0.2}, duration=0.2)
+
         toolbar_anim.start(toolbar)
         button_anim.start(button)
+        self.toolbar_expanded = not self.toolbar_expanded
 
     def btn(self):
         self.show_popup()
-
+ 
     def show_popup(self):
         show = P()
         popupWindow = Popup(title="Add Flashcard", content=show, size_hint=(None, None), size=(400, 400))
@@ -51,7 +54,7 @@ class MyFloatLayout(FloatLayout):
             self.cardIndex += 1
             self.ids.question_label.text = card.question
             self.ids.answer_label.text = card.answer
-            self.ids.category_label.text = card.category
+            #self.ids.category_label.text = card.category
         else:
             self.ids.question_label.text = "Das wars!"
             self.ids.answer_label.text = "Du hast alle Karten der Kategorie gelernt!"
@@ -65,6 +68,7 @@ class P(FloatLayout):
 class MyApp(App):
     def build(self):
         return MyFloatLayout()
+
 
 if __name__ == "__main__":
     Builder.load_file('my.kv')

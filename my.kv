@@ -6,18 +6,30 @@
             size: self.size
             pos: self.pos
 
-    ActionBar:
+    BoxLayout:
+        canvas.before:
+            Color:
+                rgba: 0.2, 0.85, 0.85, 1
+            Rectangle:
+                size: self.size
+                pos: self.pos
         id: toolbar
         pos_hint: {'x': 0, 'y': 0}
         size_hint: 0.2, 1
         orientation: 'vertical'
+        Button:
+            text: 'Add Folder'
+            size_hint: None, None
+            size: 100, 50
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
     Button:
         id: t_button
-        size_hint: 0.01, 0.075
-        pos_hint: {'x': 0.205, 'y': 0.5}
-        on_press: root.collapse_toolbar()
-        on_release: root.expand_toolbar()
+        text: "Toggle Toolbar"
+        size_hint: None, None
+        size: 50, 50
+        pos_hint: {'x': 0.2, 'y': 0.5}
+        on_release: root.toggle_toolbar()
 
     Button:
         text: "Add Card"
@@ -33,11 +45,12 @@
         font_size: 20
         on_release: root.nextCard()
 
+    #Name der Frage
     Label:
         id: question_label
         size_hint: (0.8, 0.2)
         pos_hint: {"center_x": 0.5, "center_y": 0.7}
-
+    #Antwort der Frage
     Label:
         id: answer_label
         size_hint: (0.8, 0.2)
