@@ -1,5 +1,5 @@
 class Card:
-    def __init__ (self, question, answer, category, cardID = 0):
+    def __init__(self, question, answer, category, cardID = 0):
         self.question = question
         self.answer = answer
         self.category = category
@@ -9,5 +9,3 @@ class Card:
 
     def makeRequestBody(self):
         return {"question" : self.question, "answer" : self.answer, "category" : self.category}
-
-## Fick die Dicken

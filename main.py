@@ -1,9 +1,11 @@
-import kivy
 from kivy.app import App
 from kivy.uix.label import Label
-from database import Database
+
 from card import Card
+from database import Database
 from learnmode import Learnmode
+
+
 class MyApp(App):
     def build(self):
         # Erstelle ein Label-Widget
