@@ -1,25 +1,37 @@
+<ShowCards>:
+    Button:    
+        text: "ShowCards"
+        size_hint: (0.3, 0.1)
+        font_size: 20
+        pos_hint: {"center_x": 0.5, "center_y": 0.9}
+        
+
 <P>:
     Button:
+        id: addCard
         text: "Add Card"
         size_hint: (0.3, 0.1)
         font_size: 20
-        pos_hint: {"center_x": 0.5, "center_y": 0.7}
+        pos_hint: {"center_x": 0.5, "center_y": 0.9}
     TextInput:
         id: questionName
         hint_text: "Type Question"
         size_hint: (0.8, 0.2)
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        pos_hint: {"center_x": 0.5, "center_y": 0.7}
     TextInput:
         id: questionAnswer
         hint_text: "Type Answer"
         size_hint: (0.8, 0.2)
-        pos_hint: {"center_x": 0.5, "center_y": 0.3}
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
     TextInput:
         id: questionCategory
         hint_text: "Type Category"
         size_hint: (0.8, 0.2)
-        pos_hint: {"center_x": 0.5, "center_y": 0.1}
+        pos_hint: {"center_x": 0.5, "center_y": 0.3}
  
+
+
+
 <Button>:
     color: 0.5, 0.5, 0.8, 1
     font_size: 8
@@ -61,3 +73,11 @@
         size_hint: (0.1, 0.1)
         font_size: 20
         on_release: root.btn()
+
+    Button:
+        text: "ShowCards"
+        pos_hint: {"x": 0.8}
+        size_hint: (0.1, 0.1)
+        font_size: 20
+        on_release: root.showCardsWindow()
+        

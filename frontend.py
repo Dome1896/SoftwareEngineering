@@ -32,16 +32,26 @@ class MyFloatLayout(FloatLayout):
     def btn(self):
         self.show_popup()
  
+    def showCardsWindow(self):
+        self.showCards_popup()
+
     def show_popup(self):
         show = P()
         popupWindow = Popup(title="Add Flashcard", content=show, size_hint=(None, None), size=(400, 400))
+        popupWindow.open()
+ 
+    def showCards_popup(self):
+        show = ShowCards()
+        popupWindow = Popup(title="Show", content=show, size_hint=(None, None), size=(400, 400))
         popupWindow.open()
  
  
 class P(FloatLayout):
     pass
  
- 
+class ShowCards(FloatLayout):
+    pass
+
 class MyApp(App):
     def build(self):
         return MyFloatLayout()
