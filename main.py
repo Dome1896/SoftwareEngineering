@@ -17,7 +17,3 @@ print(filtered_card)
 
 cards = db.getDataFromTableWithFilter(tableName="Cardholder", attributeKey="category", attributeValue="Softwareentwicklung")
 print(cards)
-
-if __name__ == '__main__':
-
-    
