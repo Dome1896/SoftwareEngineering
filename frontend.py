@@ -51,7 +51,7 @@ class MyFloatLayout(FloatLayout):
             self.cardIndex += 1
             self.ids.question_label.text = card.question
             self.ids.answer_label.text = card.answer
-            self.ids.category_label.text = card.category
+            #self.ids.category_label.text = card.category
         else:
             self.ids.question_label.text = "Das wars!"
             self.ids.answer_label.text = "Du hast alle Karten der Kategorie gelernt!"
