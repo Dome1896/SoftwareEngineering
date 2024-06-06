@@ -6,6 +6,8 @@ from kivy.uix.label import Label
 from kivy.uix.accordion import AccordionItem
 from kivy.uix.actionbar import ActionBar, ActionView, ActionPrevious, ActionButton
 from kivy.uix.gridlayout import GridLayout
+from controller import Controller
+from kivy.uix.boxlayout import BoxLayout
  
  
 class MyFloatLayout(FloatLayout):
@@ -97,7 +99,12 @@ class MyApp(App):
     def build(self):
 
         return MyFloatLayout()
+    
+    def createCard(self, question, answer, category):
+        Controller.createCard(question=question,answer=answer,category=category)
  
+class ShowCards(FloatLayout):
+    pass
  
 if __name__ == "__main__":
     MyApp().run()
