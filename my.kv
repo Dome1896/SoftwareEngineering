@@ -1,25 +1,38 @@
+<ShowCards>:
+    ScrollView:
+        size_hint: (1, 1)
+        BoxLayout:
+            id: cards_box
+            orientation: 'vertical'
+            size_hint_y: None
+            height: self.minimum_height
+            padding: 10
+            spacing: 10
+
 <P>:
     Button:
+        id: addCard
         text: "Add Card"
         size_hint: (0.3, 0.1)
         font_size: 20
         pos_hint: {"center_x": 0.5, "center_y": 0.7}
         on_press: app.createCard(questionName.text, questionAnswer.text, questionCategory.text)
+        pos_hint: {"center_x": 0.5, "center_y": 0.9}
     TextInput:
         id: questionName
         hint_text: "Type Question"
         size_hint: (0.8, 0.2)
-        pos_hint: {"center_x": 0.5, "center_y": 0.5}
+        pos_hint: {"center_x": 0.5, "center_y": 0.7}
     TextInput:
         id: questionAnswer
         hint_text: "Type Answer"
         size_hint: (0.8, 0.2)
-        pos_hint: {"center_x": 0.5, "center_y": 0.3}
+        pos_hint: {"center_x": 0.5, "center_y": 0.5}
     TextInput:
         id: questionCategory
         hint_text: "Type Category"
         size_hint: (0.8, 0.2)
-        pos_hint: {"center_x": 0.5, "center_y": 0.1}
+        pos_hint: {"center_x": 0.5, "center_y": 0.3}
 
 <Button>:
     color: 0.5, 0.5, 0.8, 1
@@ -62,6 +75,13 @@
         size_hint: (0.1, 0.1)
         font_size: 20
         on_release: root.btn()
+
+    Button:
+        text: "Show Cards"
+        pos_hint: {"x": 0.8}
+        size_hint: (0.1, 0.1)
+        font_size: 20
+        on_release: root.showCardsWindow()
 
     Label:
         id: question_label
