@@ -1,26 +1,28 @@
+import kivy
 from kivy.app import App
 from kivy.uix.label import Label
-
-from card import Card
 from database import Database
-from learnmode import Learnmode
+from card import Card
 
-
-class MyApp(App):
-    def build(self):
-        # Erstelle ein Label-Widget
-        return Label(text="Hello, Kivy!")
+# class MyApp(App):
+#     def build(self):
+#         # Erstelle ein Label-Widget
+#         return Label(text="Hello, Kivy!")
 db = Database()
-card = Card(category="Softwareentwicklung", question="Was ist ein Konstruktor?" ,answer="Eine Methode, für das Erzeugen einer Instanz")
+card = Card( "tst", "tsest", "testcate")
 db.setDataToDB(card)
 
-learnmode = Learnmode(category="Softwareentwicklung", database=db)
-print(learnmode.cards)
+# Alle Daten aus der Tabelle abrufen
+all_users = db.getAllDataFromOneTable("Cardholder")
+print(all_users)
 
+# Daten aus der Tabelle mit Filter abrufen
+filtered_card = db.getDataFromTableWithFilter("Cardholder", "id", "17")
+print(filtered_card)
 
-
+hs = 0
 # Starte die Anwendung
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    MyApp().run()
+#     MyApp().run()
     
