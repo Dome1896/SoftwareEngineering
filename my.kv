@@ -23,17 +23,6 @@
             size: 100, 50
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
-    Spinner:
-        id: category_spinner
-        text: 'Select Category'
-        values: root.get_categories()
-        size_hint: (0.3, 0.1)
-        pos_hint: {"x": 0.35, "top": 0.9}
-        on_text: root.update_category(self.text)
-
-   
-
-
     Button:
         id: t_button
         text: "Toggle Toolbar"
