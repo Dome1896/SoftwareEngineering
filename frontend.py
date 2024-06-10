@@ -2,12 +2,11 @@ from kivy.app import App
 from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from kivy.animation import Animation
-from kivy.uix.label import Label
-from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
-from controller import Controller
 from kivy.properties import StringProperty
 from kivy.uix.screenmanager import ScreenManager, Screen
+
+from controller import Controller
 
 class MyFloatLayout(FloatLayout):
     cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
@@ -36,7 +35,7 @@ class MyFloatLayout(FloatLayout):
 
     def btn(self):
         self.show_popup()
- 
+
     def show_popup(self):
         show = P()
         popupWindow = Popup(title="Add Flashcard", content=show, size_hint=(None, None), size=(400, 400))
@@ -57,18 +56,15 @@ class MyFloatLayout(FloatLayout):
             self.cardIndex += 1
             self.ids.question_label.text = card.question
             self.ids.answer_label.text = card.answer
-            #self.ids.category_label.text = card.category
         else:
             self.ids.question_label.text = "Das wars!"
             self.ids.answer_label.text = "Du hast alle Karten der Kategorie gelernt!"
             self.ids.category_label.text = "Herzlichen Glückwunsch!"
 
-
 class P(FloatLayout):
     pass
 
-#------------------------------------------------------------------------------------------------------------
-class FirstWindow(Screen):
+class FirstWindow(Screen, MyFloatLayout):
     pass
 
 class SecondWindow(Screen):
@@ -77,23 +73,16 @@ class SecondWindow(Screen):
 class WindowManager(ScreenManager):
     pass
 
-
-#------------------------------------------------------------------------------------------------------------
-
 class MyApp(App):
-    def build(self):     
+    def build(self):
         Builder.load_file('my.kv')
         return MyFloatLayout()
 
-#------------------------------------------------------------------------------------------------------------
 kv = Builder.load_file('first_window.kv')
 
 class FirstApp(App):
-    def build (self):
+    def build(self):
         return kv
-    
-#------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    #MyApp().run()
     FirstApp().run()
