@@ -7,6 +7,7 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.lang import Builder
 from controller import Controller
 from kivy.properties import StringProperty
+from kivy.uix.screenmanager import ScreenManager, Screen
 
 class MyFloatLayout(FloatLayout):
     cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
@@ -62,14 +63,37 @@ class MyFloatLayout(FloatLayout):
             self.ids.answer_label.text = "Du hast alle Karten der Kategorie gelernt!"
             self.ids.category_label.text = "Herzlichen Glückwunsch!"
 
+
 class P(FloatLayout):
     pass
 
+#------------------------------------------------------------------------------------------------------------
+class FirstWindow(Screen):
+    pass
+
+class SecondWindow(Screen):
+    pass
+
+class WindowManager(ScreenManager):
+    pass
+
+
+#------------------------------------------------------------------------------------------------------------
+
 class MyApp(App):
-    def build(self):
+    def build(self):     
+        Builder.load_file('my.kv')
         return MyFloatLayout()
 
+#------------------------------------------------------------------------------------------------------------
+kv = Builder.load_file('first_window.kv')
+
+class FirstApp(App):
+    def build (self):
+        return kv
+    
+#------------------------------------------------------------------------------------------------------------
 
 if __name__ == "__main__":
-    Builder.load_file('my.kv')
-    MyApp().run()
+    #MyApp().run()
+    FirstApp().run()
