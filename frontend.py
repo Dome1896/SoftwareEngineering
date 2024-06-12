@@ -51,6 +51,8 @@ class MyFloatLayout(FloatLayout):
         show.ids.addCard.bind(on_release=save_data)
         popupWindow.open()
 
+class WindowManager(ScreenManager):
+    pass
 
 class P(FloatLayout):
     pass
@@ -60,6 +62,7 @@ class FirstWindow(Screen, MyFloatLayout):
         SecondWindow.cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
 
 class SecondWindow(Screen):
+    
     
     cardIndex = 0
     def nextCard(self):
@@ -80,18 +83,11 @@ class SecondWindow(Screen):
         self.ids.learnmodeCategory.text = "Kategorie"
         self.cardIndex = 0
 
-class WindowManager(ScreenManager):
-    pass
 
-class MyApp(App):
-    def build(self):
-        Builder.load_file('my.kv')
-        return MyFloatLayout()
-
-kv = Builder.load_file('first_window.kv')
 
 class FirstApp(App):
     def build(self):
+        kv = Builder.load_file('first_window.kv')
         return kv
 
 if __name__ == "__main__":
