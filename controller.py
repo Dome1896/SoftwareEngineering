@@ -31,7 +31,11 @@ class Controller(App):
 
     @classmethod
     def getAllCategories(cls):
-        categories = cls.db.getAllUniqueValuesFromColumn("Cardholder", "category")
+        '''
+        Returns
+            an Array with all unique categories in the table "Cardholder"
+        '''
+        categories = cls.db.getAllValuesFromColumn("Cardholder", "category")
         categoriesList = []
         for category in categories:
             i = category["category"]

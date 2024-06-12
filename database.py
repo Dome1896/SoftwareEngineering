@@ -42,7 +42,7 @@ class Database:
         requests.post(url=url, headers=headers, json=object.makeRequestBody())
 
     # Methode, um alle einzigartigen Werte aus einer Spalte zu erhalten
-    def getAllUniqueValuesFromColumn(self, tableName, columnName):
+    def getAllValuesFromColumn(self, tableName, columnName):
         url = f"{self.__url}{tableName}?select={columnName}"
         response = requests.get(url=url, headers=self.__headers)
         return response.json()

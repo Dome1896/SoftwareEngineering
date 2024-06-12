@@ -18,5 +18,5 @@ print(filtered_card)
 
 cards = db.getDataFromTableWithFilter(tableName="Cardholder", attributeKey="category", attributeValue="Softwareentwicklung")
 print(cards)
-print(db.getAllUniqueValuesFromColumn("Cardholder", "category"))
+print(db.getAllValuesFromColumn("Cardholder", "category"))
 print(Controller.getAllCategories())
