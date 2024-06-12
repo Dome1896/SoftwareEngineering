@@ -52,6 +52,7 @@ WindowManager:
         on_release: 
             app.root.current = "learn"
             root.manager.transition.direction = "left"
+            root.getCardsForCategory()
 
     Label:
         id: question_label
@@ -110,21 +111,24 @@ WindowManager:
 
     FloatLayout:
         Label:
-            text: "X"
+            id: learnmodeCategory
+            text: "Kategorie"
             size_hint: (0.8, 0.2)
             pos_hint: {"center_x": 0.5, "center_y": 0.7}
             halign: "center"
             valign: "middle"
             text_size: self.size
         Label:
-            text: "Z"
+            id: learnmodeQuestion
+            text: "Frage"
             size_hint: (0.8, 0.2)
             pos_hint: {"center_x": 0.5, "center_y": 0.5}
             halign: "center"
             valign: "middle"
             text_size: self.size
         Label:
-            text: "Y"
+            id: learnmodeAnswer
+            text: "Antwort"
             size_hint: (0.8, 0.2)
             pos_hint: {"center_x": 0.5, "center_y": 0.3}
             halign: "center"
@@ -136,12 +140,14 @@ WindowManager:
             font_size: 32
             size_hint: (0.4, 0.1)
             pos_hint: {"center_x": 0.5, "y": 0.15}
-            on_release: 
+            on_release:                 
                 app.root.current = "first"
                 root.manager.transition.direction = "right"
+                root.resetLearnmode()
 
         Button: 
             text: "Next"
             font_size: 32
             size_hint: (0.4, 0.1)
             pos_hint: {"center_x": 0.5, "y": 0.05}
+            on_release: root.nextCard()

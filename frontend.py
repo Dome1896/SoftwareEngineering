@@ -9,11 +9,12 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from controller import Controller
 
 class MyFloatLayout(FloatLayout):
-    cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
-    cardIndex = 0
+
 
     def get_categories(self):
         return Controller.getAllCategories()
+
+        
 
     toolbar_expanded = True  # Zustand der Toolbar
     def toggle_toolbar(self):
@@ -50,25 +51,34 @@ class MyFloatLayout(FloatLayout):
         show.ids.addCard.bind(on_release=save_data)
         popupWindow.open()
 
-    def nextCard(self):
-        if self.cardIndex < len(self.cardList):
-            card = self.cardList[self.cardIndex]
-            self.cardIndex += 1
-            self.ids.question_label.text = card.question
-            self.ids.answer_label.text = card.answer
-        else:
-            self.ids.question_label.text = "Das wars!"
-            self.ids.answer_label.text = "Du hast alle Karten der Kategorie gelernt!"
-            self.ids.category_label.text = "Herzlichen Glückwunsch!"
 
 class P(FloatLayout):
     pass
 
 class FirstWindow(Screen, MyFloatLayout):
-    pass
+    def getCardsForCategory(self):
+        SecondWindow.cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
 
 class SecondWindow(Screen):
-    pass
+    
+    cardIndex = 0
+    def nextCard(self):
+        if self.cardIndex < len(self.cardList):
+            card = self.cardList[self.cardIndex]
+            self.cardIndex += 1
+            self.ids.learnmodeQuestion.text = card.question
+            self.ids.learnmodeAnswer.text = card.answer
+            self.ids.learnmodeCategory.text = card.category
+        else:
+            self.ids.learnmodeQuestion.text = "Das wars!"
+            self.ids.learnmodeAnswer.text = "Du hast alle Karten der Kategorie gelernt!"
+            self.ids.learnmodeCategory.text = "Herzlichen Glückwunsch!"
+    def resetLearnmode(self):
+
+        self.ids.learnmodeQuestion.text = "Frage"
+        self.ids.learnmodeAnswer.text = "Antwort"
+        self.ids.learnmodeCategory.text = "Kategorie"
+        self.cardIndex = 0
 
 class WindowManager(ScreenManager):
     pass
