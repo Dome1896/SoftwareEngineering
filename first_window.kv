@@ -44,11 +44,23 @@ WindowManager:
 
         Button:
             id: t_button
-            text: "Toggle Toolbar"
             size_hint: None, None
-            size: 50, 50
-            pos_hint: {'x': 0.2, 'y': 0.5}
-            on_release: root.toggle_toolbar()
+            size: 30, 30
+            pos_hint: {'x': 0.2, 'y': 0.95}
+            on_release:
+                root.toggle_toolbar()
+            background_normal: ''  # Set to empty to remove default background
+            background_down: ''    # Set to empty to remove default background
+            background_color: 0, 0, 0, 0  # Make the button background transparent
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Ensure the icon is visible
+                Rectangle:
+                    id: arrow_icon
+                    source: 'left-arrow.png'
+                    size: self.size
+                    pos: self.pos
+
 
         Button:
             text: "Add Card"
@@ -117,9 +129,9 @@ WindowManager:
                 source: "ressources\eye-tracking (1).png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                size_hint: (0.1,0.025)        
+                size_hint: (0.1,0.025)
         #---------------Start Rating Buttons------------
-        Button: 
+        Button:
             id: ratingFalse
             pos_hint: {"center_x": 0.4, "y": 0.25}
             size_hint: (0.05, 0.05)
@@ -136,7 +148,7 @@ WindowManager:
             size_hint: (0.05, 0.05)
             opacity: 0  # Initially hidden
             background_color: 0,0,0,0
-            Image:    
+            Image:
                 source: "ressources\geht.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
@@ -147,7 +159,7 @@ WindowManager:
             size_hint: (0.05, 0.05)
             opacity: 0  # Initially hidden
             background_color: 0,0,0,0
-            Image:    
+            Image:
                 source: "ressources\supi.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
@@ -186,7 +198,7 @@ WindowManager:
         height: 30
         valign: 'middle'
         halign: 'left'
-        on_release: root.change_icon()
+        on_release: root.change_icon_folder()
 
     BoxLayout:
         id: content
