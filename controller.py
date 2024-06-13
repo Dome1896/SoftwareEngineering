@@ -3,7 +3,7 @@ from kivy.lang import Builder
 from database import Database
 from card import Card
 
-Builder.load_file('my.kv')
+#Builder.load_file('my.kv')
 class Controller(App):
 
     db = Database()
