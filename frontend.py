@@ -14,7 +14,7 @@ from controller import Controller
 
 
 class MyFloatLayout(FloatLayout):
-    toolbar_expanded = True  # Zustand der Toolbar
+
 
     # def on_kv_post(self, *args):
     # self.add_category_buttons()
@@ -26,21 +26,27 @@ class MyFloatLayout(FloatLayout):
     def get_all_cards_for_category(self, category: str):
         FirstWindow.getCardsForCategory(category)
 
+    toolbar_expanded = True  # Zustand der Toolbar
+
     def toggle_toolbar(self):
         button = self.ids.t_button
         toolbar = self.ids.toolbar
+        #icon = self.ids.arrow_icon
 
         if self.toolbar_expanded:
             # Animation zum Ausblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': -0.2}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.01}, duration=0.2)
+            #new_icon = 'right-arrow.png'
         else:
             # Animation zum Einblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': 0}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.2}, duration=0.2)
+            #new_icon = 'left-arrow.png'
 
         toolbar_anim.start(toolbar)
         button_anim.start(button)
+        #icon.source = new_icon
         self.toolbar_expanded = not self.toolbar_expanded
 
     def btn(self):
@@ -200,7 +206,7 @@ class Folder(BoxLayout):
     def add_content(self, content):
         self.ids.content.add_widget(Label(text=content, size_hint_y=None, height=30))
 
-    def change_icon(self):
+    def change_icon_folder(self):
         # Die Icons sollen sich abwechseln
         current_icon = self.ids.folder_icon.source
         new_icon = 'folder.png' if current_icon == 'folderclosed.png' else 'folderclosed.png'

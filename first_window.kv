@@ -15,7 +15,7 @@ WindowManager:
         BoxLayout:
             canvas.before:
                 Color:
-                    rgba: 0.2, 0.85, 0.85, 1
+                    rgba: (213/255, 222/255 , 216/255, 1)
                 Rectangle:
                     size: self.size
                     pos: self.pos
@@ -25,7 +25,7 @@ WindowManager:
             orientation: 'vertical'
 
             ScrollView:
-                size_hint: 1, None
+                #size_hint: 1, None
                 height: self.parent.height - 70
                 BoxLayout:
                     id: folder_box
@@ -36,19 +36,30 @@ WindowManager:
                     spacing: 10
 
             Button:
-                text: 'Add Folder'
-                size_hint: None, None
-                size: 100, 50
+                #text: 'Add Folder'
+                size_hint: (0.4, 0.05)
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                 on_release: root.show_popuptoolbar()
 
         Button:
             id: t_button
-            text: "Toggle Toolbar"
             size_hint: None, None
-            size: 50, 50
-            pos_hint: {'x': 0.2, 'y': 0.5}
-            on_release: root.toggle_toolbar()
+            size: 30, 30
+            pos_hint: {'x': 0.2, 'y': 0.95}
+            on_release:
+                root.toggle_toolbar()
+            background_normal: ''  # Set to empty to remove default background
+            background_down: ''    # Set to empty to remove default background
+            background_color: 0, 0, 0, 0  # Make the button background transparent
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1  # Ensure the icon is visible
+                Rectangle:
+                    id: arrow_icon
+                    source: 'left-arrow.png'
+                    size: self.size
+                    pos: self.pos
+
 
         Button:
             text: "Add Card"
@@ -56,6 +67,15 @@ WindowManager:
             size_hint: (0.13, 0.1)
             font_size: 20
             on_release: root.btn()
+
+        Button:
+            text: "Edit"
+            pos_hint: {"x": 0.87, "y" : 0.1}
+            size_hint: (0.13, 0.1)
+            font_size: 20
+            on_release:
+                app.root.current = "edit"
+                root.manager.transition.direction = "left"
 
         Label:
             id: question_label
@@ -117,9 +137,9 @@ WindowManager:
                 source: "ressources\eye-tracking (1).png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                size_hint: (0.1,0.025)        
+                size_hint: (0.1,0.025)
         #---------------Start Rating Buttons------------
-        Button: 
+        Button:
             id: ratingFalse
             pos_hint: {"center_x": 0.4, "y": 0.25}
             size_hint: (0.05, 0.05)
@@ -136,7 +156,7 @@ WindowManager:
             size_hint: (0.05, 0.05)
             opacity: 0  # Initially hidden
             background_color: 0,0,0,0
-            Image:    
+            Image:
                 source: "ressources\geht.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
@@ -147,7 +167,7 @@ WindowManager:
             size_hint: (0.05, 0.05)
             opacity: 0  # Initially hidden
             background_color: 0,0,0,0
-            Image:    
+            Image:
                 source: "ressources\supi.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
@@ -186,7 +206,7 @@ WindowManager:
         height: 30
         valign: 'middle'
         halign: 'left'
-        on_release: root.change_icon()
+        on_release: root.change_icon_folder()
 
     BoxLayout:
         id: content
@@ -232,7 +252,7 @@ WindowManager:
     color: 0.3, 0.6, 0.7, 1
 
 <SecondWindow>:
-    name: "learn"
+    name: "edit"
 
     FloatLayout:
         Button:
@@ -244,7 +264,7 @@ WindowManager:
                 app.root.current = "first"
                 root.manager.transition.direction = "right"
             Image:
-                source: "home.png"
+                source: "ressources\home.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: (0.1,0.025)
