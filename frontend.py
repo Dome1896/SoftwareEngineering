@@ -3,13 +3,28 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.popup import Popup
 from kivy.animation import Animation
 from kivy.lang import Builder
-from kivy.properties import StringProperty
+from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
+from kivy.uix.scrollview import ScrollView
 
 from controller import Controller
 
 class MyFloatLayout(FloatLayout):
     toolbar_expanded = True  # Zustand der Toolbar
+
+
+    def on_kv_post(self, *args):
+        self.add_category_buttons()
+
+    def add_category_buttons(self):
+        categories = self.get_categories()
+        toolbar = self.ids.category_box
+        toolbar.clear_widgets()
+
+        for category in categories:
+            print(category)
+            btn = Button(text=category, size_hint_y=None, height=40, on_release=lambda *args: self.get_all_cards_for_category(category))
+            toolbar.add_widget(btn)
 
     def get_categories(self):
         return Controller.getAllCategories()
@@ -19,11 +34,11 @@ class MyFloatLayout(FloatLayout):
         toolbar = self.ids.toolbar
 
         if self.toolbar_expanded:
-            # Animation to hide toolbar
+            # Animation zum Ausblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': -0.2}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.01}, duration=0.2)
         else:
-            # Animation to show toolbar
+            # Animation zum Einblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': 0}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.2}, duration=0.2)
 
@@ -60,9 +75,11 @@ class FirstWindow(Screen, MyFloatLayout):
         self.cardList = []  # Initialize cardList here
         self.cardIndex = 0
         self.show_answer = False
+        # self.add_category_buttons()
 
-    def getCardsForCategory(self):
-        self.cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
+    @classmethod
+    def getCardsForCategory(cls, category: str):
+        FirstWindow.cardList = Controller.getAllCardsForCategory(category)
 
     def nextCard(self):
         if self.cardIndex < len(self.cardList):
