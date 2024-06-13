@@ -57,10 +57,7 @@ class P(FloatLayout):
 
 class FirstWindow(Screen, MyFloatLayout):
     def getCardsForCategory(self):
-        SecondWindow.cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
-
-class SecondWindow(Screen):
-
+        FirstWindow.cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
     cardIndex = 0
     show_answer = False
 
@@ -92,6 +89,9 @@ class SecondWindow(Screen):
         self.ids.learnmodeCategory.text = "Kategorie"
         self.cardIndex = 0
         self.show_answer = False
+
+class SecondWindow(Screen):
+    pass
 
 class FirstApp(App):
     def build(self):

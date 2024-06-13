@@ -40,7 +40,7 @@ WindowManager:
 
         Button:
             text: "Add Card"
-            pos_hint: {"x": 0.4}
+            pos_hint: {"x": 0.7}
             size_hint: (0.13, 0.1)
             font_size: 20
             on_release: root.btn()
@@ -48,7 +48,7 @@ WindowManager:
         Button:
             id: start_learn
             text: "Lernen Starten"
-            pos_hint: {"x": 0.65}
+            pos_hint: {"x": 0.85}
             size_hint: (0.15, 0.1)
             font_size: 17
             on_release: 
@@ -70,6 +70,70 @@ WindowManager:
             id: category_label
             size_hint: (0.8, 0.2)
             pos_hint: {"center_x": 0.5, "center_y": 0.3}
+        Label:
+            id: learnmodeCategory
+            text: "Kategorie"
+            size_hint: (0.8, 0.2)
+            pos_hint: {"center_x": 0.5, "center_y": 0.85}
+            halign: "center"
+            valign: "middle"
+            text_size: self.size
+        Label:
+            id: learnmodeQuestion
+            text: "Frage"
+            size_hint: (0.8, 0.2)
+            pos_hint: {"center_x": 0.5, "center_y": 0.65}
+            halign: "center"
+            valign: "middle"
+            text_size: self.size
+        Label:
+            id: learnmodeAnswer
+            text: "Antwort anzeigen"
+            size_hint: (0.8, 0.2)
+            pos_hint: {"center_x": 0.5, "center_y": 0.45}
+            halign: "center"
+            valign: "middle"
+            text_size: self.size
+
+        #Button: 
+            #text: "Go Back"
+            #background_color: 0,0,0,0
+            #font_size: 16
+            #size_hint: (0.2, 0.05)
+            #pos_hint: {"center_x": 0.5, "y": 0.05}
+            #on_release:                 
+                #app.root.current = "first"
+                #root.manager.transition.direction = "right"
+                #root.resetLearnmode()
+            #Image:
+                #source: "home.png"
+                #center_x: self.parent.center_x
+                #center_y: self.parent.center_y
+                #size_hint: (0.1,0.025)
+            
+            
+        Button: 
+            text: "Next"
+            font_size: 16
+            size_hint: (0.2, 0.05)
+            pos_hint: {"center_x": 0.5, "y": 0.15}
+            on_release: root.nextCard()
+
+        Button:
+            #text: "Show/Hide Answer"
+            font_size: 16
+            size_hint: (0.2, 0.05)
+            background_color: 0,0,0,0
+            pos_hint: {"center_x": 0.5, "y": 0.25}
+            on_release: root.toggle_answer_visibility()
+            Image:
+                source: "eye-tracking (1).png"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size_hint: (0.1,0.025)
+
+
+
 
 <P>:
     Button:
@@ -112,64 +176,4 @@ WindowManager:
     name: "learn"
 
     FloatLayout:
-        Label:
-            id: learnmodeCategory
-            text: "Kategorie"
-            size_hint: (0.8, 0.2)
-            pos_hint: {"center_x": 0.5, "center_y": 0.85}
-            halign: "center"
-            valign: "middle"
-            text_size: self.size
-        Label:
-            id: learnmodeQuestion
-            text: "Frage"
-            size_hint: (0.8, 0.2)
-            pos_hint: {"center_x": 0.5, "center_y": 0.65}
-            halign: "center"
-            valign: "middle"
-            text_size: self.size
-        Label:
-            id: learnmodeAnswer
-            text: "Antwort anzeigen"
-            size_hint: (0.8, 0.2)
-            pos_hint: {"center_x": 0.5, "center_y": 0.45}
-            halign: "center"
-            valign: "middle"
-            text_size: self.size
-
-        Button: 
-            #text: "Go Back"
-            background_color: 0,0,0,0
-            font_size: 16
-            size_hint: (0.2, 0.05)
-            pos_hint: {"center_x": 0.5, "y": 0.05}
-            on_release:                 
-                app.root.current = "first"
-                root.manager.transition.direction = "right"
-                root.resetLearnmode()
-            Image:
-                source: "home.png"
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-                size_hint: (0.1,0.025)
-            
-            
-        Button: 
-            text: "Next"
-            font_size: 16
-            size_hint: (0.2, 0.05)
-            pos_hint: {"center_x": 0.5, "y": 0.15}
-            on_release: root.nextCard()
-
-        Button:
-            #text: "Show/Hide Answer"
-            font_size: 16
-            size_hint: (0.2, 0.05)
-            background_color: 0,0,0,0
-            pos_hint: {"center_x": 0.5, "y": 0.25}
-            on_release: root.toggle_answer_visibility()
-            Image:
-                source: "eye-tracking (1).png"
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-                size_hint: (0.1,0.025)
+        
