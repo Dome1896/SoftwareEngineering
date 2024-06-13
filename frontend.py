@@ -19,17 +19,8 @@ class MyFloatLayout(FloatLayout):
     # def on_kv_post(self, *args):
     # self.add_category_buttons()
 
-    #def add_category_buttons(self):
-    #categories = self.get_categories()
-    #toolbar = self.ids.category_box
-    #toolbar.clear_widgets()
-
-    # for category in categories:
-    # btn = Button(text=category, size_hint_y=None, height=40,
-    #    on_release=lambda *args: self.get_all_cards_for_category(category))
-    #toolbar.add_widget(btn)
-
-    def get_categories(self):
+    @classmethod
+    def get_categories(cls):
         return Controller.getAllCategories()
 
     def get_all_cards_for_category(self, category: str):
@@ -88,13 +79,6 @@ class MyFloatLayout(FloatLayout):
         # Neues Folder-Widget erstellen
         folder = Folder(folder_name=folder_name)
         self.ids.folder_box.add_widget(folder, index=0)
-
-
-    def add_content_to_folder(self, folder_name, content):
-        for folder in self.ids.folder_box.children:
-            if isinstance(folder, Folder) and folder.folder_name == folder_name:
-                folder.add_content(content)
-                break
 
     def select_folder(self, instance):
         self.selected_folder = instance
@@ -186,8 +170,25 @@ class PopupToolbar(FloatLayout):
         super(PopupToolbar, self).__init__(**kwargs)
         self.parent_widget = parent_widget
 
-    def create_folder(self):
-        folder_name = self.folder_name_input.text
+
+
+
+    # muss noch aufgerufen werden
+    def add_category_folders(self):
+    #categories = self.get_categories()
+    #toolbar = self.ids.category_box
+    #toolbar.clear_widgets()
+
+    # for category in categories:
+    # btn = Button(text=category, size_hint_y=None, height=40,
+    #    on_release=lambda *args: self.get_all_cards_for_category(category))
+    #toolbar.add_widget(btn)
+        categories = MyFloatLayout.get_categories()
+        for category in categories:
+            self.create_folder(category)
+
+    def create_folder(self, category: str):
+        folder_name = category
         if folder_name:
             self.parent_widget.add_folder_to_toolbar(folder_name)
             self.folder_name_input.text = ''

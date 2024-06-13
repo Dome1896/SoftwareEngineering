@@ -176,9 +176,9 @@ WindowManager:
     folder_name_input: folder_name_input
     Button:
         text: "Create Folder"
-        pos_hint: {'x': 0., 'y': 0}
-        size_hint: 0.2, 0.2
-        on_release: root.create_folder()
+        pos_hint: {'x': 0, 'y': 0}
+        size_hint: 0.5, 0.2
+        on_release: root.create_folder() #hier input in Datenbank!!!
     TextInput:
         id: folder_name_input
         hint_text: "Type Folder Name"
