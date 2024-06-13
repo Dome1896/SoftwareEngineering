@@ -22,7 +22,6 @@ class MyFloatLayout(FloatLayout):
         toolbar.clear_widgets()
 
         for category in categories:
-            print(category)
             btn = Button(text=category, size_hint_y=None, height=40, on_release=lambda *args: self.get_all_cards_for_category(category))
             toolbar.add_widget(btn)
 
