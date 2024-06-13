@@ -6,7 +6,7 @@ WindowManager:
     name: "first"
     canvas.before:
         Color:
-            rgba: 0.85, 0.85, 0.85, 1
+            rgba: 0.95, 0.95, 0.95, 0.95
         Rectangle:
             size: self.size
             pos: self.pos
@@ -32,11 +32,13 @@ WindowManager:
 
         Button:
             id: t_button
-            text: "Toggle Toolbar"
+            #text: "Toggle Toolbar"
             size_hint: None, None
+            font_size: 17
             size: 25, 25
             pos_hint: {'x': 0.2, 'y': 0.5}
             on_release: root.toggle_toolbar()
+            background_color: 0.95,0.95,0.95,0.95
 
         Button:
             text: "Add Card"
@@ -52,9 +54,10 @@ WindowManager:
             size_hint: (0.15, 0.1)
             font_size: 17
             on_release: 
-                app.root.current = "learn"
-                root.manager.transition.direction = "left"
+                #app.root.current = "learn"
+                #root.manager.transition.direction = "left"
                 root.getCardsForCategory()
+                root.nextCard()
 
         Label:
             id: question_label
@@ -94,23 +97,6 @@ WindowManager:
             halign: "center"
             valign: "middle"
             text_size: self.size
-
-        #Button: 
-            #text: "Go Back"
-            #background_color: 0,0,0,0
-            #font_size: 16
-            #size_hint: (0.2, 0.05)
-            #pos_hint: {"center_x": 0.5, "y": 0.05}
-            #on_release:                 
-                #app.root.current = "first"
-                #root.manager.transition.direction = "right"
-                #root.resetLearnmode()
-            #Image:
-                #source: "home.png"
-                #center_x: self.parent.center_x
-                #center_y: self.parent.center_y
-                #size_hint: (0.1,0.025)
-            
             
         Button: 
             text: "Next"
@@ -131,9 +117,6 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: (0.1,0.025)
-
-
-
 
 <P>:
     Button:
@@ -176,4 +159,16 @@ WindowManager:
     name: "learn"
 
     FloatLayout:
-        
+        Button: 
+            background_color: 0,0,0,0
+            font_size: 16
+            size_hint: (0.2, 0.05)
+            pos_hint: {"center_x": 0.5, "y": 0.05}
+            on_release:                 
+                app.root.current = "first"
+                root.manager.transition.direction = "right"
+            Image:
+                source: "home.png"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size_hint: (0.1,0.025)

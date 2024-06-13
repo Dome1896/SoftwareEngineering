@@ -9,11 +9,10 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from controller import Controller
 
 class MyFloatLayout(FloatLayout):
+    toolbar_expanded = True  # Zustand der Toolbar
 
     def get_categories(self):
         return Controller.getAllCategories()
-
-    toolbar_expanded = True  # Zustand der Toolbar
 
     def toggle_toolbar(self):
         button = self.ids.t_button
@@ -56,10 +55,14 @@ class P(FloatLayout):
     pass
 
 class FirstWindow(Screen, MyFloatLayout):
+    def __init__(self, **kwargs):
+        super(FirstWindow, self).__init__(**kwargs)
+        self.cardList = []  # Initialize cardList here
+        self.cardIndex = 0
+        self.show_answer = False
+
     def getCardsForCategory(self):
-        FirstWindow.cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
-    cardIndex = 0
-    show_answer = False
+        self.cardList = Controller.getAllCardsForCategory("Softwareentwicklung")
 
     def nextCard(self):
         if self.cardIndex < len(self.cardList):
@@ -75,7 +78,7 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.learnmodeCategory.text = "Herzlichen Glückwunsch!"
 
     def toggle_answer_visibility(self):
-        if self.cardIndex <= len(self.cardList):
+        if self.cardIndex > 0 and self.cardIndex <= len(self.cardList):
             if not self.show_answer:
                 self.ids.learnmodeAnswer.text = self.cardList[self.cardIndex - 1].answer
                 self.show_answer = True
