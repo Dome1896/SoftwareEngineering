@@ -29,6 +29,9 @@ class MyFloatLayout(FloatLayout):
     def get_categories(self):
         return Controller.getAllCategories()
 
+    def get_all_cards_for_category(self, category: str):
+        FirstWindow.getCardsForCategory(category)
+
     def toggle_toolbar(self):
         button = self.ids.t_button
         toolbar = self.ids.toolbar
@@ -70,10 +73,10 @@ class P(FloatLayout):
     pass
 
 class FirstWindow(Screen, MyFloatLayout):
+    cardIndex = 0
     def __init__(self, **kwargs):
         super(FirstWindow, self).__init__(**kwargs)
-        self.cardList = []  # Initialize cardList here
-        self.cardIndex = 0
+  # Initialize cardList here
         self.show_answer = False
         # self.add_category_buttons()
 
