@@ -38,7 +38,7 @@ WindowManager:
             size: 25, 25
             pos_hint: {'x': 0.2, 'y': 0.5}
             on_release: root.toggle_toolbar()
-            background_color: 0.95,0.95,0.95,0.95
+            
 
         Button:
             text: "Add Card"
@@ -102,7 +102,7 @@ WindowManager:
             text: "Next"
             font_size: 16
             size_hint: (0.2, 0.05)
-            pos_hint: {"center_x": 0.5, "y": 0.15}
+            pos_hint: {"center_x": 0.5, "y": 0.025}
             on_release: root.nextCard()
 
         Button:
@@ -110,13 +110,48 @@ WindowManager:
             font_size: 16
             size_hint: (0.2, 0.05)
             background_color: 0,0,0,0
-            pos_hint: {"center_x": 0.5, "y": 0.25}
+            pos_hint: {"center_x": 0.5, "y": 0.12}
             on_release: root.toggle_answer_visibility()
             Image:
                 source: "eye-tracking (1).png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                size_hint: (0.1,0.025)
+                size_hint: (0.1,0.025)        
+        #---------------Start Rating Buttons------------
+        Button: 
+            id: ratingFalse
+            pos_hint: {"center_x": 0.4, "y": 0.25}
+            size_hint: (0.05, 0.05)
+            opacity: 0  # Initially hidden
+            background_color: 0,0,0,0
+            Image:
+                source: "schlecht.png"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+        
+        Button: 
+            id: ratingMiddle
+            pos_hint: {"center_x": 0.5, "y": 0.25}
+            size_hint: (0.05, 0.05)
+            opacity: 0  # Initially hidden
+            background_color: 0,0,0,0
+            Image:    
+                source: "geht.png"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+       
+        Button: 
+            id: ratingGood
+            pos_hint: {"center_x": 0.6, "y": 0.25}
+            size_hint: (0.05, 0.05)
+            opacity: 0  # Initially hidden
+            background_color: 0,0,0,0
+            Image:    
+                source: "supi.png"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+
+        #---------------------Ende-----------------------
 
 <P>:
     Button:

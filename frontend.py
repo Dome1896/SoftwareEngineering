@@ -72,6 +72,10 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.learnmodeAnswer.text = "Antwort anzeigen"
             self.ids.learnmodeCategory.text = card.category
             self.show_answer = False
+            # Hide rating buttons
+            self.ids.ratingFalse.opacity = 0
+            self.ids.ratingMiddle.opacity = 0
+            self.ids.ratingGood.opacity = 0
         else:
             self.ids.learnmodeQuestion.text = "Das wars!"
             self.ids.learnmodeAnswer.text = "Du hast alle Karten der Kategorie gelernt!"
@@ -82,9 +86,17 @@ class FirstWindow(Screen, MyFloatLayout):
             if not self.show_answer:
                 self.ids.learnmodeAnswer.text = self.cardList[self.cardIndex - 1].answer
                 self.show_answer = True
+                # Show rating buttons
+                self.ids.ratingFalse.opacity = 1
+                self.ids.ratingMiddle.opacity = 1
+                self.ids.ratingGood.opacity = 1
             else:
                 self.ids.learnmodeAnswer.text = "Antwort anzeigen"
                 self.show_answer = False
+                # Hide rating buttons
+                self.ids.ratingFalse.opacity = 0
+                self.ids.ratingMiddle.opacity = 0
+                self.ids.ratingGood.opacity = 0
 
     def resetLearnmode(self):
         self.ids.learnmodeQuestion.text = "Frage"
@@ -92,6 +104,10 @@ class FirstWindow(Screen, MyFloatLayout):
         self.ids.learnmodeCategory.text = "Kategorie"
         self.cardIndex = 0
         self.show_answer = False
+        # Hide rating buttons
+        self.ids.ratingFalse.opacity = 0
+        self.ids.ratingMiddle.opacity = 0
+        self.ids.ratingGood.opacity = 0
 
 class SecondWindow(Screen):
     pass
