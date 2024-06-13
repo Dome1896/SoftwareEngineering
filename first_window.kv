@@ -6,49 +6,49 @@ WindowManager:
     name: "first"
     canvas.before:
         Color:
-            rgba: 0.95, 0.95, 0.95, 0.95
+            rgba: 0.95, 0.95, 0.95, 1
         Rectangle:
             size: self.size
             pos: self.pos
 
     FloatLayout:
         BoxLayout:
-            id: toolbar
             canvas.before:
                 Color:
                     rgba: 0.2, 0.85, 0.85, 1
                 Rectangle:
                     size: self.size
                     pos: self.pos
+            id: toolbar
             pos_hint: {'x': 0, 'y': 0}
             size_hint: 0.2, 1
             orientation: 'vertical'
 
             ScrollView:
-                do_scroll_x: False
-                do_scroll_y: True
+                size_hint: 1, None
+                height: self.parent.height - 70
                 BoxLayout:
-                    id: category_box
+                    id: folder_box
                     orientation: 'vertical'
                     size_hint_y: None
                     height: self.minimum_height
-                    padding: [10, 10, 10, 10]
+                    padding: [30, 10, 10, 10]
                     spacing: 10
+
             Button:
                 text: 'Add Folder'
                 size_hint: None, None
-                size: 50, 25
+                size: 100, 50
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+                on_release: root.show_popuptoolbar()
 
         Button:
             id: t_button
-            #text: "Toggle Toolbar"
+            text: "Toggle Toolbar"
             size_hint: None, None
-            font_size: 17
-            size: 25, 25
+            size: 50, 50
             pos_hint: {'x': 0.2, 'y': 0.5}
             on_release: root.toggle_toolbar()
-            
 
         Button:
             text: "Add Card"
@@ -64,9 +64,7 @@ WindowManager:
             size_hint: (0.15, 0.1)
             font_size: 17
             on_release:
-                #app.root.current = "learn"
-                #root.manager.transition.direction = "left"
-                root.getCardsForCategory()
+                root.getCardsForCategory("default")  # Fix for missing parameter
                 root.nextCard()
 
         Label:
@@ -83,6 +81,7 @@ WindowManager:
             id: category_label
             size_hint: (0.8, 0.2)
             pos_hint: {"center_x": 0.5, "center_y": 0.3}
+
         Label:
             id: learnmodeCategory
             text: "Kategorie"
@@ -91,6 +90,7 @@ WindowManager:
             halign: "center"
             valign: "middle"
             text_size: self.size
+
         Label:
             id: learnmodeQuestion
             text: "Frage"
@@ -99,6 +99,7 @@ WindowManager:
             halign: "center"
             valign: "middle"
             text_size: self.size
+
         Label:
             id: learnmodeAnswer
             text: "Antwort anzeigen"
@@ -116,7 +117,6 @@ WindowManager:
             on_release: root.nextCard()
 
         Button:
-            #text: "Show/Hide Answer"
             font_size: 16
             size_hint: (0.2, 0.05)
             background_color: 0,0,0,0
@@ -126,9 +126,9 @@ WindowManager:
                 source: "eye-tracking (1).png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                size_hint: (0.1,0.025)        
-        #---------------Start Rating Buttons------------
-        Button: 
+                size_hint: (0.1,0.025)
+
+        Button:
             id: ratingFalse
             pos_hint: {"center_x": 0.4, "y": 0.25}
             size_hint: (0.05, 0.05)
@@ -138,32 +138,72 @@ WindowManager:
                 source: "schlecht.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-        
-        Button: 
+
+        Button:
             id: ratingMiddle
             pos_hint: {"center_x": 0.5, "y": 0.25}
             size_hint: (0.05, 0.05)
             opacity: 0  # Initially hidden
             background_color: 0,0,0,0
-            Image:    
+            Image:
                 source: "geht.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-       
-        Button: 
+
+        Button:
             id: ratingGood
             pos_hint: {"center_x": 0.6, "y": 0.25}
             size_hint: (0.05, 0.05)
             opacity: 0  # Initially hidden
             background_color: 0,0,0,0
-            Image:    
+            Image:
                 source: "supi.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
 
-        #---------------------Ende-----------------------
+<PopupToolbar>:
+    folder_name_input: folder_name_input
+    Button:
+        text: "Create Folder"
+        pos_hint: {'x': 0, 'y': 0}
+        size_hint: 0.5, 0.2
+        on_release: root.create_folder()
+    TextInput:
+        id: folder_name_input
+        hint_text: "Type Folder Name"
+        pos_hint: {'x': 0, 'y': 0.5}
+        size_hint: 1, 0.3
 
-<P>:
+<Folder>:
+    orientation: 'horizontal'
+    size_hint_y: None
+    height: self.minimum_height
+    padding: [10, 10, 10, 10]
+    spacing: 10
+
+    Image:
+        id: folder_icon
+        source: 'folderclosed.png'
+        size_hint: None, None
+        size: 30, 30
+        allow_stretch: True
+        keep_ratio: True
+
+    Button:
+        text: root.folder_name
+        size_hint_y: None
+        height: 30
+        valign: 'middle'
+        halign: 'left'
+        on_release: root.change_icon()
+
+    BoxLayout:
+        id: content
+        orientation: 'vertical'
+        size_hint_y: None
+        height: self.minimum_height
+
+<PopupAddCard>:
     Button:
         id: addCard
         text: "Add Card"
@@ -188,7 +228,6 @@ WindowManager:
 
 <Button>:
     color: 0.5, 0.5, 0.8, 1
-    font_size: 8
 
 <Label>:
     font_size: 32
@@ -217,3 +256,4 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: (0.1,0.025)
+
