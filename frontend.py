@@ -14,14 +14,23 @@ from controller import Controller
 
 
 class MyFloatLayout(FloatLayout):
+    globalCategory = ""
 
+    def __init__(self, **kwargs):
+        super(MyFloatLayout, self).__init__(**kwargs)
+        # Removed the call to on_startup_create_all_folders from __init__
 
-    # def on_kv_post(self, *args):
-    # self.add_category_buttons()
+    def on_kv_post(self, base_widget):
+        self.on_startup_create_all_folders()
 
     @classmethod
     def get_categories(cls):
-        return Controller.getAllCategories()
+        allUniqueCategories = Controller.getAllCategories()
+        return allUniqueCategories
+
+    def on_startup_create_all_folders(self):
+        for category in MyFloatLayout.get_categories():
+            self.add_folder_to_toolbar(category)
 
     def get_all_cards_for_category(self, category: str):
         FirstWindow.getCardsForCategory(category)
@@ -31,22 +40,22 @@ class MyFloatLayout(FloatLayout):
     def toggle_toolbar(self):
         button = self.ids.t_button
         toolbar = self.ids.toolbar
-        #icon = self.ids.arrow_icon
+        # icon = self.ids.arrow_icon
 
         if self.toolbar_expanded:
             # Animation zum Ausblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': -0.2}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.01}, duration=0.2)
-            #new_icon = 'right-arrow.png'
+            # new_icon = 'right-arrow.png'
         else:
             # Animation zum Einblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': 0}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.2}, duration=0.2)
-            #new_icon = 'left-arrow.png'
+            # new_icon = 'left-arrow.png'
 
         toolbar_anim.start(toolbar)
         button_anim.start(button)
-        #icon.source = new_icon
+        # icon.source = new_icon
         self.toolbar_expanded = not self.toolbar_expanded
 
     def btn(self):
@@ -54,6 +63,7 @@ class MyFloatLayout(FloatLayout):
 
     def show_popup(self):
         show = PopupAddCard()
+        show.ids.questionCategory.text = globalCategory
         popupWindow = Popup(title="Add Flashcard", content=show, size_hint=(None, None), size=(400, 400))
 
         def save_data(instance):
@@ -170,28 +180,14 @@ class PopupToolbar(FloatLayout):
         super(PopupToolbar, self).__init__(**kwargs)
         self.parent_widget = parent_widget
 
-
-
-
-    # muss noch aufgerufen werden
     def add_category_folders(self):
-    #categories = self.get_categories()
-    #toolbar = self.ids.category_box
-    #toolbar.clear_widgets()
-
-    # for category in categories:
-    # btn = Button(text=category, size_hint_y=None, height=40,
-    #    on_release=lambda *args: self.get_all_cards_for_category(category))
-    #toolbar.add_widget(btn)
         categories = MyFloatLayout.get_categories()
         for category in categories:
             self.create_folder(category)
 
-    def create_folder(self, category: str):
-        folder_name = category
+    def create_folder(self, folder_name):
         if folder_name:
             self.parent_widget.add_folder_to_toolbar(folder_name)
-            self.folder_name_input.text = ''
         else:
             print("No folder name provided.")
 
@@ -211,6 +207,16 @@ class Folder(BoxLayout):
         current_icon = self.ids.folder_icon.source
         new_icon = 'folder.png' if current_icon == 'folderclosed.png' else 'folderclosed.png'
         self.ids.folder_icon.source = new_icon
+
+    # TODO muss noch implementiert werden
+    # die Lernkarteninhalte sollen vollstädnig zurückgesetzt werden
+    def reset_cards(self):
+        pass
+
+    def get_all_cards_for_category(self, category: str):
+        global globalCategory
+        globalCategory = category
+        FirstWindow.getCardsForCategory(category)
 
 
 class SecondWindow(Screen):
