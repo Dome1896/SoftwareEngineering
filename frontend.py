@@ -28,6 +28,7 @@ class MyFloatLayout(FloatLayout):
         allUniqueCategories = Controller.getAllCategories()
         return allUniqueCategories
 
+    #lächerlich dass ich so hintergangen wurde
     def on_startup_create_all_folders(self):
         for category in MyFloatLayout.get_categories():
             self.add_folder_to_toolbar(category)
@@ -179,11 +180,6 @@ class PopupToolbar(FloatLayout):
     def __init__(self, parent_widget, **kwargs):
         super(PopupToolbar, self).__init__(**kwargs)
         self.parent_widget = parent_widget
-
-    def add_category_folders(self):
-        categories = MyFloatLayout.get_categories()
-        for category in categories:
-            self.create_folder(category)
 
     def create_folder(self, folder_name):
         if folder_name:
