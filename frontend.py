@@ -6,19 +6,17 @@ from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.animation import Animation
 from kivy.lang import Builder
-from kivy.uix.button import Button
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.scrollview import ScrollView
 
 from controller import Controller
 
 class MyFloatLayout(FloatLayout):
-    # Die Variable ist in der gesamten Software mit MyFloatLayout.globalCategory abrufbar. Sie zeigt IMMER die ausgewählte Kategorie an. 
+    # dadurch kann die ausgewählte Kategorie immer mit MyFloatLayout.globalCategory abgerufen werden
     globalCategory = ""
-    
+
     def __init__(self, **kwargs):
         super(MyFloatLayout, self).__init__(**kwargs)
-        # Removed the call to on_startup_create_all_folders from __init__
 
     def on_kv_post(self, base_widget):
         self.on_startup_create_all_folders()
@@ -28,35 +26,33 @@ class MyFloatLayout(FloatLayout):
         allUniqueCategories = Controller.getAllCategories()
         return allUniqueCategories
 
-    #lächerlich dass ich so hintergangen wurde
     def on_startup_create_all_folders(self):
         for category in MyFloatLayout.get_categories():
             self.add_folder_to_toolbar(category)
-
+    
     def get_all_cards_for_category(self, category: str):
         FirstWindow.getCardsForCategory(category)
 
-    toolbar_expanded = True  # Zustand der Toolbar
+    toolbar_expanded = True # Zustand der Toolbar
 
     def toggle_toolbar(self):
         button = self.ids.t_button
         toolbar = self.ids.toolbar
         # icon = self.ids.arrow_icon
-
+        
         if self.toolbar_expanded:
             # Animation zum Ausblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': -0.2}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.01}, duration=0.2)
-            # new_icon = 'right-arrow.png'
+             # new_icon = 'right-arrow.png'
         else:
-            # Animation zum Einblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': 0}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.2}, duration=0.2)
             # new_icon = 'left-arrow.png'
 
         toolbar_anim.start(toolbar)
         button_anim.start(button)
-        # icon.source = new_icon
+         # icon.source = new_icon
         self.toolbar_expanded = not self.toolbar_expanded
 
     def btn(self):
@@ -89,7 +85,8 @@ class MyFloatLayout(FloatLayout):
 
     def add_folder_to_toolbar(self, folder_name):
         # Neues Folder-Widget erstellen
-        folder = Folder(folder_name=folder_name)
+        first_window = self.manager.get_screen('first_window')
+        folder = Folder(folder_name=folder_name, first_window=first_window)
         self.ids.folder_box.add_widget(folder, index=0)
 
     def select_folder(self, instance):
@@ -121,9 +118,11 @@ class FirstWindow(Screen, MyFloatLayout):
 
     def __init__(self, **kwargs):
         super(FirstWindow, self).__init__(**kwargs)
-        # Initialize cardList here
         self.show_answer = False
-        # self.add_category_buttons()
+        self.folder_instance = None
+
+    def set_folder_instance(self, folder_instance):
+        self.folder_instance = folder_instance
 
     @classmethod
     def getCardsForCategory(cls, category: str):
@@ -191,10 +190,12 @@ class PopupToolbar(FloatLayout):
 
 class Folder(BoxLayout):
     folder_name = StringProperty("")
+    first_window = ObjectProperty(None)
 
-    def __init__(self, folder_name, **kwargs):
+    def __init__(self, folder_name, first_window, **kwargs):
         super(Folder, self).__init__(**kwargs)
         self.folder_name = folder_name
+        self.first_window = first_window
 
     def add_content(self, content):
         self.ids.content.add_widget(Label(text=content, size_hint_y=None, height=30))
@@ -204,13 +205,15 @@ class Folder(BoxLayout):
         current_icon = self.ids.folder_icon.source
         new_icon = 'folder.png' if current_icon == 'folderclosed.png' else 'folderclosed.png'
         self.ids.folder_icon.source = new_icon
-
-    # TODO muss noch implementiert werden
-    # die Lernkarteninhalte sollen vollstädnig zurückgesetzt werden
+    # Inhalt der Karten wird nach jedem Klick auf einen neuen Ordner gelöscht
     def reset_cards(self):
-        pass
+        if self.first_window:
+            self.first_window.resetLearnmode()
+        else:
+            print("FirstWindow instance not set.")
 
     def get_all_cards_for_category(self, category: str):
+        # dadurch sehen wir in dem gesamten Projekt immer die ausgewählt Kategorie
         MyFloatLayout.globalCategory = category
         FirstWindow.getCardsForCategory(category)
 

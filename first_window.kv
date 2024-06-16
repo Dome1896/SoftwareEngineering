@@ -3,7 +3,7 @@ WindowManager:
     SecondWindow:
 
 <FirstWindow>:
-    name: "first"
+    name: "first_window"
     canvas.before:
         Color:
             rgba: 0.95, 0.95, 0.95, 1
@@ -178,7 +178,7 @@ WindowManager:
         text: "Create Folder"
         pos_hint: {'x': 0, 'y': 0}
         size_hint: 0.5, 0.2
-        on_release: root.create_folder()
+        on_release: root.create_folder(root.ids.folder_name_input.text)
     TextInput:
         id: folder_name_input
         hint_text: "Type Folder Name"
