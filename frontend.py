@@ -12,10 +12,10 @@ from kivy.uix.scrollview import ScrollView
 
 from controller import Controller
 
-
 class MyFloatLayout(FloatLayout):
+    # Die Variable ist in der gesamten Software mit MyFloatLayout.globalCategory abrufbar. Sie zeigt IMMER die ausgewählte Kategorie an. 
     globalCategory = ""
-
+    
     def __init__(self, **kwargs):
         super(MyFloatLayout, self).__init__(**kwargs)
         # Removed the call to on_startup_create_all_folders from __init__
@@ -64,7 +64,8 @@ class MyFloatLayout(FloatLayout):
 
     def show_popup(self):
         show = PopupAddCard()
-        show.ids.questionCategory.text = globalCategory
+        # In dem Feld "Type Category", steht immer der Wert der gewählten Kategorie. Wird hier zugeordnet. 
+        show.ids.questionCategory.text = MyFloatLayout.globalCategory
         popupWindow = Popup(title="Add Flashcard", content=show, size_hint=(None, None), size=(400, 400))
 
         def save_data(instance):
@@ -210,8 +211,7 @@ class Folder(BoxLayout):
         pass
 
     def get_all_cards_for_category(self, category: str):
-        global globalCategory
-        globalCategory = category
+        MyFloatLayout.globalCategory = category
         FirstWindow.getCardsForCategory(category)
 
 
