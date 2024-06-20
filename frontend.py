@@ -19,7 +19,6 @@ from kivy.uix.scrollview import ScrollView
 # Importiert die Controller-Klasse, die vermutlich Logik oder Datenzugriff beinhaltet
 from controller import Controller
 
-
 # Erstellt eine benutzerdefinierte Klasse, die FloatLayout erweitert
 class MyFloatLayout(FloatLayout):
     # Eine Klassenvariable, um die globale Kategorie zu speichern
@@ -150,7 +149,7 @@ class PopupAddCard(FloatLayout):
         if self.ids.questionCategory.text != "":
             category = self.ids.questionCategory.text
         self.ids.questionAnswer.text = Controller.generate_answer(question=question, category=category)
-
+    
 
 # Klasse für das erste Fenster, das die Hauptseite darstellt
 class FirstWindow(Screen, MyFloatLayout):
@@ -179,7 +178,8 @@ class FirstWindow(Screen, MyFloatLayout):
     def nextCard(self):
         if not hasattr(self, 'cardList'):
             return
-        if self.cardIndex < len(self.cardList):
+        if self.cardIndex < len(FirstWindow.cardList):
+            FirstWindow.restart = False
             FirstWindow.card = self.cardList[self.cardIndex]
             self.cardIndex += 1
             self.ids.learnmodeQuestion.text = FirstWindow.card.question
@@ -193,6 +193,7 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.ratingMiddle.opacity = 0
             self.ids.ratingGood.opacity = 0
         else:
+            FirstWindow.restart = True
             self.ids.learnmodeQuestion.text = "Das wars!"
             self.ids.learnmodeAnswer.text = "Du hast alle Karten der Kategorie gelernt!"
             self.ids.learnmodeCategory.text = "Herzlichen Glückwunsch!"
@@ -226,8 +227,11 @@ class FirstWindow(Screen, MyFloatLayout):
         self.nextCard()
 
     def add_filter_number(self, filter_number):
+        self.start_len = len(FirstWindow.cardList)
         FirstWindow.cardList.extend(Controller.add_cards_to_filtered_cards(filter_number, FirstWindow.all_cards_list))
         #FirstWindow.cardList
+        self.final_len = len(FirstWindow.cardList)
+        
         print(len(FirstWindow.cardList))
 
     def start_container_mode(self):
@@ -241,13 +245,15 @@ class FirstWindow(Screen, MyFloatLayout):
         FirstWindow.cardList[:] = [elem for elem in FirstWindow.cardList if elem.cardID not in filtered_ids]
         print(f"Removed {original_length - len(FirstWindow.cardList)} cards for filter number {filter_number}")
         print(f"Total cards in cardList after removing: {len(FirstWindow.cardList)}")
+        self.final_len = 0  
+        self.start_len = 0
 
 
 
     def toggle_answer_visibility(self):
-        if self.cardIndex > 0 and self.cardIndex <= len(self.cardList):
+        if len(FirstWindow.cardList) != 0:
             if not self.show_answer:
-                self.ids.learnmodeAnswer.text = self.cardList[self.cardIndex - 1].answer
+                self.ids.learnmodeAnswer.text = FirstWindow.card.answer
                 self.show_answer = True
                 # Zeigt die Bewertungsbuttons
                 self.ids.ratingFalse.opacity = 1
@@ -294,6 +300,20 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.cards_left.text = str(len(FirstWindow.cardList))
         except:
             pass
+        if FirstWindow.card not in FirstWindow.cardList:
+            self.nextCard()
+            print(len(FirstWindow.cardList))
+            if len(FirstWindow.cardList) == 1:
+                self.ids.learnmodeQuestion.text = FirstWindow.card.question
+                self.ids.learnmodeAnswer.text = ""
+                self.ids.learnmodeCategory.text = FirstWindow.card.category
+                self.show_answer = False
+                self.ids.toggle_image.source = "ressources/eye-closed.png"
+                self.ids.toggle_eye_label.text = "Antwort anzeigen"
+            self.cardIndex = 0
+        if self.final_len > self.start_len and self.start_len == 0:
+            self.nextCard()
+            
         image_widget.reload()
 
 
@@ -356,13 +376,14 @@ class Folder(BoxLayout):
         MyFloatLayout.globalCategory = category
         self.first_window.get_all_cards_for_category(category)
         self.first_window.open_all_container()
-        self.first_window.nextCard()
+        #self.first_window.nextCard()
 
 
 # Klasse für das zweite Fenster
 class SecondWindow(Screen):
     pass
 
+#--------- USER LOGIN --------------------
 
 # Hauptklasse der Anwendung
 class FirstApp(App):
@@ -373,7 +394,48 @@ class FirstApp(App):
         return kv
     
 
+class LoginScreen(Screen):
+    username = ObjectProperty(None)
+    password = ObjectProperty(None)
+
+    def verify_credentials(self):
+        user = self.username.text
+        pwd = self.password.text
+        verfified, userid = Controller.verify_credentials(user, pwd)
+        if verfified:
+            Controller.create_user(user, pwd, userid)
+            LoginApp().stop()
+            FirstApp().run()
+        else:
+            self.ids.message.color = "red"
+            self.ids.message.text = "Invalid username or password"
+            self.username.text = ""
+            self.password.text = ""
+    def register_user(self):
+        user = self.username.text
+        pwd = self.password.text
+        if user != "" != pwd:
+            Controller.register_user(user,pwd)
+            self.ids.message.color = "green"
+            self.ids.message.text = "Now, login!"
+        else:
+            self.ids.message.color = "red"
+            self.ids.message.text = "Username and/or password are missing"
+
+class WelcomeScreen(Screen):
+    pass
+
+class LoginApp(App):
+    def build(self):
+        sm = ScreenManager()
+        Builder.load_file('userlogin.kv')
+        sm.add_widget(LoginScreen(name='login'))
+        sm.add_widget(WelcomeScreen(name='welcome'))
+        return sm
+
+
+
 
 # Startet die Anwendung
 if __name__ == "__main__":
-    FirstApp().run()
+    LoginApp().run()

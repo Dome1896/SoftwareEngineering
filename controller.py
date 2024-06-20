@@ -5,6 +5,7 @@ from kivy.lang import Builder
 from database import Database
 from card import Card
 from apihandler import APIHandler
+from user import User
 
 # Lädt die Kivy-Datei 'my.kv', die die UI-Definitionen enthält.
 Builder.load_file('my.kv')
@@ -20,10 +21,14 @@ class Controller(App):
     @classmethod
     def createCard(cls, question: str, answer: str, category: str):
         # Erstellt eine neue Karte mit den angegebenen Attributen.
-        card = Card(question, answer, category)
+        card = Card(question, answer, category, ownerID=cls.userID)
         # Speichert die Karte in der Datenbank.
         cls.db.setDataToDB(card)
 
+    @classmethod
+    def create_user(cls, username, password, userID):
+        cls.user = User(username, password, userID)
+        cls.userID = userID
     # Definiert eine Klassenmethode, die alle Karten für eine bestimmte Kategorie zurückgibt.
     @classmethod
     def getAllCardsForCategory(cls, category: str):
@@ -33,7 +38,8 @@ class Controller(App):
         # Ruft alle Karten der angegebenen Kategorie aus der Datenbank ab.
         for card in cls.db.getDataFromTableWithFilter("Cardholder", "category", category):
             # Fügt jede Karte der Liste hinzu, indem eine Card-Instanz erstellt wird.
-            cardList.append(Card(cardID=card["cardID"], question=card["question"], answer=card["answer"], category=card["category"], container_number=card["container_number"]))
+            if card["ownerID"] == cls.userID:
+                cardList.append(Card(cardID=card["cardID"], question=card["question"], answer=card["answer"], category=card["category"], container_number=card["container_number"]))
         # Gibt die Liste der Karten zurück.
         return cardList
 
@@ -52,14 +58,16 @@ class Controller(App):
     @classmethod
     def getAllCategories(cls):
         # Ruft alle eindeutigen Kategorien aus der Datenbank ab.
-        categories = cls.db.getAllUniqueValuesFromColumn("Cardholder", "category")
+        categories = cls.db.getAllUniqueValuesFromColumn("Cardholder", "category,ownerID")
         # Initialisiert eine leere Liste, um die Kategorien zu speichern.
         categoriesList = []
         # Iteriert durch die Kategorien und fügt sie der Liste hinzu, wenn sie nicht bereits vorhanden sind.
         for category in categories:
             i = category["category"]
+            user = category["ownerID"]
             if i not in categoriesList:
-                categoriesList.append(i)
+                if user == cls.userID:
+                    categoriesList.append(i)
         # Gibt die Liste der Kategorien zurück.
         return categoriesList
     @classmethod
@@ -90,6 +98,19 @@ class Controller(App):
     @classmethod
     def generate_answer(cls, question, category=""):
         return cls.kiApi.genere_answer(question, category)
+    
+    @classmethod
+    def verify_credentials(cls, username, password):
+        user = cls.db.getDataFromTableWithFilter(tableName="User",attributeKey="username", attributeValue=username)
+        if user and user[0]["password"] == password:
+            cls.userID = user[0]["userID"]
+            return True, cls.userID
+        else:
+            return False, 0
+    @classmethod
+    def register_user(cls, username, password):
+        cls.db.setDataToDB(User(username, password))
+
 
         
 

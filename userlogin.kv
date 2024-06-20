@@ -1,0 +1,43 @@
+<LoginScreen>:
+    username: username
+    password: password
+
+    BoxLayout:
+        orientation: 'vertical'
+        padding: [50, 100, 50, 100]
+        spacing: 20
+
+        Label:
+            text: "Login"
+            font_size: 32
+            size_hint: (1, 0.3)
+
+        TextInput:
+            id: username
+            hint_text: "Username"
+            multiline: False
+            size_hint: (1, 0.2)
+
+        TextInput:
+            id: password
+            hint_text: "Password"
+            multiline: False
+            password: True
+            size_hint: (1, 0.2)
+
+        Button:
+            text: "Login"
+            size_hint: (1, 0.2)
+            on_release: root.verify_credentials()
+        Button:
+            text: "Sing up"
+            size_hint: (1, 0.2)
+            background_color: "lightgreen"
+            on_release: root.register_user()
+
+
+        Label:
+            id: message
+            text: ""
+            color: 1, 0, 0, 1  # Rot
+            size_hint: (1, 0.1)

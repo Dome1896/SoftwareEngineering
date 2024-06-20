@@ -1,11 +1,12 @@
 from database import Database
 class Card:
     db = Database()
-    def __init__(self, question, answer, category, cardID = 0, container_number:int = 4):
+    def __init__(self, question, answer, category, ownerID = 0,cardID = 0, container_number:int = 4):
         self.question = question
         self.answer = answer
         self.category = category
         self.cardID = cardID
+        self.ownerID = ownerID
 
         self.container_number = container_number
 
@@ -22,4 +23,4 @@ class Card:
             ,newAttributeKey="container_number", newAttributeValue=self.container_number+1)
 
     def makeRequestBody(self):
-        return {"question" : self.question, "answer" : self.answer, "category" : self.category, "container_number":self.container_number}
+        return {"question" : self.question, "answer" : self.answer, "category" : self.category, "container_number":self.container_number, "ownerID":self.ownerID}
