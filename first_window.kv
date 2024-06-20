@@ -211,10 +211,13 @@ WindowManager:
 
     Button:
         text: root.folder_name
-        size_hint_y: None
+        size_hint: None, None
         height: 30
+        font_size: 20
+        width: self.texture_size[0] + 20
         valign: 'middle'
         halign: 'left'
+        text_size: None, None
         on_release: 
             root.change_icon_folder()
             root.reset_cards()

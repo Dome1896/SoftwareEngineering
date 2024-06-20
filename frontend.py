@@ -191,6 +191,7 @@ class PopupToolbar(FloatLayout):
 class Folder(BoxLayout):
     folder_name = StringProperty("")
     first_window = ObjectProperty(None)
+    
 
     def __init__(self, folder_name, first_window, **kwargs):
         super(Folder, self).__init__(**kwargs)
