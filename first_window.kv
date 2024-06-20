@@ -46,7 +46,7 @@ WindowManager:
                     center_x: self.parent.center_x
                     center_y: self.parent.center_y
                     size_hint: None, None
-                    size: 25,25
+                    size: 35,35
 
 
 
@@ -186,14 +186,17 @@ WindowManager:
     folder_name_input: folder_name_input
     Button:
         text: "Create Folder"
-        pos_hint: {'x': 0, 'y': 0}
+        font_size: 14
+        pos_hint: {"center_x": 0.5, 'y': 0.1}
         size_hint: 0.5, 0.2
-        on_release: root.create_folder(root.ids.folder_name_input.text)
+        on_release: 
+            root.create_folder(root.ids.folder_name_input.text)
+    
     TextInput:
         id: folder_name_input
         hint_text: "Type Folder Name"
-        pos_hint: {'x': 0, 'y': 0.5}
-        size_hint: 1, 0.3
+        pos_hint: {'x': 0.1, 'y': 0.5}
+        size_hint: 0.85, 0.3
 
 <Folder>:
     orientation: 'horizontal'
