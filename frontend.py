@@ -63,7 +63,7 @@ class MyFloatLayout(FloatLayout):
         if self.toolbar_expanded:
             # Animation zum Ausblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': -0.2}, duration=0.2)
-            button_anim = Animation(pos_hint={'x': 0.01}, duration=0.2)
+            button_anim = Animation(pos_hint={'x': 0.00001}, duration=0.2)
             new_icon = 'ressources/right-arrow.png'
         else:
             # Animation zum Einblenden der Toolbar
@@ -176,7 +176,7 @@ class FirstWindow(Screen, MyFloatLayout):
             FirstWindow.card = self.cardList[self.cardIndex]
             self.cardIndex += 1
             self.ids.learnmodeQuestion.text = FirstWindow.card.question
-            self.ids.learnmodeAnswer.text = "Antwort anzeigen"
+            self.ids.learnmodeAnswer.text = ""
             self.ids.learnmodeCategory.text = FirstWindow.card.category
             self.show_answer = False
             # Versteckt die Bewertungsbuttons
@@ -226,8 +226,9 @@ class FirstWindow(Screen, MyFloatLayout):
                 self.ids.ratingGood.opacity = 1
                 # Ändert das Icon zu offenem Auge
                 self.ids.toggle_image.source = "ressources/eye-open.png"
+                self.ids.toggle_eye_label.text = "Antwort verbergen"
             else:
-                self.ids.learnmodeAnswer.text = "Antwort anzeigen"
+                self.ids.learnmodeAnswer.text = ""
                 self.show_answer = False
                 # Versteckt die Bewertungsbuttons
                 self.ids.ratingFalse.opacity = 0
@@ -235,11 +236,12 @@ class FirstWindow(Screen, MyFloatLayout):
                 self.ids.ratingGood.opacity = 0
                 # Ändert das Icon zu geschlossenem Auge
                 self.ids.toggle_image.source = "ressources/eye-closed.png"
+                self.ids.toggle_eye_label.text = "Antwort anzeigen"
 
     # Methode, um den Lernmodus zurückzusetzen
     def resetLearnmode(self):
         self.ids.learnmodeQuestion.text = "Frage"
-        self.ids.learnmodeAnswer.text = "Antwort"
+        self.ids.learnmodeAnswer.text = ""
         self.ids.learnmodeCategory.text = "Kategorie"
         self.cardIndex = 0
         self.show_answer = False
@@ -250,7 +252,10 @@ class FirstWindow(Screen, MyFloatLayout):
 
     def change_image(self, instance):
         image_widget = instance.children[0]  # The Image widget is a child of the Button
-        image_widget.source = 'ja.jpg'
+        if image_widget.source == 'sb.jpg':
+            image_widget.source = 'ja.jpg'
+        else:
+            image_widget.source = 'sb.jpg'
         image_widget.reload()
 
 

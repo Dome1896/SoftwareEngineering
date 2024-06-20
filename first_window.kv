@@ -56,7 +56,7 @@ WindowManager:
             id: t_button
             size_hint: None, None
             size: 30, 30
-            pos_hint: {'x': 0.2, 'y': 0.95}
+            pos_hint: {'x': 0.2, 'y': 0.97}
             on_release:
                 root.toggle_toolbar()
             background_normal: ''  # Set to empty to remove default background
@@ -124,9 +124,9 @@ WindowManager:
 
         Label:
             id: learnmodeAnswer
-            text: "Antwort anzeigen"
+            text: ""
             size_hint: (0.8, 0.2)
-            pos_hint: {"center_x": 0.5, "center_y": 0.45}
+            pos_hint: {"center_x": 0.5, "y": 0.35}
             halign: "center"
             valign: "middle"
             text_size: self.size
@@ -151,6 +151,17 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: (0.1,0.025)
+
+        Label:
+            id: toggle_eye_label
+            text: "Antwort anzeigen"  
+            size_hint: (0.2, 0.05)
+            pos_hint: {"center_x": 0.5, "y": 0.070}
+            halign: "center"
+            valign: "middle"
+            font_size: 12
+            color: 0.5, 0.5, 0.5, 1
+
         #---------------Start Rating Buttons------------
         Button:
             id: ratingFalse
@@ -311,6 +322,7 @@ WindowManager:
         size_hint_y: None
         height: self.minimum_height
 
+#------------------------------- Start Popup Add Card -----------------------
 <PopupAddCard>:
     Button:
         id: addCard
@@ -333,6 +345,7 @@ WindowManager:
         hint_text: "Type Category"
         size_hint: (0.8, 0.2)
         pos_hint: {"center_x": 0.5, "center_y": 0.3}
+#------------------------------- Ende Popup Add Card -----------------------
 
 <Button>:
     color: 0.5, 0.5, 0.8, 1
