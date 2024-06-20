@@ -38,21 +38,22 @@ class MyFloatLayout(FloatLayout):
     def toggle_toolbar(self):
         button = self.ids.t_button
         toolbar = self.ids.toolbar
-        # icon = self.ids.arrow_icon
+        icon = button.canvas.before.children[1]
         
         if self.toolbar_expanded:
             # Animation zum Ausblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': -0.2}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.01}, duration=0.2)
-             # new_icon = 'right-arrow.png'
+            new_icon = 'ressources/right-arrow.png'
         else:
             toolbar_anim = Animation(pos_hint={'x': 0}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.2}, duration=0.2)
-            # new_icon = 'left-arrow.png'
+            new_icon = 'ressources/left-arrow.png'
 
         toolbar_anim.start(toolbar)
         button_anim.start(button)
-         # icon.source = new_icon
+        icon.source = new_icon
+        
         self.toolbar_expanded = not self.toolbar_expanded
 
     def btn(self):
@@ -196,6 +197,7 @@ class PopupToolbar(FloatLayout):
 class Folder(BoxLayout):
     folder_name = StringProperty("")
     first_window = ObjectProperty(None)
+    
 
     def __init__(self, folder_name, first_window, **kwargs):
         super(Folder, self).__init__(**kwargs)
