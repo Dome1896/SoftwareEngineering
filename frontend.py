@@ -63,7 +63,7 @@ class MyFloatLayout(FloatLayout):
         if self.toolbar_expanded:
             # Animation zum Ausblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': -0.2}, duration=0.2)
-            button_anim = Animation(pos_hint={'x': 0.01}, duration=0.2)
+            button_anim = Animation(pos_hint={'x': 0.00001}, duration=0.2)
             new_icon = 'ressources/right-arrow.png'
         else:
             # Animation zum Einblenden der Toolbar
