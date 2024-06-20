@@ -188,6 +188,10 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.learnmodeAnswer.text = "Du hast alle Karten der Kategorie gelernt!"
             self.ids.learnmodeCategory.text = "Herzlichen Glückwunsch!"
 
+    # TODO alle Ordner schließen
+    def close_all_container(self):
+        pass
+
     # Methode, um die aktuelle Karte als bekannt zu markieren und die nächste Karte anzuzeigen
     def set_card_one_container_up(self):
         print("up")
@@ -206,7 +210,7 @@ class FirstWindow(Screen, MyFloatLayout):
     def start_container_mode(self):
         for i in range (1,5):
             self.add_filter_number(i)
-            self.change_image(i)
+        self.close_all_container()
 
     def del_filter_number(self, filter_number):
         FirstWindow.cardList -= Controller.del_cards_in_filtered_cards(filter_number, FirstWindow.cardList)
@@ -248,6 +252,7 @@ class FirstWindow(Screen, MyFloatLayout):
         image_widget = instance.children[0]  # The Image widget is a child of the Button
         image_widget.source = 'ja.jpg'
         image_widget.reload()
+
 
 
 
@@ -308,6 +313,7 @@ class Folder(BoxLayout):
         # Dadurch sehen wir in dem gesamten Projekt immer die ausgewählte Kategorie
         MyFloatLayout.globalCategory = category
         FirstWindow.getCardsForCategory(category)
+        self.first_window.start_container_mode()
 
 
 # Klasse für das zweite Fenster
