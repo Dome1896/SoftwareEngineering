@@ -144,7 +144,12 @@ class WindowManager(ScreenManager):
 
 # Klasse für das Popup zum Hinzufügen einer Karte
 class PopupAddCard(FloatLayout):
-    pass
+    def generate_answer(self):
+        question = self.ids.questionName.text
+        category = ""
+        if self.ids.questionCategory.text != "":
+            category = self.ids.questionCategory.text
+        self.ids.questionAnswer.text = Controller.generate_answer(question=question, category=category)
 
 
 # Klasse für das erste Fenster, das die Hauptseite darstellt

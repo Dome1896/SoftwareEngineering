@@ -4,6 +4,7 @@ from kivy.lang import Builder
 # Importiert die benutzerdefinierten Module Database und Card.
 from database import Database
 from card import Card
+from apihandler import APIHandler
 
 # Lädt die Kivy-Datei 'my.kv', die die UI-Definitionen enthält.
 Builder.load_file('my.kv')
@@ -13,6 +14,7 @@ class Controller(App):
 
     # Erstellt eine Klassenvariable 'db', die eine Instanz der Database-Klasse ist.
     db = Database()
+    kiApi = APIHandler()
 
     # Definiert eine Klassenmethode zum Erstellen einer neuen Karte.
     @classmethod
@@ -84,6 +86,10 @@ class Controller(App):
             if card.container_number == filter_number:
                 cards_to_delete.append(card.cardID)
         return cards_to_delete
+    
+    @classmethod
+    def generate_answer(cls, question, category=""):
+        return cls.kiApi.genere_answer(question, category)
 
         
 

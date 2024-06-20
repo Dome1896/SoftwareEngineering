@@ -357,6 +357,17 @@ WindowManager:
         hint_text: "Type Category"
         size_hint: (0.8, 0.2)
         pos_hint: {"center_x": 0.5, "center_y": 0.3}
+    Button:
+        size_hint: (0.1, 0.1)
+        pos_hint: {"center_x": 0.9, "center_y": 0.5}
+        on_release:
+            root.generate_answer()
+        Image:
+            source: 'ressources\gehirn.png'
+            center_x: self.parent.center_x
+            center_y: self.parent.center_y
+            size_hint: None, None
+    
 #------------------------------- Ende Popup Add Card -----------------------
 
 
