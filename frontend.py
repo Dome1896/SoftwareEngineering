@@ -235,7 +235,10 @@ class FirstWindow(Screen, MyFloatLayout):
 
     def change_image(self, instance):
         image_widget = instance.children[0]  # The Image widget is a child of the Button
-        image_widget.source = 'ja.jpg'
+        if image_widget.source == 'sb.jpg':
+            image_widget.source = 'ja.jpg'
+        else:
+            image_widget.source = 'sb.jpg'
         image_widget.reload()
 
 
