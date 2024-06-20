@@ -70,11 +70,11 @@ class Controller(App):
 
     @classmethod
     def add_cards_to_filtered_cards(cls, filter_number):
-        filtered_cards = [card for card in Controller.all_cards_list if card.container_number == filter_number]
-        
+        return [card for card in Controller.all_cards_list if card.container_number == filter_number]
+
     @classmethod
     def del_cards_in_filtered_cards(cls, filter_number, filtered_list):
-        filtered_cards = [card for card in filtered_list if card.container_number != filter_number]
+        return [card for card in filtered_list if card.container_number != filter_number]
         
 
 
