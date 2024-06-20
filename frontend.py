@@ -181,6 +181,7 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.learnmodeCategory.text = FirstWindow.card.category
             self.show_answer = False
             self.ids.toggle_image.source = "ressources/eye-closed.png"
+            self.ids.toggle_eye_label.text = "Antwort anzeigen"
             # Versteckt die Bewertungsbuttons
             self.ids.ratingFalse.opacity = 0
             self.ids.ratingMiddle.opacity = 0
