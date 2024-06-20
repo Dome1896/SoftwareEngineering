@@ -158,6 +158,7 @@ WindowManager:
             size_hint: (0.05, 0.05)
             opacity: 0  # Initially hidden
             background_color: 0,0,0,0
+            on_release: root.set_card_one_container_down()
             Image:
                 source: "ressources\schlecht.png"
                 center_x: self.parent.center_x
@@ -170,6 +171,7 @@ WindowManager:
             size_hint: (0.05, 0.05)
             opacity: 0  # Initially hidden
             background_color: 0,0,0,0
+            on_release: root.nextCard()
             Image:
                 source: "ressources\geht.png"
                 center_x: self.parent.center_x
@@ -181,6 +183,7 @@ WindowManager:
             size_hint: (0.05, 0.05)
             opacity: 0  # Initially hidden
             background_color: 0,0,0,0
+            on_release: root.set_card_one_container_up()
             Image:
                 source: "ressources\supi.png"
                 center_x: self.parent.center_x
