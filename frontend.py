@@ -107,8 +107,8 @@ class MyFloatLayout(FloatLayout):
     # Methode, um ein Popup für die Toolbar anzuzeigen
     def show_popup_folder(self):
         show = PopupToolbar(parent_widget=self)
-        popupWindow = Popup(title=" ", content=show, size_hint=(None, None), size=(200, 200),
-                            pos_hint={'center_x': 0.1, 'center_y': 0.2})
+        popupWindow = Popup(title="                 Ordner Erstellen", content=show, size_hint=(None, None), size=(250, 250),
+                            pos_hint={'center_x': 0.17, 'center_y': 0.25})
         popupWindow.open()
 
     # Methode, um einen Ordner zur Toolbar hinzuzufügen
