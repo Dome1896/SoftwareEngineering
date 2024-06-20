@@ -114,6 +114,7 @@ class PopupAddCard(FloatLayout):
 
 
 class FirstWindow(Screen, MyFloatLayout):
+    eye_icon = StringProperty('ressources/eye-closed.png')  # Standardbild für geschlossenes Auge
     cardIndex = 0
 
     def __init__(self, **kwargs):
@@ -154,6 +155,8 @@ class FirstWindow(Screen, MyFloatLayout):
                 self.ids.ratingFalse.opacity = 1
                 self.ids.ratingMiddle.opacity = 1
                 self.ids.ratingGood.opacity = 1
+                # Change icon to open eye
+                self.ids.toggle_image.source = "ressources/eye-open.png"
             else:
                 self.ids.learnmodeAnswer.text = "Antwort anzeigen"
                 self.show_answer = False
@@ -161,6 +164,8 @@ class FirstWindow(Screen, MyFloatLayout):
                 self.ids.ratingFalse.opacity = 0
                 self.ids.ratingMiddle.opacity = 0
                 self.ids.ratingGood.opacity = 0
+                 # Change icon to closed eye
+                self.ids.toggle_image.source = "ressources/eye-closed.png"
 
     def resetLearnmode(self):
         self.ids.learnmodeQuestion.text = "Frage"

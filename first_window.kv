@@ -1,3 +1,5 @@
+#:kivy 1.0.9
+
 WindowManager:
     FirstWindow:
     SecondWindow:
@@ -134,7 +136,8 @@ WindowManager:
             pos_hint: {"center_x": 0.5, "y": 0.12}
             on_release: root.toggle_answer_visibility()
             Image:
-                source: "ressources\eye-tracking (1).png"
+                id: toggle_image  # ID für das Bild
+                source: root.eye_icon  # Verwendung der `eye_icon`-Property als Bildquelle
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: (0.1,0.025)
