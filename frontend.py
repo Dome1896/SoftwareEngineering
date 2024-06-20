@@ -179,6 +179,7 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.learnmodeAnswer.text = ""
             self.ids.learnmodeCategory.text = FirstWindow.card.category
             self.show_answer = False
+            self.ids.toggle_image.source = "ressources/eye-closed.png"
             # Versteckt die Bewertungsbuttons
             self.ids.ratingFalse.opacity = 0
             self.ids.ratingMiddle.opacity = 0
@@ -319,6 +320,7 @@ class Folder(BoxLayout):
         MyFloatLayout.globalCategory = category
         FirstWindow.getCardsForCategory(category)
         self.first_window.start_container_mode()
+        self.first_window.nextCard()
 
 
 # Klasse für das zweite Fenster
