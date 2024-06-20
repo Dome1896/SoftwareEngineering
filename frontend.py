@@ -79,7 +79,7 @@ class MyFloatLayout(FloatLayout):
 
     def show_popup_folder(self):
         show = PopupToolbar(parent_widget=self)
-        popupWindow = Popup(title="Add Folder", content=show, size_hint=(None, None), size=(200, 200),
+        popupWindow = Popup(title=" ", content=show,size_hint=(None, None), size=(200, 200),
                             pos_hint={'center_x': 0.1, 'center_y': 0.2})
         popupWindow.open()
 
