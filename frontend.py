@@ -197,6 +197,7 @@ class PopupToolbar(FloatLayout):
 class Folder(BoxLayout):
     folder_name = StringProperty("")
     first_window = ObjectProperty(None)
+    last_folder = None
     
 
     def __init__(self, folder_name, first_window, **kwargs):
@@ -209,9 +210,17 @@ class Folder(BoxLayout):
 
     def change_icon_folder(self):
         # Die Icons sollen sich abwechseln
+        self.close_last_folder()
         current_icon = self.ids.folder_icon.source
         new_icon = 'folder.png' if current_icon == 'folderclosed.png' else 'folderclosed.png'
         self.ids.folder_icon.source = new_icon
+        Folder.last_folder = self
+
+    def close_last_folder(self):
+        if Folder.last_folder != None:
+            Folder.last_folder.ids.folder_icon.source = 'folderclosed.png'
+
+
     # Inhalt der Karten wird nach jedem Klick auf einen neuen Ordner gelöscht
     def reset_cards(self):
         if self.first_window:
