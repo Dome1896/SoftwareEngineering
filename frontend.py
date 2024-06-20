@@ -325,7 +325,9 @@ class FirstApp(App):
     def build(self):
         # Lädt die Kivy-Datei, die das Layout definiert
         kv = Builder.load_file('first_window.kv')
+        self.icon = 'dausb.jpg'
         return kv
+    
 
 
 # Startet die Anwendung
