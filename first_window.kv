@@ -40,6 +40,15 @@ WindowManager:
                 size_hint: (0.4, 0.05)
                 pos_hint: {'center_x': 0.5, 'center_y': 0.5}
                 on_release: root.show_popuptoolbar()
+                background_color: 0,0,0,0
+                Image:
+                    source: "Bild.png"
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    size_hint: None, None
+                    size: 25,25
+
+
 
         Button:
             id: t_button
@@ -56,7 +65,7 @@ WindowManager:
                     rgba: 1, 1, 1, 1  # Ensure the icon is visible
                 Rectangle:
                     id: arrow_icon
-                    source: 'left-arrow.png'
+                    source: 'ressources\left-arrow.png'
                     size: self.size
                     pos: self.pos
 
@@ -268,7 +277,7 @@ WindowManager:
             size_hint: (0.2, 0.05)
             pos_hint: {"center_x": 0.5, "y": 0.05}
             on_release:
-                app.root.current = "first"
+                app.root.current = "first_window"
                 root.manager.transition.direction = "right"
             Image:
                 source: "ressources\home.png"
