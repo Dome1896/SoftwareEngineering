@@ -193,12 +193,14 @@ WindowManager:
 
         Button:
             #text: "DausB"
+            id: "kartei_1"
             pos_hint: {"x": 0.88, "y" : 0.8}
             size_hint: (0.11, 0.1)
             font_size: 20
             background_color: 0,0,0,0
             on_release: 
                 print("Der Dome ist eh nur für sein Studium hier!")
+                root.change_image(self)
                 
             Image:
                 source: "sb.jpg"
@@ -208,10 +210,14 @@ WindowManager:
                 size: 100,100
         Button:
             #text: "DausB"
+            id: "kartei_2"
             pos_hint: {"x": 0.88, "y" : 0.65}
             size_hint: (0.11, 0.1)
             font_size: 20
             background_color: 0,0,0,0
+            on_release: 
+                print("Der Dome ist eh nur für sein Studium hier!")
+                root.change_image(self)
             Image:
                 source: "sb.jpg"
                 center_x: self.parent.center_x
@@ -220,10 +226,14 @@ WindowManager:
                 size: 100,100
         Button:
             #text: "DausB"
+            id: "kartei_3"
             pos_hint: {"x": 0.88, "y" : 0.5}
             size_hint: (0.11, 0.1)
             font_size: 20
             background_color: 0,0,0,0
+            on_release: 
+                print("Der Dome ist eh nur für sein Studium hier!")
+                root.change_image(self)
             Image:
                 source: "sb.jpg"
                 center_x: self.parent.center_x
@@ -232,10 +242,14 @@ WindowManager:
                 size: 100,100
         Button:
             #text: "DausB"
+            id: "kartei_4"
             pos_hint: {"x": 0.88, "y" : 0.35}
             size_hint: (0.11, 0.1)
             font_size: 20
             background_color: 0,0,0,0
+            on_release: 
+                print("Der Dome ist eh nur für sein Studium hier!")
+                root.change_image(self)
             Image:
                 source: "sb.jpg"
                 center_x: self.parent.center_x

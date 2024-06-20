@@ -193,6 +193,12 @@ class FirstWindow(Screen, MyFloatLayout):
         self.ids.ratingMiddle.opacity = 0
         self.ids.ratingGood.opacity = 0
 
+    def change_image(self, instance):
+        image_widget = instance.children[0]  # The Image widget is a child of the Button
+        image_widget.source = 'ja.jpg'
+        image_widget.reload()
+
+
 
 
 class PopupToolbar(FloatLayout):
