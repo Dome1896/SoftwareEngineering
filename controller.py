@@ -60,3 +60,13 @@ class Controller(App):
                 categoriesList.append(i)
         # Gibt die Liste der Kategorien zurück.
         return categoriesList
+    @classmethod
+    def set_card_on_container_up(cls, card : Card):
+        card.set_card_one_container_up()
+
+    @classmethod
+    def set_card_on_container_down(cls, card : Card):
+        card.set_card_one_container_down()
+
+
+

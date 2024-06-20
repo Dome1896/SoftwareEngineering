@@ -5,6 +5,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
 from kivy.animation import Animation
+#from kivy.core.window import Window
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.scrollview import ScrollView
@@ -17,7 +18,8 @@ class MyFloatLayout(FloatLayout):
 
     def __init__(self, **kwargs):
         super(MyFloatLayout, self).__init__(**kwargs)
-
+        #### APP STARTET IN FULLSCREEN ####
+        # Window.fullscrenn = 'Auto'
     def on_kv_post(self, base_widget):
         self.on_startup_create_all_folders()
 
@@ -117,6 +119,7 @@ class PopupAddCard(FloatLayout):
 class FirstWindow(Screen, MyFloatLayout):
     eye_icon = StringProperty('ressources/eye-closed.png')  # Standardbild für geschlossenes Auge
     cardIndex = 0
+    card = None
 
     def __init__(self, **kwargs):
         super(FirstWindow, self).__init__(**kwargs)
@@ -134,11 +137,11 @@ class FirstWindow(Screen, MyFloatLayout):
         if not hasattr(self, 'cardList'):
             return
         if self.cardIndex < len(self.cardList):
-            card = self.cardList[self.cardIndex]
+            FirstWindow.card = self.cardList[self.cardIndex]
             self.cardIndex += 1
-            self.ids.learnmodeQuestion.text = card.question
+            self.ids.learnmodeQuestion.text = FirstWindow.card.question
             self.ids.learnmodeAnswer.text = "Antwort anzeigen"
-            self.ids.learnmodeCategory.text = card.category
+            self.ids.learnmodeCategory.text = FirstWindow.card.category
             self.show_answer = False
             # Hide rating buttons
             self.ids.ratingFalse.opacity = 0
@@ -148,6 +151,16 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.learnmodeQuestion.text = "Das wars!"
             self.ids.learnmodeAnswer.text = "Du hast alle Karten der Kategorie gelernt!"
             self.ids.learnmodeCategory.text = "Herzlichen Glückwunsch!"
+
+    def set_card_one_container_up(self):
+        print("up")
+        Controller.set_card_on_container_up(FirstWindow.card)
+        self.nextCard()
+
+    def set_card_one_container_down(self):
+        print("down")
+        Controller.set_card_on_container_down(FirstWindow.card)
+        self.nextCard()
 
     def toggle_answer_visibility(self):
         if self.cardIndex > 0 and self.cardIndex <= len(self.cardList):
