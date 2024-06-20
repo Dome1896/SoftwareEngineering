@@ -10,7 +10,7 @@ Builder.load_file('my.kv')
 
 # Definiert die Klasse Controller, die von Kivy's App-Klasse erbt.
 class Controller(App):
-    all_cards_list = []
+
     # Erstellt eine Klassenvariable 'db', die eine Instanz der Database-Klasse ist.
     db = Database()
 
@@ -31,7 +31,7 @@ class Controller(App):
         # Ruft alle Karten der angegebenen Kategorie aus der Datenbank ab.
         for card in cls.db.getDataFromTableWithFilter("Cardholder", "category", category):
             # Fügt jede Karte der Liste hinzu, indem eine Card-Instanz erstellt wird.
-            cardList.append(Card(cardID=card["cardID"], question=card["question"], answer=card["answer"], category=card["category"]))
+            cardList.append(Card(cardID=card["cardID"], question=card["question"], answer=card["answer"], category=card["category"], container_number=card["container_number"]))
         # Gibt die Liste der Karten zurück.
         return cardList
 
@@ -69,12 +69,22 @@ class Controller(App):
         card.set_card_one_container_down()
 
     @classmethod
-    def add_cards_to_filtered_cards(cls, filter_number):
-        return [card for card in Controller.all_cards_list if card.container_number == filter_number]
+    def add_cards_to_filtered_cards(cls, filter_number, all_cards_list):
+        print(len(all_cards_list))
+        filtered_cards = []
+        for card in all_cards_list:
+            if card.container_number == filter_number:
+                filtered_cards.append(card)
+        return filtered_cards
 
     @classmethod
     def del_cards_in_filtered_cards(cls, filter_number, filtered_list):
-        return [card for card in filtered_list if card.container_number != filter_number]
+        cards_to_delete = []
+        for card in filtered_list:
+            if card.container_number == filter_number:
+                cards_to_delete.append(card.cardID)
+        return cards_to_delete
+
         
 
 

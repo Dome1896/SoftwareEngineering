@@ -166,8 +166,9 @@ class FirstWindow(Screen, MyFloatLayout):
     # Klassenmethode, um alle Karten für eine bestimmte Kategorie abzurufen
     @classmethod
     def getCardsForCategory(cls, category: str):
-        Controller.all_cards_list = Controller.getAllCardsForCategory(category)
-        FirstWindow.cardList = Controller.all_cards_list
+        FirstWindow.all_cards_list = Controller.getAllCardsForCategory(category)
+        print("Alle Karten ", len(FirstWindow.all_cards_list))
+        FirstWindow.cardList = []
 
     # Methode, um die nächste Karte anzuzeigen
     def nextCard(self):
@@ -188,6 +189,7 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.learnmodeQuestion.text = "Das wars!"
             self.ids.learnmodeAnswer.text = "Du hast alle Karten der Kategorie gelernt!"
             self.ids.learnmodeCategory.text = "Herzlichen Glückwunsch!"
+        self.ids.cards_left.text = str(len(FirstWindow.cardList))
 
     def open_all_container(self):
         for i in range(1, 5):  # Hier gehe ich davon aus, dass du 4 Buttons hast wie in deiner .kv Datei
@@ -196,33 +198,44 @@ class FirstWindow(Screen, MyFloatLayout):
             
             # Zugriff auf das Image Widget innerhalb des Buttons und Aktualisierung der Bildquelle
             image_widget = image_button.children[0]  # Angenommen das Image ist das erste Kind
-            image_widget.source = "Bild.png"  # Setze die neue Bildquelle
-            self.start_container_mode()
+            image_widget.source = "sb.jpg"  # Setze die neue Bildquelle
+        self.start_container_mode()    
 
             
 
 
     # Methode, um die aktuelle Karte als bekannt zu markieren und die nächste Karte anzuzeigen
     def set_card_one_container_up(self):
-        print("up")
+        if FirstWindow.card.container_number != 1:
+            FirstWindow.card.container_number -= 1 
         Controller.set_card_on_container_up(FirstWindow.card)
         self.nextCard()
 
     # Methode, um die aktuelle Karte als unbekannt zu markieren und die nächste Karte anzuzeigen
     def set_card_one_container_down(self):
-        print("down")
+        if FirstWindow.card.container_number != 4:
+            FirstWindow.card.container_number += 1 
         Controller.set_card_on_container_down(FirstWindow.card)
         self.nextCard()
 
     def add_filter_number(self, filter_number):
-        FirstWindow.cardList += Controller.add_cards_to_filtered_cards(filter_number)
+        FirstWindow.cardList.extend(Controller.add_cards_to_filtered_cards(filter_number, FirstWindow.all_cards_list))
+        #FirstWindow.cardList
+        print(len(FirstWindow.cardList))
 
     def start_container_mode(self):
+        self.ids.cards_left.text = str(len(FirstWindow.all_cards_list))
         for i in range (1,5):
             self.add_filter_number(i)
 
     def del_filter_number(self, filter_number):
-        FirstWindow.cardList -= Controller.del_cards_in_filtered_cards(filter_number, FirstWindow.cardList)
+        filtered_ids = Controller.del_cards_in_filtered_cards(filter_number, FirstWindow.cardList)
+        original_length = len(FirstWindow.cardList)
+        FirstWindow.cardList[:] = [elem for elem in FirstWindow.cardList if elem.cardID not in filtered_ids]
+        print(f"Removed {original_length - len(FirstWindow.cardList)} cards for filter number {filter_number}")
+        print(f"Total cards in cardList after removing: {len(FirstWindow.cardList)}")
+
+
 
     def toggle_answer_visibility(self):
         if self.cardIndex > 0 and self.cardIndex <= len(self.cardList):
@@ -258,16 +271,22 @@ class FirstWindow(Screen, MyFloatLayout):
         self.ids.ratingFalse.opacity = 0
         self.ids.ratingMiddle.opacity = 0
         self.ids.ratingGood.opacity = 0
+        self.ids.cards_left.text = ""
 
-    def change_image(self, instance):
+    def change_image(self, instance, id):
         image_widget = instance.children[0]  # The Image widget is a child of the Button
-        if image_widget.source == 'sb.jpg':
-            image_widget.source = 'ja.jpg'
-            print(self.ids)
-            self.add_filter_number(self.ids)
-        else:
-            image_widget.source = 'sb.jpg'
-            self.add_filter_number(self.ids)
+        try:
+            if image_widget.source == 'sb.jpg':
+                image_widget.source = 'ja.jpg'
+                self.del_filter_number(id)
+                
+            else:
+                image_widget.source = 'sb.jpg'
+                self.add_filter_number(id)
+
+            self.ids.cards_left.text = str(len(FirstWindow.cardList))
+        except:
+            pass
         image_widget.reload()
 
 

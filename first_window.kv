@@ -213,7 +213,7 @@ WindowManager:
             background_color: 0,0,0,0
             on_release: 
                 print("Der Dome ist eh nur für sein Studium hier!")
-                root.change_image(self)
+                root.change_image(self, 1)
             Image:
                 source: "sb.jpg"
                 center_x: self.parent.center_x
@@ -229,7 +229,7 @@ WindowManager:
             background_color: 0,0,0,0
             on_release: 
                 print("Der Dome ist eh nur für sein Studium hier!")
-                root.change_image(self)
+                root.change_image(self, 2)
             Image:
                 source: "sb.jpg"
                 center_x: self.parent.center_x
@@ -245,7 +245,7 @@ WindowManager:
             background_color: 0,0,0,0
             on_release: 
                 print("Der Dome ist eh nur für sein Studium hier!")
-                root.change_image(self)
+                root.change_image(self, 3)
             Image:
                 source: "sb.jpg"
                 center_x: self.parent.center_x
@@ -261,13 +261,23 @@ WindowManager:
             background_color: 0,0,0,0
             on_release: 
                 print("Der Dome ist eh nur für sein Studium hier!")
-                root.change_image(self)
+                root.change_image(self, 4)
             Image:
                 source: "sb.jpg"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: None, None
                 size: 100,100
+        Label:
+            #text: "DausB"
+            id: cards_left
+            text: ""
+            pos_hint: {"x": 0.88, "y" : 0.20}
+            size_hint: (0.11, 0.1)
+            font_size: 25
+            bold: True
+            background_color: 0,0,0,0
+
 
 #------------------------ Ende Karteikarten Buttons-----------------
 
