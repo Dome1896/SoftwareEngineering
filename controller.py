@@ -10,7 +10,7 @@ Builder.load_file('my.kv')
 
 # Definiert die Klasse Controller, die von Kivy's App-Klasse erbt.
 class Controller(App):
-
+    all_cards_list = []
     # Erstellt eine Klassenvariable 'db', die eine Instanz der Database-Klasse ist.
     db = Database()
 
@@ -67,6 +67,15 @@ class Controller(App):
     @classmethod
     def set_card_on_container_down(cls, card : Card):
         card.set_card_one_container_down()
+
+    @classmethod
+    def add_cards_to_filtered_cards(cls, filter_number):
+        filtered_cards = [card for card in Controller.all_cards_list if card.container_number == filter_number]
+        
+    @classmethod
+    def del_cards_in_filtered_cards(cls, filter_number, filtered_list):
+        filtered_cards = [card for card in filtered_list if card.container_number != filter_number]
+        
 
 
 
