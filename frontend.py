@@ -131,6 +131,8 @@ class FirstWindow(Screen, MyFloatLayout):
         FirstWindow.cardList = Controller.getAllCardsForCategory(category)
 
     def nextCard(self):
+        if not hasattr(self, 'cardList'):
+            return
         if self.cardIndex < len(self.cardList):
             card = self.cardList[self.cardIndex]
             self.cardIndex += 1
