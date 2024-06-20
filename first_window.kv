@@ -124,9 +124,9 @@ WindowManager:
 
         Label:
             id: learnmodeAnswer
-            text: "Antwort anzeigen"
+            text: ""
             size_hint: (0.8, 0.2)
-            pos_hint: {"center_x": 0.5, "center_y": 0.45}
+            pos_hint: {"center_x": 0.5, "y": 0.35}
             halign: "center"
             valign: "middle"
             text_size: self.size
@@ -151,6 +151,17 @@ WindowManager:
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: (0.1,0.025)
+
+        Label:
+            id: toggle_eye_label
+            text: "Antwort anzeigen"  
+            size_hint: (0.2, 0.05)
+            pos_hint: {"center_x": 0.5, "y": 0.070}
+            halign: "center"
+            valign: "middle"
+            font_size: 12
+            color: 0.5, 0.5, 0.5, 1
+
         #---------------Start Rating Buttons------------
         Button:
             id: ratingFalse

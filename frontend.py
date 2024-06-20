@@ -135,7 +135,7 @@ class FirstWindow(Screen, MyFloatLayout):
             card = self.cardList[self.cardIndex]
             self.cardIndex += 1
             self.ids.learnmodeQuestion.text = card.question
-            self.ids.learnmodeAnswer.text = "Antwort anzeigen"
+            self.ids.learnmodeAnswer.text = ""
             self.ids.learnmodeCategory.text = card.category
             self.show_answer = False
             # Hide rating buttons
@@ -158,8 +158,9 @@ class FirstWindow(Screen, MyFloatLayout):
                 self.ids.ratingGood.opacity = 1
                 # Change icon to open eye
                 self.ids.toggle_image.source = "ressources/eye-open.png"
+                self.ids.toggle_eye_label.text = "Antwort verbergen"
             else:
-                self.ids.learnmodeAnswer.text = "Antwort anzeigen"
+                self.ids.learnmodeAnswer.text = ""
                 self.show_answer = False
                 # Hide rating buttons
                 self.ids.ratingFalse.opacity = 0
@@ -167,10 +168,11 @@ class FirstWindow(Screen, MyFloatLayout):
                 self.ids.ratingGood.opacity = 0
                  # Change icon to closed eye
                 self.ids.toggle_image.source = "ressources/eye-closed.png"
+                self.ids.toggle_eye_label.text = "Antwort anzeigen"
 
     def resetLearnmode(self):
         self.ids.learnmodeQuestion.text = "Frage"
-        self.ids.learnmodeAnswer.text = "Antwort"
+        self.ids.learnmodeAnswer.text = ""
         self.ids.learnmodeCategory.text = "Kategorie"
         self.cardIndex = 0
         self.show_answer = False
