@@ -25,6 +25,7 @@ class MyFloatLayout(FloatLayout):
     # Eine Klassenvariable, um die globale Kategorie zu speichern
     globalCategory = ""
 
+
     # Konstruktor der Klasse
     def __init__(self, **kwargs):
         super(MyFloatLayout, self).__init__(**kwargs)
@@ -189,9 +190,18 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.learnmodeAnswer.text = "Du hast alle Karten der Kategorie gelernt!"
             self.ids.learnmodeCategory.text = "Herzlichen Glückwunsch!"
 
-    # TODO alle Ordner schließen
-    def close_all_container(self):
-        pass
+    def open_all_container(self):
+        for i in range(1, 5):  # Hier gehe ich davon aus, dass du 4 Buttons hast wie in deiner .kv Datei
+            button_id = f"kartei_{i}"  # Generiere die Button ID dynamisch
+            image_button = self.ids[button_id]  # Zugriff auf das Button Widget über die ID
+            
+            # Zugriff auf das Image Widget innerhalb des Buttons und Aktualisierung der Bildquelle
+            image_widget = image_button.children[0]  # Angenommen das Image ist das erste Kind
+            image_widget.source = "Bild.png"  # Setze die neue Bildquelle
+            self.start_container_mode()
+
+            
+
 
     # Methode, um die aktuelle Karte als bekannt zu markieren und die nächste Karte anzuzeigen
     def set_card_one_container_up(self):
@@ -211,7 +221,6 @@ class FirstWindow(Screen, MyFloatLayout):
     def start_container_mode(self):
         for i in range (1,5):
             self.add_filter_number(i)
-        self.close_all_container()
 
     def del_filter_number(self, filter_number):
         FirstWindow.cardList -= Controller.del_cards_in_filtered_cards(filter_number, FirstWindow.cardList)
@@ -255,8 +264,11 @@ class FirstWindow(Screen, MyFloatLayout):
         image_widget = instance.children[0]  # The Image widget is a child of the Button
         if image_widget.source == 'sb.jpg':
             image_widget.source = 'ja.jpg'
+            print(self.ids)
+            self.add_filter_number(self.ids)
         else:
             image_widget.source = 'sb.jpg'
+            self.add_filter_number(self.ids)
         image_widget.reload()
 
 
@@ -314,12 +326,11 @@ class Folder(BoxLayout):
         else:
             print("FirstWindow instance not set.")
 
-    # Methode, um alle Karten für eine bestimmte Kategorie abzurufen
+    # In der Folder Klasse
     def get_all_cards_for_category(self, category: str):
-        # Dadurch sehen wir in dem gesamten Projekt immer die ausgewählte Kategorie
         MyFloatLayout.globalCategory = category
-        FirstWindow.getCardsForCategory(category)
-        self.first_window.start_container_mode()
+        self.first_window.get_all_cards_for_category(category)
+        self.first_window.open_all_container()
         self.first_window.nextCard()
 
 
