@@ -38,21 +38,22 @@ class MyFloatLayout(FloatLayout):
     def toggle_toolbar(self):
         button = self.ids.t_button
         toolbar = self.ids.toolbar
-        # icon = self.ids.arrow_icon
+        icon = button.canvas.before.children[1]
         
         if self.toolbar_expanded:
             # Animation zum Ausblenden der Toolbar
             toolbar_anim = Animation(pos_hint={'x': -0.2}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.01}, duration=0.2)
-             # new_icon = 'right-arrow.png'
+            new_icon = 'ressources/right-arrow.png'
         else:
             toolbar_anim = Animation(pos_hint={'x': 0}, duration=0.2)
             button_anim = Animation(pos_hint={'x': 0.2}, duration=0.2)
-            # new_icon = 'left-arrow.png'
+            new_icon = 'ressources/left-arrow.png'
 
         toolbar_anim.start(toolbar)
         button_anim.start(button)
-         # icon.source = new_icon
+        icon.source = new_icon
+        
         self.toolbar_expanded = not self.toolbar_expanded
 
     def btn(self):
@@ -191,6 +192,7 @@ class PopupToolbar(FloatLayout):
 class Folder(BoxLayout):
     folder_name = StringProperty("")
     first_window = ObjectProperty(None)
+    last_folder = None
     
 
     def __init__(self, folder_name, first_window, **kwargs):
@@ -203,9 +205,17 @@ class Folder(BoxLayout):
 
     def change_icon_folder(self):
         # Die Icons sollen sich abwechseln
+        self.close_last_folder()
         current_icon = self.ids.folder_icon.source
         new_icon = 'folder.png' if current_icon == 'folderclosed.png' else 'folderclosed.png'
         self.ids.folder_icon.source = new_icon
+        Folder.last_folder = self
+
+    def close_last_folder(self):
+        if Folder.last_folder != None:
+            Folder.last_folder.ids.folder_icon.source = 'folderclosed.png'
+
+
     # Inhalt der Karten wird nach jedem Klick auf einen neuen Ordner gelöscht
     def reset_cards(self):
         if self.first_window:
