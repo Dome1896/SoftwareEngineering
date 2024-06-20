@@ -88,7 +88,7 @@ WindowManager:
             on_release:
                 app.root.current = "edit"
                 root.manager.transition.direction = "left"
-
+#----------------------Start Inhalt Lernkarten-------------------
         Label:
             id: question_label
             size_hint: (0.8, 0.2)
@@ -161,8 +161,9 @@ WindowManager:
             valign: "middle"
             font_size: 12
             color: 0.5, 0.5, 0.5, 1
+#----------------------Ende Inhalt Lernkarten-------------------
 
-        #---------------Start Rating Buttons------------
+#-------------------Start Rating Buttons--------------------
         Button:
             id: ratingFalse
             pos_hint: {"center_x": 0.4, "y": 0.25}
@@ -199,6 +200,7 @@ WindowManager:
                 source: "ressources\supi.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
+#-------------------------Ende Rating Buttons------------------------
 
 #------------------------ Start Karteikarten Buttons-----------------
 
@@ -266,7 +268,6 @@ WindowManager:
                 center_y: self.parent.center_y
                 size_hint: None, None
                 size: 100,100
-
 
 #------------------------ Ende Karteikarten Buttons-----------------
 
@@ -347,6 +348,7 @@ WindowManager:
         size_hint: (0.8, 0.2)
         pos_hint: {"center_x": 0.5, "center_y": 0.3}
 #------------------------------- Ende Popup Add Card -----------------------
+
 
 <Button>:
     color: 0.5, 0.5, 0.8, 1
