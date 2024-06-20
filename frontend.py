@@ -165,7 +165,8 @@ class FirstWindow(Screen, MyFloatLayout):
     # Klassenmethode, um alle Karten für eine bestimmte Kategorie abzurufen
     @classmethod
     def getCardsForCategory(cls, category: str):
-        FirstWindow.cardList = Controller.getAllCardsForCategory(category)
+        Controller.all_cards_list = Controller.getAllCardsForCategory(category)
+        FirstWindow.cardList = Controller.all_cards_list
 
     # Methode, um die nächste Karte anzuzeigen
     def nextCard(self):
@@ -199,7 +200,17 @@ class FirstWindow(Screen, MyFloatLayout):
         Controller.set_card_on_container_down(FirstWindow.card)
         self.nextCard()
 
-    # Methode, um die Sichtbarkeit der Antwort umzuschalten
+    def add_filter_number(self, filter_number):
+        FirstWindow.cardList += Controller.add_cards_to_filtered_cards(filter_number)
+
+    def start_container_mode(self):
+        for i in range (1,5):
+            self.add_filter_number(i)
+            self.change_image(i)
+
+    def del_filter_number(self, filter_number):
+        FirstWindow.cardList -= Controller.del_cards_in_filtered_cards(filter_number, FirstWindow.cardList)
+
     def toggle_answer_visibility(self):
         if self.cardIndex > 0 and self.cardIndex <= len(self.cardList):
             if not self.show_answer:
