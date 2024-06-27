@@ -21,6 +21,10 @@ from controller import Controller
 
 # Erstellt eine benutzerdefinierte Klasse, die FloatLayout erweitert
 class MyFloatLayout(FloatLayout):
+    '''
+    Diese Klasse erbt von FloatLayout und erweitert es um eine Eigenschaft, die
+    die ID des aktuellen Benutzers speichert.
+    '''
     # Eine Klassenvariable, um die globale Kategorie zu speichern
     globalCategory = ""
 
