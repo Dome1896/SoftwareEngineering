@@ -34,11 +34,15 @@ class Controller(App):
     def getAllCardsForCategory(cls, category: str):
         # Initialisiert eine leere Liste, um die Karten zu speichern.
         cardList = []
+        if category != "*":
 
-        # Ruft alle Karten der angegebenen Kategorie aus der Datenbank ab.
-        for card in cls.db.getDataFromTableWithFilter("Cardholder", "category", category):
-            # Fügt jede Karte der Liste hinzu, indem eine Card-Instanz erstellt wird.
-            if card["ownerID"] == cls.userID:
+            # Ruft alle Karten der angegebenen Kategorie aus der Datenbank ab.
+            for card in cls.db.getDataFromTableWithFilter("Cardholder", "category", category):
+                # Fügt jede Karte der Liste hinzu, indem eine Card-Instanz erstellt wird.
+                if card["ownerID"] == cls.userID:
+                    cardList.append(Card(cardID=card["cardID"], question=card["question"], answer=card["answer"], category=card["category"], container_number=card["container_number"]))
+        else:
+            for card in cls.db.getDataFromTableWithFilter("Cardholder", "ownerID", cls.userID):
                 cardList.append(Card(cardID=card["cardID"], question=card["question"], answer=card["answer"], category=card["category"], container_number=card["container_number"]))
         # Gibt die Liste der Karten zurück.
         return cardList

@@ -343,10 +343,12 @@ class Folder(BoxLayout):
     first_window = ObjectProperty(None)
     last_folder = None
 
-    def __init__(self, folder_name, first_window, **kwargs):
+    def __init__(self, folder_name, first_window:FirstWindow, **kwargs):
         super(Folder, self).__init__(**kwargs)
         self.folder_name = folder_name
         self.first_window = first_window
+        self.first_window.open_all_container()
+        self.first_window.nextCard()
 
     # Methode, um Inhalte zum Ordner hinzuzufügen
     def add_content(self, content):
