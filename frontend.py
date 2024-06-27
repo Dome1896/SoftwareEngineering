@@ -53,7 +53,7 @@ class MyFloatLayout(FloatLayout):
 
     # Methode, um alle Karten für eine bestimmte Kategorie abzurufen
     def get_all_cards_for_category(self, category: str):
-        FirstWindow.getCardsForCategory(category)
+        BrainBoostFirstWindow.getCardsForCategory(category)
 
     # Zustandsvariable, ob die Toolbar erweitert ist oder nicht
     toolbar_expanded = True
@@ -156,14 +156,14 @@ class PopupAddCard(FloatLayout):
     
 
 # Klasse für das erste Fenster, das die Hauptseite darstellt
-class FirstWindow(Screen, MyFloatLayout):
+class BrainBoostFirstWindow(Screen, MyFloatLayout):
     eye_icon = StringProperty('ressources/eye-closed.png')  # Standardbild für geschlossenes Auge
     cardIndex = 0
     card = None
 
     # Konstruktor der Klasse
     def __init__(self, **kwargs):
-        super(FirstWindow, self).__init__(**kwargs)
+        super(BrainBoostFirstWindow, self).__init__(**kwargs)
         self.get_all_cards_for_category("*")
         self.show_answer = False
         self.folder_instance = None
@@ -175,21 +175,21 @@ class FirstWindow(Screen, MyFloatLayout):
     # Klassenmethode, um alle Karten für eine bestimmte Kategorie abzurufen
     @classmethod
     def getCardsForCategory(cls, category: str):
-        FirstWindow.all_cards_list = Controller.getAllCardsForCategory(category)
-        print("Alle Karten ", len(FirstWindow.all_cards_list))
-        FirstWindow.cardList = []
+        BrainBoostFirstWindow.all_cards_list = Controller.getAllCardsForCategory(category)
+        print("Alle Karten ", len(BrainBoostFirstWindow.all_cards_list))
+        BrainBoostFirstWindow.cardList = []
 
     # Methode, um die nächste Karte anzuzeigen
     def nextCard(self):
         if not hasattr(self, 'cardList'):
             return
-        if self.cardIndex < len(FirstWindow.cardList):
-            FirstWindow.restart = False
-            FirstWindow.card = self.cardList[self.cardIndex]
+        if self.cardIndex < len(BrainBoostFirstWindow.cardList):
+            BrainBoostFirstWindow.restart = False
+            BrainBoostFirstWindow.card = self.cardList[self.cardIndex]
             self.cardIndex += 1
-            self.ids.learnmodeQuestion.text = FirstWindow.card.question
+            self.ids.learnmodeQuestion.text = BrainBoostFirstWindow.card.question
             self.ids.learnmodeAnswer.text = ""
-            self.ids.learnmodeCategory.text = FirstWindow.card.category
+            self.ids.learnmodeCategory.text = BrainBoostFirstWindow.card.category
             self.show_answer = False
             self.ids.toggle_image.source = "ressources/eye-closed.png"
             self.ids.toggle_eye_label.text = "Antwort anzeigen"
@@ -198,11 +198,11 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.ratingMiddle.opacity = 0
             self.ids.ratingGood.opacity = 0
         else:
-            FirstWindow.restart = True
+            BrainBoostFirstWindow.restart = True
             self.ids.learnmodeQuestion.text = "Das wars!"
             self.ids.learnmodeAnswer.text = "Du hast alle Karten der Kategorie gelernt!"
             self.ids.learnmodeCategory.text = "Herzlichen Glückwunsch!"
-        self.ids.cards_left.text = str(len(FirstWindow.cardList))
+        self.ids.cards_left.text = str(len(BrainBoostFirstWindow.cardList))
 
     def open_all_container(self):
         for i in range(1, 5):  # Hier gehe ich davon aus, dass du 4 Buttons hast wie in deiner .kv Datei
@@ -219,46 +219,46 @@ class FirstWindow(Screen, MyFloatLayout):
 
     # Methode, um die aktuelle Karte als bekannt zu markieren und die nächste Karte anzuzeigen
     def set_card_one_container_up(self):
-        if FirstWindow.card.container_number != 1:
-            FirstWindow.card.container_number -= 1 
-        Controller.set_card_on_container_up(FirstWindow.card)
+        if BrainBoostFirstWindow.card.container_number != 1:
+            BrainBoostFirstWindow.card.container_number -= 1 
+        Controller.set_card_on_container_up(BrainBoostFirstWindow.card)
         self.nextCard()
 
     # Methode, um die aktuelle Karte als unbekannt zu markieren und die nächste Karte anzuzeigen
     def set_card_one_container_down(self):
-        if FirstWindow.card.container_number != 4:
-            FirstWindow.card.container_number += 1 
-        Controller.set_card_on_container_down(FirstWindow.card)
+        if BrainBoostFirstWindow.card.container_number != 4:
+            BrainBoostFirstWindow.card.container_number += 1 
+        Controller.set_card_on_container_down(BrainBoostFirstWindow.card)
         self.nextCard()
 
     def add_filter_number(self, filter_number):
-        self.start_len = len(FirstWindow.cardList)
-        FirstWindow.cardList.extend(Controller.add_cards_to_filtered_cards(filter_number, FirstWindow.all_cards_list))
-        #FirstWindow.cardList
-        self.final_len = len(FirstWindow.cardList)
+        self.start_len = len(BrainBoostFirstWindow.cardList)
+        BrainBoostFirstWindow.cardList.extend(Controller.add_cards_to_filtered_cards(filter_number, BrainBoostFirstWindow.all_cards_list))
+        #BrainBoostFirstWindow.cardList
+        self.final_len = len(BrainBoostFirstWindow.cardList)
         
-        print(len(FirstWindow.cardList))
+        print(len(BrainBoostFirstWindow.cardList))
 
     def start_container_mode(self):
-        self.ids.cards_left.text = str(len(FirstWindow.all_cards_list))
+        self.ids.cards_left.text = str(len(BrainBoostFirstWindow.all_cards_list))
         for i in range (1,5):
             self.add_filter_number(i)
 
     def del_filter_number(self, filter_number):
-        filtered_ids = Controller.del_cards_in_filtered_cards(filter_number, FirstWindow.cardList)
-        original_length = len(FirstWindow.cardList)
-        FirstWindow.cardList[:] = [elem for elem in FirstWindow.cardList if elem.cardID not in filtered_ids]
-        print(f"Removed {original_length - len(FirstWindow.cardList)} cards for filter number {filter_number}")
-        print(f"Total cards in cardList after removing: {len(FirstWindow.cardList)}")
+        filtered_ids = Controller.del_cards_in_filtered_cards(filter_number, BrainBoostFirstWindow.cardList)
+        original_length = len(BrainBoostFirstWindow.cardList)
+        BrainBoostFirstWindow.cardList[:] = [elem for elem in BrainBoostFirstWindow.cardList if elem.cardID not in filtered_ids]
+        print(f"Removed {original_length - len(BrainBoostFirstWindow.cardList)} cards for filter number {filter_number}")
+        print(f"Total cards in cardList after removing: {len(BrainBoostFirstWindow.cardList)}")
         self.final_len = 0  
         self.start_len = 0
 
 
 
     def toggle_answer_visibility(self):
-        if len(FirstWindow.cardList) != 0:
+        if len(BrainBoostFirstWindow.cardList) != 0:
             if not self.show_answer:
-                self.ids.learnmodeAnswer.text = FirstWindow.card.answer
+                self.ids.learnmodeAnswer.text = BrainBoostFirstWindow.card.answer
                 self.show_answer = True
                 # Zeigt die Bewertungsbuttons
                 self.ids.ratingFalse.opacity = 1
@@ -302,16 +302,16 @@ class FirstWindow(Screen, MyFloatLayout):
                 image_widget.source = f'kartei_{id}_box_open.png'
                 self.add_filter_number(id)
 
-            self.ids.cards_left.text = str(len(FirstWindow.cardList))
+            self.ids.cards_left.text = str(len(BrainBoostFirstWindow.cardList))
         except:
             pass
-        if FirstWindow.card not in FirstWindow.cardList:
+        if BrainBoostFirstWindow.card not in BrainBoostFirstWindow.cardList:
             self.nextCard()
-            print(len(FirstWindow.cardList))
-            if len(FirstWindow.cardList) == 1:
-                self.ids.learnmodeQuestion.text = FirstWindow.card.question
+            print(len(BrainBoostFirstWindow.cardList))
+            if len(BrainBoostFirstWindow.cardList) == 1:
+                self.ids.learnmodeQuestion.text = BrainBoostFirstWindow.card.question
                 self.ids.learnmodeAnswer.text = ""
-                self.ids.learnmodeCategory.text = FirstWindow.card.category
+                self.ids.learnmodeCategory.text = BrainBoostFirstWindow.card.category
                 self.show_answer = False
                 self.ids.toggle_image.source = "ressources/eye-closed.png"
                 self.ids.toggle_eye_label.text = "Antwort anzeigen"
@@ -347,7 +347,7 @@ class Folder(BoxLayout):
     last_folder = None
     first_start = True
 
-    def __init__(self, folder_name, first_window:FirstWindow, **kwargs):
+    def __init__(self, folder_name, first_window:BrainBoostFirstWindow, **kwargs):
         super(Folder, self).__init__(**kwargs)
         self.folder_name = folder_name
         self.first_window = first_window
@@ -379,7 +379,7 @@ class Folder(BoxLayout):
         if self.first_window:
             self.first_window.resetLearnmode()
         else:
-            print("FirstWindow instance not set.")
+            print("BrainBoostFirstWindow instance not set.")
 
     # In der Folder Klasse
     def get_all_cards_for_category(self, category: str):
@@ -396,11 +396,11 @@ class SecondWindow(Screen):
 #--------- USER LOGIN --------------------
 
 # Hauptklasse der Anwendung
-class FirstApp(App):
+class BrainBoostApp(App):
     def build(self):
         # Lädt die Kivy-Datei, die das Layout definiert
         kv = Builder.load_file('first_window.kv')
-        self.icon = 'dausb.jpg'
+        self.icon = 'Logo_big.jpeg'
         return kv
     
 
@@ -430,7 +430,7 @@ class LoginScreen(Screen):
         if verfified:
             Controller.create_user(user, pwd, userid)
             LoginApp().stop()
-            FirstApp().run()
+            BrainBoostApp().run()
         else:
             self.ids.message.color = "red"
             self.ids.message.text = "Invalid username or password"
