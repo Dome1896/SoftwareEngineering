@@ -411,6 +411,21 @@ class LoginScreen(Screen):
     def verify_credentials(self):
         user = self.username.text
         pwd = self.password.text
+
+        if ' ' in user:
+            self.ids.message.color = (1, 0, 0, 1)  # Rot
+            self.ids.message.text = "Der Benutzername darf keine Leerzeichen enthalten."
+            self.ids.username.text = ""
+            self.ids.password.text = ""
+            return
+
+        if ' ' in pwd:
+            self.ids.message.color = (1, 0, 0, 1)  # Rot
+            self.ids.message.text = "Das Passwort darf keine Leerzeichen enthalten."
+            self.ids.username.text = ""
+            self.ids.password.text = ""
+            return
+
         verfified, userid = Controller.verify_credentials(user, pwd)
         if verfified:
             Controller.create_user(user, pwd, userid)
