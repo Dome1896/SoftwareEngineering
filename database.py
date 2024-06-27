@@ -7,7 +7,7 @@ class Database:
     # Initialisierungsmethode der Klasse, ruft Methoden auf, um URL, Passwort und API-Schlüssel zu erhalten
     def __init__(self):
         '''
-        Initialisierungsmethode der Klasse, ruft Methoden auf, um URL, apikey und passwort zu setzen
+        Initialisierungsmethode der Klasse, ruft Methoden auf, um URL, apikey und passwort zu setzen            
         '''
         self.__getUrl()
         self.__getPassword()

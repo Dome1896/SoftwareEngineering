@@ -21,6 +21,10 @@ from controller import Controller
 
 # Erstellt eine benutzerdefinierte Klasse, die FloatLayout erweitert
 class MyFloatLayout(FloatLayout):
+    '''
+    Diese Klasse erbt von FloatLayout und erweitert es um eine Eigenschaft, die
+    die ID des aktuellen Benutzers speichert.
+    '''
     # Eine Klassenvariable, um die globale Kategorie zu speichern
     globalCategory = ""
 
@@ -290,12 +294,12 @@ class FirstWindow(Screen, MyFloatLayout):
     def change_image(self, instance, id):
         image_widget = instance.children[0]  # The Image widget is a child of the Button
         try:
-            if image_widget.source == "box_open.png":
-                image_widget.source = 'box_closed.png'
-                self.del_filter_number(id)
+            if image_widget.source == f"kartei_{id}_box_open.png":
+                image_widget.source = f'kartei_{id}_box_closed.png'
+                self.del_filter_number(id) 
                 
             else:
-                image_widget.source = 'box_open.png'
+                image_widget.source = f'kartei_{id}_box_open.png'
                 self.add_filter_number(id)
 
             self.ids.cards_left.text = str(len(FirstWindow.cardList))
@@ -407,6 +411,21 @@ class LoginScreen(Screen):
     def verify_credentials(self):
         user = self.username.text
         pwd = self.password.text
+
+        if ' ' in user:
+            self.ids.message.color = (1, 0, 0, 1)  # Rot
+            self.ids.message.text = "Der Benutzername darf keine Leerzeichen enthalten."
+            self.ids.username.text = ""
+            self.ids.password.text = ""
+            return
+
+        if ' ' in pwd:
+            self.ids.message.color = (1, 0, 0, 1)  # Rot
+            self.ids.message.text = "Das Passwort darf keine Leerzeichen enthalten."
+            self.ids.username.text = ""
+            self.ids.password.text = ""
+            return
+
         verfified, userid = Controller.verify_credentials(user, pwd)
         if verfified:
             Controller.create_user(user, pwd, userid)
