@@ -7,11 +7,13 @@ from card import Card
 from apihandler import APIHandler
 from user import User
 
-# Lädt die Kivy-Datei 'my.kv', die die UI-Definitionen enthält.
-Builder.load_file('my.kv')
 
 # Definiert die Klasse Controller, die von Kivy's App-Klasse erbt.
-class Controller(App):
+class Controller():
+    '''
+    Klasse, welche die Schnittstelle zwischen backend und frontend stellt.
+    Alle Methoden sind Klassenmethoden, um einen einfachen Zugriff zu ermöglichen
+    '''
 
     # Erstellt eine Klassenvariable 'db', die eine Instanz der Database-Klasse ist.
     db = Database()
@@ -20,6 +22,13 @@ class Controller(App):
     # Definiert eine Klassenmethode zum Erstellen einer neuen Karte.
     @classmethod
     def createCard(cls, question: str, answer: str, category: str):
+        '''
+        Erstellt eine neue Karte mit den übergebenen Parametern.
+        :param question: Frage der Karte
+        :param answer: Antwort der Karte
+        :param category: Kategorie der Karte
+        :return: None
+        '''
         # Erstellt eine neue Karte mit den angegebenen Attributen.
         card = Card(question, answer, category, ownerID=cls.userID)
         # Speichert die Karte in der Datenbank.
@@ -27,11 +36,23 @@ class Controller(App):
 
     @classmethod
     def create_user(cls, username, password, userID):
+        '''
+        Erstellt einen neuen User mit den übergebenen Parametern.
+        :param username: Username des Users
+        :param password: Passwort des Users
+        :param userID: ID des Users
+        :return: None
+        '''
         cls.user = User(username, password, userID)
         cls.userID = userID
     # Definiert eine Klassenmethode, die alle Karten für eine bestimmte Kategorie zurückgibt.
     @classmethod
     def getAllCardsForCategory(cls, category: str):
+        '''
+        Gibt alle Karten für eine bestimmte Kategorie zurück.
+        :param category: Kategorie der Karten - wenn category = "*", gibt alle Karten für den User zurück
+        :return: Liste von Karten
+        '''
         # Initialisiert eine leere Liste, um die Karten zu speichern.
         cardList = []
         if category != "*":
@@ -41,6 +62,7 @@ class Controller(App):
                 # Fügt jede Karte der Liste hinzu, indem eine Card-Instanz erstellt wird.
                 if card["ownerID"] == cls.userID:
                     cardList.append(Card(cardID=card["cardID"], question=card["question"], answer=card["answer"], category=card["category"], container_number=card["container_number"]))
+        # gibt alle Karten des Users zurück
         else:
             for card in cls.db.getDataFromTableWithFilter("Cardholder", "ownerID", cls.userID):
                 cardList.append(Card(cardID=card["cardID"], question=card["question"], answer=card["answer"], category=card["category"], container_number=card["container_number"]))
@@ -50,6 +72,11 @@ class Controller(App):
     # Definiert eine Klassenmethode, die eine Karte aus einer Kartenliste extrahiert.
     @classmethod
     def extractOneCardFromCardList(cls, cardList):
+        '''
+        Extrahiert eine Karte aus einer Kartenliste.
+        :param cardList: Liste von Karten
+        :return: Karte
+        '''
         # Überprüft, ob die Liste nicht leer ist.
         if len(cardList) > 0:
             # Entfernt und gibt die letzte Karte aus der Liste zurück.
@@ -61,6 +88,10 @@ class Controller(App):
     # Definiert eine Klassenmethode, die alle eindeutigen Kategorien zurückgibt.
     @classmethod
     def getAllCategories(cls):
+        '''
+        Gibt alle eindeutigen Kategorien zurück.
+        :return: Liste von Kategorien
+        '''
         # Ruft alle eindeutigen Kategorien aus der Datenbank ab.
         categories = cls.db.getAllUniqueValuesFromColumn("Cardholder", "category,ownerID")
         # Initialisiert eine leere Liste, um die Kategorien zu speichern.
@@ -76,6 +107,11 @@ class Controller(App):
         return categoriesList
     @classmethod
     def set_card_on_container_up(cls, card : Card):
+        '''
+        Setzt den container_number Wert der Karte einen höher -> wenn die 
+        :param card: Karte
+        :return: None
+        '''
         card.set_card_one_container_up()
 
     @classmethod
