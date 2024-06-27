@@ -206,7 +206,7 @@ class FirstWindow(Screen, MyFloatLayout):
             
             # Zugriff auf das Image Widget innerhalb des Buttons und Aktualisierung der Bildquelle
             image_widget = image_button.children[0]  # Angenommen das Image ist das erste Kind
-            image_widget.source = "sb.jpg"  # Setze die neue Bildquelle
+            image_widget.source = "box_open.png"  # Setze die neue Bildquelle
         self.start_container_mode()    
 
             
@@ -289,12 +289,12 @@ class FirstWindow(Screen, MyFloatLayout):
     def change_image(self, instance, id):
         image_widget = instance.children[0]  # The Image widget is a child of the Button
         try:
-            if image_widget.source == 'sb.jpg':
-                image_widget.source = 'ja.jpg'
+            if image_widget.source == "box_open.png":
+                image_widget.source = 'box_closed.png'
                 self.del_filter_number(id)
                 
             else:
-                image_widget.source = 'sb.jpg'
+                image_widget.source = 'box_open.png'
                 self.add_filter_number(id)
 
             self.ids.cards_left.text = str(len(FirstWindow.cardList))

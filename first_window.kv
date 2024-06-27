@@ -215,11 +215,11 @@ WindowManager:
                 print("Der Dome ist eh nur für sein Studium hier!")
                 root.change_image(self, 1)
             Image:
-                source: "sb.jpg"
+                source: "box_open.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: None, None
-                size: 100,100
+                size: 75,75
         Button:
             #text: "DausB"
             id: kartei_2
@@ -231,11 +231,11 @@ WindowManager:
                 print("Der Dome ist eh nur für sein Studium hier!")
                 root.change_image(self, 2)
             Image:
-                source: "sb.jpg"
+                source: "box_open.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: None, None
-                size: 100,100
+                size: 75,75
         Button:
             #text: "DausB"
             id: kartei_3
@@ -247,11 +247,11 @@ WindowManager:
                 print("Der Dome ist eh nur für sein Studium hier!")
                 root.change_image(self, 3)
             Image:
-                source: "sb.jpg"
+                source: "box_open.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: None, None
-                size: 100,100
+                size: 75,75
         Button:
             #text: "DausB"
             id: kartei_4
@@ -263,11 +263,11 @@ WindowManager:
                 print("Der Dome ist eh nur für sein Studium hier!")
                 root.change_image(self, 4)
             Image:
-                source: "sb.jpg"
+                source: "box_open.png"
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size_hint: None, None
-                size: 100,100
+                size: 75,75
         Label:
             #text: "DausB"
             id: cards_left
@@ -281,6 +281,7 @@ WindowManager:
 
 #------------------------ Ende Karteikarten Buttons-----------------
 
+#-------------------------------Start Toolbar ---------------------
 <PopupToolbar>:
     folder_name_input: folder_name_input
     Button:
@@ -333,6 +334,7 @@ WindowManager:
         orientation: 'vertical'
         size_hint_y: None
         height: self.minimum_height
+#-------------------------------- Ende Toolbar -----------------------------
 
 #------------------------------- Start Popup Add Card -----------------------
 <PopupAddCard>:
@@ -371,33 +373,6 @@ WindowManager:
 #------------------------------- Ende Popup Add Card -----------------------
 
 
-<Button>:
-    color: 0.5, 0.5, 0.8, 1
-    font_size: 8
-
-<Label>:
-    font_size: 32
-    size_hint: (0.3, 0.3)
-    color: 0.3, 0.6, 0.7, 1
-
-<TextInput>:
-    font_size: 16
-    size_hint: (0.3, 0.1)
-    color: 0.3, 0.6, 0.7, 1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <SecondWindow>:
     name: "edit"
 
@@ -424,3 +399,18 @@ WindowManager:
             pos_hint: {'center_x': 0.5, "y":0.3}
             
 
+#---------------------------Start Standard Layout---------------------
+<Button>:
+    color: 0.5, 0.5, 0.8, 1
+    font_size: 8
+
+<Label>:
+    font_size: 32
+    size_hint: (0.3, 0.3)
+    color: 0.3, 0.6, 0.7, 1
+
+<TextInput>:
+    font_size: 16
+    size_hint: (0.3, 0.1)
+    color: 0.3, 0.6, 0.7, 1
+#---------------------------Ende Standard Layout---------------------
