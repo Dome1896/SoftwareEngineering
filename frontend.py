@@ -207,7 +207,7 @@ class FirstWindow(Screen, MyFloatLayout):
             
             # Zugriff auf das Image Widget innerhalb des Buttons und Aktualisierung der Bildquelle
             image_widget = image_button.children[0]  # Angenommen das Image ist das erste Kind
-            image_widget.source = "box_open.png"  # Setze die neue Bildquelle
+            image_widget.source = f"{button_id}_box_open.png"  # Setze die neue Bildquelle
         self.start_container_mode()    
 
             
