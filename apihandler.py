@@ -5,6 +5,12 @@ class APIHandler:
         self.client = OpenAI(api_key=self.__getApiKey())
     
     def genere_answer(self, question, category=""):
+        '''
+        Generiert die Antwort auf die Frage. Bezieht die Kategorie mit ein.  
+        :param question: Die Frage, auf die eine Antwort generiert werden soll.
+        :param category: unrequired Die Kategorie, in der die Frage gestellt wurde.
+        :return: Die generierte, perfekte Antwort.
+        '''
         completion = self.client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
@@ -18,6 +24,10 @@ class APIHandler:
     
    
     def __getApiKey(self):
+        '''
+        Liest die API Key aus der config.ini Datei.
+        Setzt das __apikey attribut des Objektes
+        '''
         cfp = ConfigParser()
         try:
             cfp.read("config.ini")
