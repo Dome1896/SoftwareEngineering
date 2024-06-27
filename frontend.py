@@ -28,6 +28,7 @@ class MyFloatLayout(FloatLayout):
     # Konstruktor der Klasse
     def __init__(self, **kwargs):
         super(MyFloatLayout, self).__init__(**kwargs)
+        MyFloatLayout.globalCategory = Controller.getAllCardsForCategory("*")
         #### APP STARTET IN FULLSCREEN ####
         # Das Setzen des Fensters auf Vollbild ist auskommentiert
         # Window.fullscreen = 'auto'
@@ -160,6 +161,7 @@ class FirstWindow(Screen, MyFloatLayout):
     # Konstruktor der Klasse
     def __init__(self, **kwargs):
         super(FirstWindow, self).__init__(**kwargs)
+        self.get_all_cards_for_category("*")
         self.show_answer = False
         self.folder_instance = None
 
