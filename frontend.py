@@ -43,16 +43,28 @@ class MyFloatLayout(FloatLayout):
     # Klassenmethode, um alle Kategorien abzurufen
     @classmethod
     def get_categories(cls):
+        '''
+        Diese Methode ruft alle Kategorien ab.
+        :return: Eine Liste mit allen Kategorien
+        '''
         allUniqueCategories = Controller.getAllCategories()
         return allUniqueCategories
 
     # Methode, um bei Start alle Ordner zu erstellen
     def on_startup_create_all_folders(self):
+        '''
+        Diese Methode erstellt alle Ordner, die bei Start benötigt werden.
+        '''
         for category in MyFloatLayout.get_categories():
             self.add_folder_to_toolbar(category)
 
     # Methode, um alle Karten für eine bestimmte Kategorie abzurufen
     def get_all_cards_for_category(self, category: str):
+        '''
+        Diese Methode ruft alle Karten für eine bestimmte Kategorie ab.
+        :param category: Die Kategorie, für die die Karten abgerufen werden sollen oder * für alle Kategorien
+        :return: Eine Liste mit allen Karten für die Kategorie
+        '''
         FirstWindow.getCardsForCategory(category)
 
     # Zustandsvariable, ob die Toolbar erweitert ist oder nicht
@@ -60,6 +72,9 @@ class MyFloatLayout(FloatLayout):
 
     # Methode, um die Toolbar ein- und auszublenden
     def toggle_toolbar(self):
+        '''
+        Diese Methode schaltet die Toolbar ein- und aus.
+        '''
         button = self.ids.t_button
         toolbar = self.ids.toolbar
         icon = button.canvas.before.children[1]
@@ -88,6 +103,9 @@ class MyFloatLayout(FloatLayout):
 
     # Methode, um ein Popup anzuzeigen
     def show_popup(self):
+        '''
+        Diese Methode blendet das Popup zum Hinzufügen von Karten ein.
+        '''
         show = PopupAddCard()
         # Setzt die gewählte Kategorie in das Popup
         show.ids.questionCategory.text = MyFloatLayout.globalCategory
@@ -95,6 +113,9 @@ class MyFloatLayout(FloatLayout):
 
         # Methode zum Speichern der Daten im Popup
         def save_data(instance):
+            '''
+            Diese Methode erstellt ein Kartenobjekt und speichert dies in der Datenbank.
+            '''
             value1 = show.ids.questionName.text
             value2 = show.ids.questionAnswer.text
             value3 = show.ids.questionCategory.text
@@ -110,6 +131,9 @@ class MyFloatLayout(FloatLayout):
 
     # Methode, um ein Popup für die Toolbar anzuzeigen
     def show_popup_folder(self):
+        '''
+        Diese Methode blendet das Popup zum Hinzufügen von Kategorien/Ordnern ein.
+        '''
         show = PopupToolbar(parent_widget=self)
         popupWindow = Popup(title="                 Ordner Erstellen", content=show, size_hint=(None, None), size=(250, 250),
                             pos_hint={'center_x': 0.17, 'center_y': 0.25})
@@ -117,6 +141,10 @@ class MyFloatLayout(FloatLayout):
 
     # Methode, um einen Ordner zur Toolbar hinzuzufügen
     def add_folder_to_toolbar(self, folder_name):
+        '''
+        Diese Methode fügt einen Ordner zur Toolbar hinzu.
+        :param folder_name: Name des Ordners
+        '''
         # Erstellt ein neues Folder-Widget
         first_window = self.manager.get_screen('first_window')
         folder = Folder(folder_name=folder_name, first_window=first_window)
@@ -124,11 +152,20 @@ class MyFloatLayout(FloatLayout):
 
     # Methode, um einen Ordner auszuwählen
     def select_folder(self, instance):
+        '''
+        deprecated:
+        Diese Methode gibt den ausgewählten Ordner in der Konsole aus.
+        :param instance: Ordner, der ausgewählt wurde
+        '''
         self.selected_folder = instance
         print(f"Selected folder: {instance.folder_name}")
 
     # Methode, um Text in einen Ordner zu verschieben
     def move_text_to_folder(self):
+        '''
+        deprecated:
+        Diese Methode verschiebt den ausgewählten Text in den ausgewählten Ordner.
+        '''
         if self.selected_folder:
             text = self.ids.text_input.text
             if text:
@@ -147,7 +184,13 @@ class WindowManager(ScreenManager):
 
 # Klasse für das Popup zum Hinzufügen einer Karte
 class PopupAddCard(FloatLayout):
+    '''
+    Klasse für das Popup zum Hinzufügen einer Karte
+    '''
     def generate_answer(self):
+        '''
+        Methode, um eine Antwort zu generieren
+        '''
         question = self.ids.questionName.text
         category = ""
         if self.ids.questionCategory.text != "":
@@ -170,19 +213,29 @@ class FirstWindow(Screen, MyFloatLayout):
 
     # Methode, um die Instanz des Ordners zu setzen
     def set_folder_instance(self, folder_instance):
+        '''
+        Methode, um die Instanz des Ordners zu setzen
+        '''
         self.folder_instance = folder_instance
 
     # Klassenmethode, um alle Karten für eine bestimmte Kategorie abzurufen
     @classmethod
     def getCardsForCategory(cls, category: str):
+        '''
+        Klassenmethode, um alle Karten für eine bestimmte Kategorie abzurufen
+        '''
         FirstWindow.all_cards_list = Controller.getAllCardsForCategory(category)
         print("Alle Karten ", len(FirstWindow.all_cards_list))
         FirstWindow.cardList = []
 
     # Methode, um die nächste Karte anzuzeigen
     def nextCard(self):
+        '''
+        Methode, um die nächste Karte anzuzeigen
+        '''
         if not hasattr(self, 'cardList'):
             return
+        # Wenn noch Karten in der Liste vorhanden sind, wird die nächste Karte angezeigt
         if self.cardIndex < len(FirstWindow.cardList):
             FirstWindow.restart = False
             FirstWindow.card = self.cardList[self.cardIndex]
@@ -197,14 +250,22 @@ class FirstWindow(Screen, MyFloatLayout):
             self.ids.ratingFalse.opacity = 0
             self.ids.ratingMiddle.opacity = 0
             self.ids.ratingGood.opacity = 0
+
+        # Ansonsten nehmen wir an, dass die Kategorie fertig gelernt wurde und gratulieren dem Nutzer
+
         else:
             FirstWindow.restart = True
             self.ids.learnmodeQuestion.text = "Das wars!"
             self.ids.learnmodeAnswer.text = "Du hast alle Karten der Kategorie gelernt!"
             self.ids.learnmodeCategory.text = "Herzlichen Glückwunsch!"
+        # Ändert die Zahl der noch übrigen Karten
         self.ids.cards_left.text = str(len(FirstWindow.cardList))
 
     def open_all_container(self):
+        '''
+        Ändert zunächst das Bild von allen Karteikartenordnern auf den geöffneten Stand.
+        Dann wird die Initiale Methode für die Karteikartenordner gestartet.
+        '''
         for i in range(1, 5):  # Hier gehe ich davon aus, dass du 4 Buttons hast wie in deiner .kv Datei
             button_id = f"kartei_{i}"  # Generiere die Button ID dynamisch
             image_button = self.ids[button_id]  # Zugriff auf das Button Widget über die ID
@@ -219,6 +280,9 @@ class FirstWindow(Screen, MyFloatLayout):
 
     # Methode, um die aktuelle Karte als bekannt zu markieren und die nächste Karte anzuzeigen
     def set_card_one_container_up(self):
+        '''
+        Diese Methode wird aufgerufen, wenn der Nutzer eine Karte als bekannt markiert
+        '''
         if FirstWindow.card.container_number != 1:
             FirstWindow.card.container_number -= 1 
         Controller.set_card_on_container_up(FirstWindow.card)
@@ -226,12 +290,21 @@ class FirstWindow(Screen, MyFloatLayout):
 
     # Methode, um die aktuelle Karte als unbekannt zu markieren und die nächste Karte anzuzeigen
     def set_card_one_container_down(self):
+        '''
+        Diese Methode wird aufgerufen, wenn der Nutzer eine Karte als unbekannt
+        markiert
+        '''
         if FirstWindow.card.container_number != 4:
             FirstWindow.card.container_number += 1 
         Controller.set_card_on_container_down(FirstWindow.card)
         self.nextCard()
 
     def add_filter_number(self, filter_number):
+        '''
+        Fügt der Liste an aktuellen Karten alle Karten hinzu, welche in dem gleichen Karteikartenordner sind
+        wie der Wert in filter_number sagt. 
+        :param filter_number: Nummer der Karteikartenordners, für welchen die Karten hinzugefügt werden sollen. 
+        '''
         self.start_len = len(FirstWindow.cardList)
         FirstWindow.cardList.extend(Controller.add_cards_to_filtered_cards(filter_number, FirstWindow.all_cards_list))
         #FirstWindow.cardList
@@ -240,11 +313,21 @@ class FirstWindow(Screen, MyFloatLayout):
         print(len(FirstWindow.cardList))
 
     def start_container_mode(self):
+        '''
+        Startet den Karteikartenordner lernmodus
+        Fügt der Kartenliste alle Karten aus der Datenbank hinzu.
+        '''
         self.ids.cards_left.text = str(len(FirstWindow.all_cards_list))
         for i in range (1,5):
             self.add_filter_number(i)
 
     def del_filter_number(self, filter_number):
+        '''
+        Löscht alle Karten aus der Liste an aktuellen Karten, welche in dem gleichen
+        Karteikartenordner sind wie der Wert in filter_number sagt.
+        :param filter_number: Nummer der Karteikartenordners, für welchen die
+        Karten gelöscht werden sollen.
+        '''
         filtered_ids = Controller.del_cards_in_filtered_cards(filter_number, FirstWindow.cardList)
         original_length = len(FirstWindow.cardList)
         FirstWindow.cardList[:] = [elem for elem in FirstWindow.cardList if elem.cardID not in filtered_ids]
@@ -256,6 +339,9 @@ class FirstWindow(Screen, MyFloatLayout):
 
 
     def toggle_answer_visibility(self):
+        '''
+        Zeigt die Antwort der aktuellen Karte an oder versteckt sie.
+        '''
         if len(FirstWindow.cardList) != 0:
             if not self.show_answer:
                 self.ids.learnmodeAnswer.text = FirstWindow.card.answer
@@ -280,6 +366,10 @@ class FirstWindow(Screen, MyFloatLayout):
 
     # Methode, um den Lernmodus zurückzusetzen
     def resetLearnmode(self):
+        '''
+        Setzt den Lernmodus zurück.
+        Alle Labels und die Bewertungsfunktion werden auf den Programmstart zurückgesetzt.
+        '''
         self.ids.learnmodeQuestion.text = "Frage"
         self.ids.learnmodeAnswer.text = ""
         self.ids.learnmodeCategory.text = "Kategorie"
@@ -292,6 +382,10 @@ class FirstWindow(Screen, MyFloatLayout):
         self.ids.cards_left.text = ""
 
     def change_image(self, instance, id):
+        '''
+        Ändert das Bild des Karteikartenordners, wenn dieser ausgewählt
+        wird.
+        '''
         image_widget = instance.children[0]  # The Image widget is a child of the Button
         try:
             if image_widget.source == f"kartei_{id}_box_open.png":
@@ -334,6 +428,10 @@ class PopupToolbar(FloatLayout):
 
     # Methode, um einen neuen Ordner zu erstellen
     def create_folder(self, folder_name):
+        '''
+        Erstellt einen neuen Ordner mit dem Namen, der im Textfeld
+        eingegeben wurde.
+        '''
         if folder_name:
             self.parent_widget.add_folder_to_toolbar(folder_name)
         else:
@@ -358,10 +456,16 @@ class Folder(BoxLayout):
 
     # Methode, um Inhalte zum Ordner hinzuzufügen
     def add_content(self, content):
+        '''
+        Fügt dem Ordner den Inhalt hinzu.
+        '''
         self.ids.content.add_widget(Label(text=content, size_hint_y=None, height=30))
 
     # Methode, um das Ordner-Icon zu ändern
     def change_icon_folder(self):
+        '''
+        Ändert das Ordner-Icon, wenn der Ordner geöffnet wird.
+        '''
         # Die Icons sollen sich abwechseln
         self.close_last_folder()
         current_icon = self.ids.folder_icon.source
@@ -371,11 +475,17 @@ class Folder(BoxLayout):
 
     # Methode, um das Icon des letzten geöffneten Ordners zu schließen
     def close_last_folder(self):
+        '''
+        Schließt den letzten geöffneten Ordner, indem das Icon geändert wird
+        '''
         if Folder.last_folder != None:
             Folder.last_folder.ids.folder_icon.source = 'folderclosed.png'
 
     # Methode, um beim Klick auf einen Ordner die Karteninhalte zu löschen
     def reset_cards(self):
+        '''
+        Löscht die Karteninhalte, wenn ein Ordner geöffnet wird.
+        '''
         if self.first_window:
             self.first_window.resetLearnmode()
         else:
@@ -383,6 +493,11 @@ class Folder(BoxLayout):
 
     # In der Folder Klasse
     def get_all_cards_for_category(self, category: str):
+        '''
+        Gibt alle Karten für eine bestimmte Kategorie zurück.
+        :param category: Die Kategorie, für die die Karten zurückgegeben werden sollen.
+        '''
+        # globale Kategorie kann im Gesamten Programm immer abgerufen werden. 
         MyFloatLayout.globalCategory = category
         self.first_window.get_all_cards_for_category(category)
         self.first_window.open_all_container()
@@ -409,6 +524,9 @@ class LoginScreen(Screen):
     password = ObjectProperty(None)
 
     def verify_credentials(self):
+        '''
+        Überprüft die Eingaben des Benutzers.
+        '''
         user = self.username.text
         pwd = self.password.text
 
@@ -437,6 +555,9 @@ class LoginScreen(Screen):
             self.username.text = ""
             self.password.text = ""
     def register_user(self):
+        '''
+        Registriert einen neuen Benutzer.
+        '''
         user = self.username.text
         pwd = self.password.text
         if user != "" != pwd:

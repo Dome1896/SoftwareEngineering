@@ -7,9 +7,8 @@ from kivy.uix.label import Label
 from database import Database
 from card import Card
 from controller import Controller
-from frontend import FirstApp
-from userlogin import *
+from frontend import LoginApp
 
-
-LoginApp().run()
+if __name__ == "__main__":
+    LoginApp().run()
 
