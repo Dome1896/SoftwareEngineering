@@ -221,9 +221,9 @@ class BrainBoostFirstWindow(Screen, MyFloatLayout):
     # Klassenmethode, um alle Karten für eine bestimmte Kategorie abzurufen
     @classmethod
     def getCardsForCategory(cls, category: str):
-        FirstWindow.all_cards_list = Controller.getAllCardsForCategory(category)
-        print("Alle Karten ", len(FirstWindow.all_cards_list))
-        FirstWindow.cardList = []
+        BrainBoostFirstWindow.all_cards_list = Controller.getAllCardsForCategory(category)
+        print("Alle Karten ", len(BrainBoostFirstWindow.all_cards_list))
+        BrainBoostFirstWindow.cardList = []
 
     # Methode, um die nächste Karte anzuzeigen
     def nextCard(self):
@@ -232,9 +232,9 @@ class BrainBoostFirstWindow(Screen, MyFloatLayout):
         '''
         if not hasattr(self, 'cardList'):
             return
-        if self.cardIndex < len(FirstWindow.cardList):
-            FirstWindow.restart = False
-            FirstWindow.card = self.cardList[self.cardIndex]
+        if self.cardIndex < len(BrainBoostFirstWindow.cardList):
+            BrainBoostFirstWindow.restart = False
+            BrainBoostFirstWindow.card = self.cardList[self.cardIndex]
             self.cardIndex += 1
             self.ids.learnmodeQuestion.text = BrainBoostFirstWindow.card.question
             self.ids.learnmodeAnswer.text = ""
@@ -254,7 +254,7 @@ class BrainBoostFirstWindow(Screen, MyFloatLayout):
             self.ids.learnmodeQuestion.text = "Das wars!"
             self.ids.learnmodeAnswer.text = "Du hast alle Karten der Kategorie gelernt!"
             self.ids.learnmodeCategory.text = "Herzlichen Glückwunsch!"
-        self.ids.cards_left.text = str(len(FirstWindow.cardList))
+        self.ids.cards_left.text = str(len(BrainBoostFirstWindow.cardList))
 
     def open_all_container(self):
         '''
@@ -275,44 +275,44 @@ class BrainBoostFirstWindow(Screen, MyFloatLayout):
 
     # Methode, um die aktuelle Karte als bekannt zu markieren und die nächste Karte anzuzeigen
     def set_card_one_container_up(self):
-        if FirstWindow.card.container_number != 1:
-            FirstWindow.card.container_number -= 1 
-        Controller.set_card_on_container_up(FirstWindow.card)
+        if BrainBoostFirstWindow.card.container_number != 1:
+            BrainBoostFirstWindow.card.container_number -= 1 
+        Controller.set_card_on_container_up(BrainBoostFirstWindow.card)
         self.nextCard()
 
     # Methode, um die aktuelle Karte als unbekannt zu markieren und die nächste Karte anzuzeigen
     def set_card_one_container_down(self):
-        if FirstWindow.card.container_number != 4:
-            FirstWindow.card.container_number += 1 
-        Controller.set_card_on_container_down(FirstWindow.card)
+        if BrainBoostFirstWindow.card.container_number != 4:
+            BrainBoostFirstWindow.card.container_number += 1 
+        Controller.set_card_on_container_down(BrainBoostFirstWindow.card)
         self.nextCard()
 
     def add_filter_number(self, filter_number):
-        self.start_len = len(FirstWindow.cardList)
-        FirstWindow.cardList.extend(Controller.add_cards_to_filtered_cards(filter_number, FirstWindow.all_cards_list))
-        #FirstWindow.cardList
-        self.final_len = len(FirstWindow.cardList)
+        self.start_len = len(BrainBoostFirstWindow.cardList)
+        BrainBoostFirstWindow.cardList.extend(Controller.add_cards_to_filtered_cards(filter_number, BrainBoostFirstWindow.all_cards_list))
+        #BrainBoostFirstWindow.cardList
+        self.final_len = len(BrainBoostFirstWindow.cardList)
         
         print(len(BrainBoostFirstWindow.cardList))
 
     def start_container_mode(self):
-        self.ids.cards_left.text = str(len(FirstWindow.all_cards_list))
+        self.ids.cards_left.text = str(len(BrainBoostFirstWindow.all_cards_list))
         for i in range (1,5):
             self.add_filter_number(i)
 
     def del_filter_number(self, filter_number):
-        filtered_ids = Controller.del_cards_in_filtered_cards(filter_number, FirstWindow.cardList)
-        original_length = len(FirstWindow.cardList)
-        FirstWindow.cardList[:] = [elem for elem in FirstWindow.cardList if elem.cardID not in filtered_ids]
-        print(f"Removed {original_length - len(FirstWindow.cardList)} cards for filter number {filter_number}")
-        print(f"Total cards in cardList after removing: {len(FirstWindow.cardList)}")
+        filtered_ids = Controller.del_cards_in_filtered_cards(filter_number, BrainBoostFirstWindow.cardList)
+        original_length = len(BrainBoostFirstWindow.cardList)
+        BrainBoostFirstWindow.cardList[:] = [elem for elem in BrainBoostFirstWindow.cardList if elem.cardID not in filtered_ids]
+        print(f"Removed {original_length - len(BrainBoostFirstWindow.cardList)} cards for filter number {filter_number}")
+        print(f"Total cards in cardList after removing: {len(BrainBoostFirstWindow.cardList)}")
         self.final_len = 0  
         self.start_len = 0
 
 
 
     def toggle_answer_visibility(self):
-        if len(FirstWindow.cardList) != 0:
+        if len(BrainBoostFirstWindow.cardList) != 0:
             if not self.show_answer:
                 self.ids.learnmodeAnswer.text = BrainBoostFirstWindow.card.answer
                 self.show_answer = True
