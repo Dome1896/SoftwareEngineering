@@ -3,7 +3,7 @@
 WindowManager:
     FirstWindow:
    
-
+#--------------------- Start Main Screen ---------------------
 <FirstWindow>:
     name: "first_window"
     canvas.before:
@@ -48,15 +48,12 @@ WindowManager:
                     center_x: self.parent.center_x
                     center_y: self.parent.center_y
                     size_hint: None, None
-                    size: 35,35
-
-
-
+                    size: 45,45
         Button:
             id: t_button
             size_hint: None, None
             size: 30, 30
-            pos_hint: {'x': 0.2, 'y': 0.97}
+            pos_hint: {'x': 0.2, 'y': 0.95}
             on_release:
                 root.toggle_toolbar()
             background_normal: ''  # Set to empty to remove default background
@@ -77,6 +74,7 @@ WindowManager:
             size_hint: (0.13, 0.1)
             font_size: 20
             on_release: root.btn()
+#--------------------- Ende Main Screen ---------------------
 
 #----------------------Start Inhalt Lernkarten-------------------
         Label:
