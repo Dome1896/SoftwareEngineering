@@ -294,12 +294,12 @@ class FirstWindow(Screen, MyFloatLayout):
     def change_image(self, instance, id):
         image_widget = instance.children[0]  # The Image widget is a child of the Button
         try:
-            if image_widget.source == "box_open.png":
-                image_widget.source = 'box_closed.png'
-                self.del_filter_number(id)
+            if image_widget.source == f"kartei_{id}_box_open.png":
+                image_widget.source = f'kartei_{id}_box_closed.png'
+                self.del_filter_number(id) 
                 
             else:
-                image_widget.source = 'box_open.png'
+                image_widget.source = f'kartei_{id}_box_open.png'
                 self.add_filter_number(id)
 
             self.ids.cards_left.text = str(len(FirstWindow.cardList))
