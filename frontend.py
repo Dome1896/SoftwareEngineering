@@ -28,7 +28,6 @@ class MyFloatLayout(FloatLayout):
     # Konstruktor der Klasse
     def __init__(self, **kwargs):
         super(MyFloatLayout, self).__init__(**kwargs)
-        MyFloatLayout.globalCategory = Controller.getAllCardsForCategory("*")
         #### APP STARTET IN FULLSCREEN ####
         # Das Setzen des Fensters auf Vollbild ist auskommentiert
         # Window.fullscreen = 'auto'
@@ -342,13 +341,16 @@ class Folder(BoxLayout):
     folder_name = StringProperty("")
     first_window = ObjectProperty(None)
     last_folder = None
+    first_start = True
 
     def __init__(self, folder_name, first_window:FirstWindow, **kwargs):
         super(Folder, self).__init__(**kwargs)
         self.folder_name = folder_name
         self.first_window = first_window
-        self.first_window.open_all_container()
-        self.first_window.nextCard()
+        if Folder.first_start == True:
+            self.first_window.open_all_container()
+            self.first_window.nextCard()
+            Folder.first_start = False
 
     # Methode, um Inhalte zum Ordner hinzuzufügen
     def add_content(self, content):
