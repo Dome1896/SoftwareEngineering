@@ -4,7 +4,7 @@ class APIHandler:
     def __init__(self):
         self.client = OpenAI(api_key=self.__getApiKey())
     
-    def genere_answer(self, question:str, category:str=""):
+    def generate_answer(self, question:str, category:str=""):
         '''
         Generiert die Antwort auf die Frage. Bezieht die Kategorie mit ein.  
         :param question: Die Frage, auf die eine Antwort generiert werden soll.

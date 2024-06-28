@@ -137,7 +137,7 @@ class Controller():
     
     @classmethod
     def generate_answer(cls, question:str, category:str=""):
-        return cls.kiApi.genere_answer(question, category)
+        return cls.kiApi.generate_answer(question, category)
     
     @classmethod
     def verify_credentials(cls, username:str, password:str):
