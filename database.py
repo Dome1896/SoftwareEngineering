@@ -19,7 +19,7 @@ class Database:
         }
 
     # Methode, um alle Daten aus einer Tabelle zu holen
-    def getAllDataFromOneTable(self, tableName):
+    def getAllDataFromOneTable(self, tableName:str):
         '''
         :param tableName: Name der Tabelle, aus der die Daten geholt werden sollen
         :return: Eine Liste mit allen Daten aus der Tabelle
@@ -30,7 +30,7 @@ class Database:
         return response
 
     # Methode, um gefilterte Daten aus einer Tabelle zu holen
-    def getDataFromTableWithFilter(self, tableName, attributeKey, attributeValue):
+    def getDataFromTableWithFilter(self, tableName:str, attributeKey:str, attributeValue:str):
         '''
         :param tableName: Name der Tabelle, aus der die Daten geholt werden sollen
         :param attributeKey: Name des Attributs, nach dem gefiltert werden soll
@@ -43,7 +43,7 @@ class Database:
         return response.json()
 
     # Methode, um einen Wert in der Tabelle zu aktualisieren
-    def updateOneValue(self, tableName, attributeKey, attributeValue, newAttributeKey, newAttributeValue):
+    def updateOneValue(self, tableName:str, attributeKey:str, attributeValue:str, newAttributeKey:str, newAttributeValue:str):
         '''
         Update des entsprechenden Wertes in der Datenbank
         :param tableName: Name der Tabelle, in der der Wert aktualisiert werden soll
@@ -58,7 +58,7 @@ class Database:
         requests.patch(url=url, headers=self.__headers, json={newAttributeKey : newAttributeValue})
 
     # Methode, um Daten in die Datenbank zu schreiben
-    def setDataToDB(self, object):
+    def setDataToDB(self, object:object):
         '''
         :param object: Ein Objekt, das in die Datenbank geschrieben werden soll
         Wichtig: Das Objekt muss die funktion makeRequestBody(): string implementiert haben
@@ -70,7 +70,7 @@ class Database:
         requests.post(url=url, headers=headers, json=object.makeRequestBody())
 
     # Methode, um alle einzigartigen Werte aus einer Spalte zu erhalten
-    def getAllUniqueValuesFromColumn(self, tableName, columnName):
+    def getAllUniqueValuesFromColumn(self, tableName:str, columnName:str):
         '''
         :param tableName: Name der Tabelle, aus der die Daten geholt werden sollen
         :param columnName: Name der Spalte, aus der die Daten geholt werden sollen

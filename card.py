@@ -4,7 +4,7 @@ class Card:
     Klasse, welche das Datenmodell für eine Lernkarte stellt.
     '''
     db = Database()
-    def __init__(self, question, answer, category, ownerID = 0,cardID = 0, container_number:int = 4):
+    def __init__(self, question:str, answer:str, category:str, ownerID:int = 0,cardID:int = 0, container_number:int = 4):
         '''
         Initialisiert eine neue Karte mit den angegebenen Parametern.
         :param question: Frage der Karte

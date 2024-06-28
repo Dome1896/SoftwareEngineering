@@ -35,7 +35,7 @@ class Controller():
         cls.db.setDataToDB(card)
 
     @classmethod
-    def create_user(cls, username, password, userID):
+    def create_user(cls, username:str, password:str, userID:str):
         '''
         Erstellt einen neuen User mit den übergebenen Parametern.
         :param username: Username des Users
@@ -71,7 +71,7 @@ class Controller():
 
     # Definiert eine Klassenmethode, die eine Karte aus einer Kartenliste extrahiert.
     @classmethod
-    def extractOneCardFromCardList(cls, cardList):
+    def extractOneCardFromCardList(cls, cardList:dict[Card]):
         '''
         Extrahiert eine Karte aus einer Kartenliste.
         :param cardList: Liste von Karten
@@ -119,7 +119,7 @@ class Controller():
         card.set_card_one_container_down()
 
     @classmethod
-    def add_cards_to_filtered_cards(cls, filter_number, all_cards_list):
+    def add_cards_to_filtered_cards(cls, filter_number:str, all_cards_list:dict[Card]):
         print(len(all_cards_list))
         filtered_cards = []
         for card in all_cards_list:
@@ -128,7 +128,7 @@ class Controller():
         return filtered_cards
 
     @classmethod
-    def del_cards_in_filtered_cards(cls, filter_number, filtered_list):
+    def del_cards_in_filtered_cards(cls, filter_number:str, filtered_list:dict[Card]):
         cards_to_delete = []
         for card in filtered_list:
             if card.container_number == filter_number:
@@ -136,11 +136,11 @@ class Controller():
         return cards_to_delete
     
     @classmethod
-    def generate_answer(cls, question, category=""):
+    def generate_answer(cls, question:str, category:str=""):
         return cls.kiApi.genere_answer(question, category)
     
     @classmethod
-    def verify_credentials(cls, username, password):
+    def verify_credentials(cls, username:str, password:str):
         user = cls.db.getDataFromTableWithFilter(tableName="User",attributeKey="username", attributeValue=username)
         if user and user[0]["password"] == password:
             cls.userID = user[0]["userID"]
@@ -148,7 +148,7 @@ class Controller():
         else:
             return False, 0
     @classmethod
-    def register_user(cls, username, password):
+    def register_user(cls, username:str, password:str):
         cls.db.setDataToDB(User(username, password))
 
 

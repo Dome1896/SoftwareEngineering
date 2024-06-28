@@ -2,7 +2,7 @@ class User:
     '''
     Klasse, welche einen User darstellt
     '''
-    def __init__(self, username, password, userID = 0):
+    def __init__(self, username:str, password:str, userID:str = "0"):
         '''
         Initialisierung der Klasse User
         :param username: Username des Users
