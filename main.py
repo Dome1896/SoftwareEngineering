@@ -1,4 +1,4 @@
-from frontend import LoginApp
+from views.frontend import LoginApp
 
 def main():
     app = LoginApp()

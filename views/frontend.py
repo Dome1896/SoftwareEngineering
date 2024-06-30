@@ -16,8 +16,10 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.scrollview import ScrollView
 
+import os
+
 # Importiert die Controller-Klasse, die vermutlich Logik oder Datenzugriff beinhaltet
-from controller import Controller
+from controller.controller import Controller
 
 # Erstellt eine benutzerdefinierte Klasse, die FloatLayout erweitert
 class MyFloatLayout(FloatLayout):
@@ -267,7 +269,7 @@ class BrainBoostFirstWindow(Screen, MyFloatLayout):
             
             # Zugriff auf das Image Widget innerhalb des Buttons und Aktualisierung der Bildquelle
             image_widget = image_button.children[0]  # Angenommen das Image ist das erste Kind
-            image_widget.source = f"{button_id}_box_open.png"  # Setze die neue Bildquelle
+            image_widget.source = f"ressources/{button_id}_box_open.png"  # Setze die neue Bildquelle
         self.start_container_mode()    
 
             
@@ -358,12 +360,12 @@ class BrainBoostFirstWindow(Screen, MyFloatLayout):
         '''
         image_widget = instance.children[0]  # The Image widget is a child of the Button
         try:
-            if image_widget.source == f"kartei_{id}_box_open.png":
-                image_widget.source = f'kartei_{id}_box_closed.png'
+            if "box_open" in image_widget.source :
+                image_widget.source = f'ressources\kartei_{id}_box_closed.png'
                 self.del_filter_number(id) 
                 
             else:
-                image_widget.source = f'kartei_{id}_box_open.png'
+                image_widget.source = f'ressources\kartei_{id}_box_open.png'
                 self.add_filter_number(id)
 
             self.ids.cards_left.text = str(len(BrainBoostFirstWindow.cardList))
@@ -439,7 +441,7 @@ class Folder(BoxLayout):
         # Die Icons sollen sich abwechseln
         self.close_last_folder()
         current_icon = self.ids.folder_icon.source
-        new_icon = 'folder.png' if current_icon == 'folderclosed.png' else 'folderclosed.png'
+        new_icon = 'ressources\folder.png' if current_icon == 'ressources\folderclosed.png' else 'ressources\folderclosed.png'
         self.ids.folder_icon.source = new_icon
         Folder.last_folder = self
 
@@ -484,9 +486,10 @@ class SecondWindow(Screen):
 class BrainBoostApp(App):
     def build(self):
         # Lädt die Kivy-Datei, die das Layout definiert
-        kv = Builder.load_file('first_window.kv')
-        self.icon = 'Logo_big.jpeg'
+        kv = Builder.load_file('views/first_window.kv')
+        self.icon = 'ressources\Logo_big.jpeg'
         return kv
+
     
 
 class LoginScreen(Screen):
@@ -544,7 +547,8 @@ class WelcomeScreen(Screen):
 class LoginApp(App):
     def build(self):
         sm = ScreenManager()
-        Builder.load_file('userlogin.kv')
+        Builder.load_file('views/userlogin.kv')
+        self.icon = 'ressources\Logo_big.jpeg'
         sm.add_widget(LoginScreen(name='login'))
         sm.add_widget(WelcomeScreen(name='welcome'))
         return sm

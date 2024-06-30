@@ -1,7 +1,7 @@
 import unittest
-from database import *
-from card import *
-from controller import * 
+from models.database import *
+from models.card import *
+from controller.controller import * 
 
 class TestCardMethods(unittest.TestCase):
 
