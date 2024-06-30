@@ -441,7 +441,7 @@ class Folder(BoxLayout):
         # Die Icons sollen sich abwechseln
         self.close_last_folder()
         current_icon = self.ids.folder_icon.source
-        new_icon = 'ressources\folder.png' if current_icon == 'ressources\folderclosed.png' else 'ressources\folderclosed.png'
+        new_icon = 'ressources/folder.png' if current_icon == 'ressources/folderclosed.png' else 'ressources/folderclosed.png'
         self.ids.folder_icon.source = new_icon
         Folder.last_folder = self
 
@@ -451,7 +451,7 @@ class Folder(BoxLayout):
         Schließt den letzten geöffneten Ordner, indem das Icon geändert wird
         '''
         if Folder.last_folder != None:
-            Folder.last_folder.ids.folder_icon.source = 'folderclosed.png'
+            Folder.last_folder.ids.folder_icon.source = 'ressources/folderclosed.png'
 
     # Methode, um beim Klick auf einen Ordner die Karteninhalte zu löschen
     def reset_cards(self):
