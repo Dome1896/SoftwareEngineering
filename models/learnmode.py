@@ -1,7 +1,11 @@
 # wenn der Lernmdous ausgewählt wird, dann wird dieser als Objekt der entsprechenden Kategorie erstellt
-from models.card import Card
-from models.database import Database
+from models.card.card import Card
+from models.database.database import Database
 class Learnmode():
+    '''
+    Die Klasse wird nicht mehr verwendet. 
+    Sie war in der ersten Version geplant, wurde allerdings verworfen. 
+    '''
     
     def __init__(self, category : str, database : Database):
         self.category = category

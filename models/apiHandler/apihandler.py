@@ -1,5 +1,7 @@
 from configparser import ConfigParser
 from openai import OpenAI
+import os
+
 class APIHandler:
     def __init__(self):
         self.client = OpenAI(api_key=self.__getApiKey())
@@ -28,13 +30,24 @@ class APIHandler:
         Liest die API Key aus der config.ini Datei.
         Setzt das __apikey attribut des Objektes
         '''
-        cfp = ConfigParser()
         try:
-            cfp.read("config.ini")
+            cfp = self.__get_config_path()
             __apikey = cfp.get("API", "apikey")
             return __apikey
         except:
             print("config.ini is missing or wrong")
+        
+    def __get_config_path(self):
+        '''
+        Ändert den Pfad zur config.ini, je nach Arbeitsverzeichnis
+        :return: Pfad zur Config
+        '''
+        cfp = ConfigParser()
+        if "docs" in os.getcwd():
+            cfp.read("../config.ini")
+        else:
+            cfp.read("config.ini")
+        return cfp
             
     
         

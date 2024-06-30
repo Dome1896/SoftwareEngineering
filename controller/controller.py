@@ -2,10 +2,10 @@
 from kivy.app import App
 from kivy.lang import Builder
 # Importiert die benutzerdefinierten Module Database und Card.
-from models.database import Database
-from models.card import Card
-from models.apihandler import APIHandler
-from models.user import User
+from models.database.database import Database
+from models.card.card import Card
+from models.apiHandler.apihandler import APIHandler
+from models.user.user import User
 
 
 # Definiert die Klasse Controller, die von Kivy's App-Klasse erbt.

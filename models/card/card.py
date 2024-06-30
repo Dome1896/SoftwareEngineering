@@ -1,4 +1,4 @@
-from models.database import Database
+from models.database.database import Database
 class Card:
     '''
     Klasse, welche das Datenmodell für eine Lernkarte stellt.

@@ -1,0 +1,999 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" />
+
+    <!-- Generated with Sphinx 7.3.7 and Furo 2024.05.06 -->
+        <title>views.frontend - BrainBoost 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=387cc868" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" /
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">BrainBoost 1.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  
+  <span class="sidebar-brand-text">BrainBoost 1.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../modules.html">SoftwareEngineering</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of SoftwareEngineering</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../controller.html">controller package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../main.html">main module</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../models.html">models package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><div class="visually-hidden">Toggle navigation of models package</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../models.apiHandler.html">models.apiHandler package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../models.card.html">models.card package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../models.database.html">models.database package</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../models.user.html">models.user package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../views.html">views package</a></li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for views.frontend</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Importiert die Hauptklasse der Kivy-App</span>
+<span class="kn">from</span> <span class="nn">kivy.app</span> <span class="kn">import</span> <span class="n">App</span>
+
+<span class="c1"># Importiert String- und Objekt-Eigenschaften aus Kivy</span>
+<span class="kn">from</span> <span class="nn">kivy.properties</span> <span class="kn">import</span> <span class="n">StringProperty</span><span class="p">,</span> <span class="n">ObjectProperty</span>
+
+<span class="c1"># Importiert verschiedene Layouts und Widgets aus Kivy</span>
+<span class="kn">from</span> <span class="nn">kivy.uix.boxlayout</span> <span class="kn">import</span> <span class="n">BoxLayout</span>
+<span class="kn">from</span> <span class="nn">kivy.uix.floatlayout</span> <span class="kn">import</span> <span class="n">FloatLayout</span>
+<span class="kn">from</span> <span class="nn">kivy.uix.label</span> <span class="kn">import</span> <span class="n">Label</span>
+<span class="kn">from</span> <span class="nn">kivy.uix.popup</span> <span class="kn">import</span> <span class="n">Popup</span>
+<span class="kn">from</span> <span class="nn">kivy.animation</span> <span class="kn">import</span> <span class="n">Animation</span>
+<span class="c1"># Window-Modul wird importiert, aber ist auskommentiert, um möglicherweise Vollbild-Einstellungen zu ändern</span>
+<span class="c1"># from kivy.core.window import Window</span>
+<span class="kn">from</span> <span class="nn">kivy.lang</span> <span class="kn">import</span> <span class="n">Builder</span>
+<span class="kn">from</span> <span class="nn">kivy.uix.screenmanager</span> <span class="kn">import</span> <span class="n">ScreenManager</span><span class="p">,</span> <span class="n">Screen</span>
+<span class="kn">from</span> <span class="nn">kivy.uix.scrollview</span> <span class="kn">import</span> <span class="n">ScrollView</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="c1"># Importiert die Controller-Klasse, die vermutlich Logik oder Datenzugriff beinhaltet</span>
+<span class="kn">from</span> <span class="nn">controller.controller</span> <span class="kn">import</span> <span class="n">Controller</span>
+
+<span class="c1"># Erstellt eine benutzerdefinierte Klasse, die FloatLayout erweitert</span>
+<div class="viewcode-block" id="MyFloatLayout">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout">[docs]</a>
+<span class="k">class</span> <span class="nc">MyFloatLayout</span><span class="p">(</span><span class="n">FloatLayout</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Diese Klasse erbt von FloatLayout und erweitert es um eine Eigenschaft, die</span>
+<span class="sd">    die ID des aktuellen Benutzers speichert.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="c1"># Eine Klassenvariable, um die globale Kategorie zu speichern</span>
+    <span class="n">globalCategory</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+
+
+    <span class="c1"># Konstruktor der Klasse</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">MyFloatLayout</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1">#### APP STARTET IN FULLSCREEN ####</span>
+        <span class="c1"># Das Setzen des Fensters auf Vollbild ist auskommentiert</span>
+        <span class="c1"># Window.fullscreen = &#39;auto&#39;</span>
+
+    <span class="c1"># Methode, die aufgerufen wird, nachdem das Kivy-Layout geladen wurde</span>
+<div class="viewcode-block" id="MyFloatLayout.on_kv_post">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.on_kv_post">[docs]</a>
+    <span class="k">def</span> <span class="nf">on_kv_post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_widget</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">on_startup_create_all_folders</span><span class="p">()</span></div>
+
+
+    <span class="c1"># Klassenmethode, um alle Kategorien abzurufen</span>
+<div class="viewcode-block" id="MyFloatLayout.get_categories">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.get_categories">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">get_categories</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Diese Methode ruft alle Kategorien ab.</span>
+<span class="sd">        :return: Eine Liste mit allen Kategorien</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">allUniqueCategories</span> <span class="o">=</span> <span class="n">Controller</span><span class="o">.</span><span class="n">getAllCategories</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">allUniqueCategories</span></div>
+
+
+    <span class="c1"># Methode, um bei Start alle Ordner zu erstellen</span>
+<div class="viewcode-block" id="MyFloatLayout.on_startup_create_all_folders">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.on_startup_create_all_folders">[docs]</a>
+    <span class="k">def</span> <span class="nf">on_startup_create_all_folders</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Diese Methode erstellt alle Ordner, die bei Start benötigt werden.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="n">MyFloatLayout</span><span class="o">.</span><span class="n">get_categories</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_folder_to_toolbar</span><span class="p">(</span><span class="n">category</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Methode, um alle Karten für eine bestimmte Kategorie abzurufen</span>
+<div class="viewcode-block" id="MyFloatLayout.get_all_cards_for_category">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.get_all_cards_for_category">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_all_cards_for_category</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Diese Methode ruft alle Karten für eine bestimmte Kategorie ab.</span>
+<span class="sd">        :param category: Die Kategorie, für die die Karten abgerufen werden sollen oder * für alle Kategorien</span>
+<span class="sd">        :return: Eine Liste mit allen Karten für die Kategorie</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">getCardsForCategory</span><span class="p">(</span><span class="n">category</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Zustandsvariable, ob die Toolbar erweitert ist oder nicht</span>
+    <span class="n">toolbar_expanded</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="c1"># Methode, um die Toolbar ein- und auszublenden</span>
+<div class="viewcode-block" id="MyFloatLayout.toggle_toolbar">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.toggle_toolbar">[docs]</a>
+    <span class="k">def</span> <span class="nf">toggle_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Diese Methode schaltet die Toolbar ein- und aus.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">t_button</span>
+        <span class="n">toolbar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">toolbar</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="n">button</span><span class="o">.</span><span class="n">canvas</span><span class="o">.</span><span class="n">before</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_expanded</span><span class="p">:</span>
+            <span class="c1"># Animation zum Ausblenden der Toolbar</span>
+            <span class="n">toolbar_anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">pos_hint</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">0.2</span><span class="p">},</span> <span class="n">duration</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+            <span class="n">button_anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">pos_hint</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mf">0.00001</span><span class="p">},</span> <span class="n">duration</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+            <span class="n">new_icon</span> <span class="o">=</span> <span class="s1">&#39;ressources/right-arrow.png&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Animation zum Einblenden der Toolbar</span>
+            <span class="n">toolbar_anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">pos_hint</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">},</span> <span class="n">duration</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+            <span class="n">button_anim</span> <span class="o">=</span> <span class="n">Animation</span><span class="p">(</span><span class="n">pos_hint</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;x&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">},</span> <span class="n">duration</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+            <span class="n">new_icon</span> <span class="o">=</span> <span class="s1">&#39;ressources/left-arrow.png&#39;</span>
+
+        <span class="n">toolbar_anim</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">toolbar</span><span class="p">)</span>
+        <span class="n">button_anim</span><span class="o">.</span><span class="n">start</span><span class="p">(</span><span class="n">button</span><span class="p">)</span>
+        <span class="n">icon</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">new_icon</span>
+
+        <span class="c1"># Zustand der Toolbar umschalten</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_expanded</span> <span class="o">=</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">toolbar_expanded</span></div>
+
+
+    <span class="c1"># Methode, die bei Klick auf einen Button aufgerufen wird</span>
+<div class="viewcode-block" id="MyFloatLayout.btn">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.btn">[docs]</a>
+    <span class="k">def</span> <span class="nf">btn</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_popup</span><span class="p">()</span></div>
+
+
+    <span class="c1"># Methode, um ein Popup anzuzeigen</span>
+<div class="viewcode-block" id="MyFloatLayout.show_popup">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.show_popup">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_popup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Diese Methode blendet das Popup zum Hinzufügen von Karten ein.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">show</span> <span class="o">=</span> <span class="n">PopupAddCard</span><span class="p">()</span>
+        <span class="c1"># Setzt die gewählte Kategorie in das Popup</span>
+        <span class="n">show</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">questionCategory</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">MyFloatLayout</span><span class="o">.</span><span class="n">globalCategory</span>
+        <span class="n">popupWindow</span> <span class="o">=</span> <span class="n">Popup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;Add Flashcard&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">show</span><span class="p">,</span> <span class="n">size_hint</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">400</span><span class="p">,</span> <span class="mi">400</span><span class="p">))</span>
+
+        <span class="c1"># Methode zum Speichern der Daten im Popup</span>
+        <span class="k">def</span> <span class="nf">save_data</span><span class="p">(</span><span class="n">instance</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">            Diese Methode erstellt ein Kartenobjekt und speichert dies in der Datenbank.</span>
+<span class="sd">            &#39;&#39;&#39;</span>
+            <span class="n">value1</span> <span class="o">=</span> <span class="n">show</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">questionName</span><span class="o">.</span><span class="n">text</span>
+            <span class="n">value2</span> <span class="o">=</span> <span class="n">show</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">questionAnswer</span><span class="o">.</span><span class="n">text</span>
+            <span class="n">value3</span> <span class="o">=</span> <span class="n">show</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">questionCategory</span><span class="o">.</span><span class="n">text</span>
+            <span class="n">Controller</span><span class="o">.</span><span class="n">createCard</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="n">value1</span><span class="p">,</span> <span class="n">answer</span><span class="o">=</span><span class="n">value2</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">value3</span><span class="p">)</span>
+            <span class="n">popupWindow</span><span class="o">.</span><span class="n">dismiss</span><span class="p">()</span>
+
+        <span class="n">show</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">addCard</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">on_release</span><span class="o">=</span><span class="n">save_data</span><span class="p">)</span>
+        <span class="n">popupWindow</span><span class="o">.</span><span class="n">open</span><span class="p">()</span></div>
+
+
+    <span class="c1"># Methode, um ein weiteres Popup anzuzeigen</span>
+<div class="viewcode-block" id="MyFloatLayout.show_popuptoolbar">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.show_popuptoolbar">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_popuptoolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_popup_folder</span><span class="p">()</span></div>
+
+
+    <span class="c1"># Methode, um ein Popup für die Toolbar anzuzeigen</span>
+<div class="viewcode-block" id="MyFloatLayout.show_popup_folder">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.show_popup_folder">[docs]</a>
+    <span class="k">def</span> <span class="nf">show_popup_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Diese Methode blendet das Popup zum Hinzufügen von Kategorien/Ordnern ein.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">show</span> <span class="o">=</span> <span class="n">PopupToolbar</span><span class="p">(</span><span class="n">parent_widget</span><span class="o">=</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">popupWindow</span> <span class="o">=</span> <span class="n">Popup</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">&quot;                 Ordner Erstellen&quot;</span><span class="p">,</span> <span class="n">content</span><span class="o">=</span><span class="n">show</span><span class="p">,</span> <span class="n">size_hint</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">250</span><span class="p">,</span> <span class="mi">250</span><span class="p">),</span>
+                            <span class="n">pos_hint</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;center_x&#39;</span><span class="p">:</span> <span class="mf">0.17</span><span class="p">,</span> <span class="s1">&#39;center_y&#39;</span><span class="p">:</span> <span class="mf">0.25</span><span class="p">})</span>
+        <span class="n">popupWindow</span><span class="o">.</span><span class="n">open</span><span class="p">()</span></div>
+
+
+    <span class="c1"># Methode, um einen Ordner zur Toolbar hinzuzufügen</span>
+<div class="viewcode-block" id="MyFloatLayout.add_folder_to_toolbar">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.add_folder_to_toolbar">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_folder_to_toolbar</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Diese Methode fügt einen Ordner zur Toolbar hinzu.</span>
+<span class="sd">        :param folder_name: Name des Ordners</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Erstellt ein neues Folder-Widget</span>
+        <span class="n">first_window</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">manager</span><span class="o">.</span><span class="n">get_screen</span><span class="p">(</span><span class="s1">&#39;first_window&#39;</span><span class="p">)</span>
+        <span class="n">folder</span> <span class="o">=</span> <span class="n">Folder</span><span class="p">(</span><span class="n">folder_name</span><span class="o">=</span><span class="n">folder_name</span><span class="p">,</span> <span class="n">first_window</span><span class="o">=</span><span class="n">first_window</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">folder_box</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Methode, um einen Ordner auszuwählen</span>
+<div class="viewcode-block" id="MyFloatLayout.select_folder">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.select_folder">[docs]</a>
+    <span class="k">def</span> <span class="nf">select_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        deprecated:</span>
+<span class="sd">        Diese Methode gibt den ausgewählten Ordner in der Konsole aus.</span>
+<span class="sd">        :param instance: Ordner, der ausgewählt wurde</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">selected_folder</span> <span class="o">=</span> <span class="n">instance</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Selected folder: </span><span class="si">{</span><span class="n">instance</span><span class="o">.</span><span class="n">folder_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># Methode, um Text in einen Ordner zu verschieben</span>
+<div class="viewcode-block" id="MyFloatLayout.move_text_to_folder">
+<a class="viewcode-back" href="../../views.html#views.frontend.MyFloatLayout.move_text_to_folder">[docs]</a>
+    <span class="k">def</span> <span class="nf">move_text_to_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        deprecated:</span>
+<span class="sd">        Diese Methode verschiebt den ausgewählten Text in den ausgewählten Ordner.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">selected_folder</span><span class="p">:</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">text_input</span><span class="o">.</span><span class="n">text</span>
+            <span class="k">if</span> <span class="n">text</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">selected_folder</span><span class="o">.</span><span class="n">add_content</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">text_input</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No text to move&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No folder selected&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="c1"># Klasse für das Management der verschiedenen Fenster</span>
+<div class="viewcode-block" id="WindowManager">
+<a class="viewcode-back" href="../../views.html#views.frontend.WindowManager">[docs]</a>
+<span class="k">class</span> <span class="nc">WindowManager</span><span class="p">(</span><span class="n">ScreenManager</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+
+<span class="c1"># Klasse für das Popup zum Hinzufügen einer Karte</span>
+<div class="viewcode-block" id="PopupAddCard">
+<a class="viewcode-back" href="../../views.html#views.frontend.PopupAddCard">[docs]</a>
+<span class="k">class</span> <span class="nc">PopupAddCard</span><span class="p">(</span><span class="n">FloatLayout</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Klasse für das Popup zum Hinzufügen einer Karte</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="PopupAddCard.generate_answer">
+<a class="viewcode-back" href="../../views.html#views.frontend.PopupAddCard.generate_answer">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_answer</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Methode, um eine Antwort zu generieren</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">question</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">questionName</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">category</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">questionCategory</span><span class="o">.</span><span class="n">text</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+            <span class="n">category</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">questionCategory</span><span class="o">.</span><span class="n">text</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">questionAnswer</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">Controller</span><span class="o">.</span><span class="n">generate_answer</span><span class="p">(</span><span class="n">question</span><span class="o">=</span><span class="n">question</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="n">category</span><span class="p">)</span></div>
+</div>
+
+    
+
+<span class="c1"># Klasse für das erste Fenster, das die Hauptseite darstellt</span>
+<div class="viewcode-block" id="BrainBoostFirstWindow">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow">[docs]</a>
+<span class="k">class</span> <span class="nc">BrainBoostFirstWindow</span><span class="p">(</span><span class="n">Screen</span><span class="p">,</span> <span class="n">MyFloatLayout</span><span class="p">):</span>
+    <span class="n">eye_icon</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="s1">&#39;ressources/eye-closed.png&#39;</span><span class="p">)</span>  <span class="c1"># Standardbild für geschlossenes Auge</span>
+    <span class="n">cardIndex</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">card</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Konstruktor der Klasse</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">get_all_cards_for_category</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_answer</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folder_instance</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1"># Methode, um die Instanz des Ordners zu setzen</span>
+<div class="viewcode-block" id="BrainBoostFirstWindow.set_folder_instance">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.set_folder_instance">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_folder_instance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder_instance</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Methode, um die Instanz des Ordners zu setzen</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folder_instance</span> <span class="o">=</span> <span class="n">folder_instance</span></div>
+
+
+    <span class="c1"># Klassenmethode, um alle Karten für eine bestimmte Kategorie abzurufen</span>
+<div class="viewcode-block" id="BrainBoostFirstWindow.getCardsForCategory">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.getCardsForCategory">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">getCardsForCategory</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">all_cards_list</span> <span class="o">=</span> <span class="n">Controller</span><span class="o">.</span><span class="n">getAllCardsForCategory</span><span class="p">(</span><span class="n">category</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Alle Karten &quot;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">all_cards_list</span><span class="p">))</span>
+        <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span> <span class="o">=</span> <span class="p">[]</span></div>
+
+
+    <span class="c1"># Methode, um die nächste Karte anzuzeigen</span>
+<div class="viewcode-block" id="BrainBoostFirstWindow.nextCard">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.nextCard">[docs]</a>
+    <span class="k">def</span> <span class="nf">nextCard</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Methode, um die nächste Karte anzuzeigen</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;cardList&#39;</span><span class="p">):</span>
+            <span class="k">return</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cardIndex</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">):</span>
+            <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">restart</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cardList</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">cardIndex</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cardIndex</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeQuestion</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span><span class="o">.</span><span class="n">question</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeAnswer</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeCategory</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span><span class="o">.</span><span class="n">category</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">show_answer</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">toggle_image</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;ressources/eye-closed.png&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">toggle_eye_label</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Antwort anzeigen&quot;</span>
+            <span class="c1"># Versteckt die Bewertungsbuttons</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingFalse</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingMiddle</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingGood</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Ansonsten nehmen wir an, dass die Kategorie fertig gelernt wurde und gratulieren dem Nutzer</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">restart</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeQuestion</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Das wars!&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeAnswer</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Du hast alle Karten der Kategorie gelernt!&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeCategory</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Herzlichen Glückwunsch!&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">cards_left</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="BrainBoostFirstWindow.open_all_container">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.open_all_container">[docs]</a>
+    <span class="k">def</span> <span class="nf">open_all_container</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Ändert zunächst das Bild von allen Karteikartenordnern auf den geöffneten Stand.</span>
+<span class="sd">        Dann wird die Initiale Methode für die Karteikartenordner gestartet.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span>  <span class="c1"># Hier gehe ich davon aus, dass du 4 Buttons hast wie in deiner .kv Datei</span>
+            <span class="n">button_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;kartei_</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>  <span class="c1"># Generiere die Button ID dynamisch</span>
+            <span class="n">image_button</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="p">[</span><span class="n">button_id</span><span class="p">]</span>  <span class="c1"># Zugriff auf das Button Widget über die ID</span>
+            
+            <span class="c1"># Zugriff auf das Image Widget innerhalb des Buttons und Aktualisierung der Bildquelle</span>
+            <span class="n">image_widget</span> <span class="o">=</span> <span class="n">image_button</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># Angenommen das Image ist das erste Kind</span>
+            <span class="n">image_widget</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;ressources/</span><span class="si">{</span><span class="n">button_id</span><span class="si">}</span><span class="s2">_box_open.png&quot;</span>  <span class="c1"># Setze die neue Bildquelle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_container_mode</span><span class="p">()</span>    </div>
+
+
+            
+
+
+    <span class="c1"># Methode, um die aktuelle Karte als bekannt zu markieren und die nächste Karte anzuzeigen</span>
+<div class="viewcode-block" id="BrainBoostFirstWindow.set_card_one_container_up">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.set_card_one_container_up">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_card_one_container_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span><span class="o">.</span><span class="n">container_number</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span><span class="o">.</span><span class="n">container_number</span> <span class="o">-=</span> <span class="mi">1</span> 
+        <span class="n">Controller</span><span class="o">.</span><span class="n">set_card_on_container_up</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nextCard</span><span class="p">()</span></div>
+
+
+    <span class="c1"># Methode, um die aktuelle Karte als unbekannt zu markieren und die nächste Karte anzuzeigen</span>
+<div class="viewcode-block" id="BrainBoostFirstWindow.set_card_one_container_down">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.set_card_one_container_down">[docs]</a>
+    <span class="k">def</span> <span class="nf">set_card_one_container_down</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span><span class="o">.</span><span class="n">container_number</span> <span class="o">!=</span> <span class="mi">4</span><span class="p">:</span>
+            <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span><span class="o">.</span><span class="n">container_number</span> <span class="o">+=</span> <span class="mi">1</span> 
+        <span class="n">Controller</span><span class="o">.</span><span class="n">set_card_on_container_down</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nextCard</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="BrainBoostFirstWindow.add_filter_number">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.add_filter_number">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_filter_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_number</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">)</span>
+        <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">Controller</span><span class="o">.</span><span class="n">add_cards_to_filtered_cards</span><span class="p">(</span><span class="n">filter_number</span><span class="p">,</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">all_cards_list</span><span class="p">))</span>
+        <span class="c1">#BrainBoostFirstWindow.cardList</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">final_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">)</span>
+        
+        <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="BrainBoostFirstWindow.start_container_mode">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.start_container_mode">[docs]</a>
+    <span class="k">def</span> <span class="nf">start_container_mode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">cards_left</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">all_cards_list</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">add_filter_number</span><span class="p">(</span><span class="n">i</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="BrainBoostFirstWindow.del_filter_number">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.del_filter_number">[docs]</a>
+    <span class="k">def</span> <span class="nf">del_filter_number</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">filter_number</span><span class="p">):</span>
+        <span class="n">filtered_ids</span> <span class="o">=</span> <span class="n">Controller</span><span class="o">.</span><span class="n">del_cards_in_filtered_cards</span><span class="p">(</span><span class="n">filter_number</span><span class="p">,</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">)</span>
+        <span class="n">original_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">)</span>
+        <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span> <span class="k">if</span> <span class="n">elem</span><span class="o">.</span><span class="n">cardID</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">filtered_ids</span><span class="p">]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Removed </span><span class="si">{</span><span class="n">original_length</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">)</span><span class="si">}</span><span class="s2"> cards for filter number </span><span class="si">{</span><span class="n">filter_number</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Total cards in cardList after removing: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">final_len</span> <span class="o">=</span> <span class="mi">0</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">start_len</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+
+
+
+<div class="viewcode-block" id="BrainBoostFirstWindow.toggle_answer_visibility">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.toggle_answer_visibility">[docs]</a>
+    <span class="k">def</span> <span class="nf">toggle_answer_visibility</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">show_answer</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeAnswer</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span><span class="o">.</span><span class="n">answer</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_answer</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="c1"># Zeigt die Bewertungsbuttons</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingFalse</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingMiddle</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingGood</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">1</span>
+                <span class="c1"># Ändert das Icon zu offenem Auge</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">toggle_image</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;ressources/eye-open.png&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">toggle_eye_label</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Antwort verbergen&quot;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeAnswer</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_answer</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="c1"># Versteckt die Bewertungsbuttons</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingFalse</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingMiddle</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingGood</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="c1"># Ändert das Icon zu geschlossenem Auge</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">toggle_image</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;ressources/eye-closed.png&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">toggle_eye_label</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Antwort anzeigen&quot;</span></div>
+
+
+    <span class="c1"># Methode, um den Lernmodus zurückzusetzen</span>
+<div class="viewcode-block" id="BrainBoostFirstWindow.resetLearnmode">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.resetLearnmode">[docs]</a>
+    <span class="k">def</span> <span class="nf">resetLearnmode</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Setzt den Lernmodus zurück.</span>
+<span class="sd">        Alle Labels und die Bewertungsfunktion werden auf den Programmstart zurückgesetzt.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeQuestion</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Frage&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeAnswer</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeCategory</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Kategorie&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cardIndex</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">show_answer</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Versteckt die Bewertungsbuttons</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingFalse</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingMiddle</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">ratingGood</span><span class="o">.</span><span class="n">opacity</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">cards_left</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="BrainBoostFirstWindow.change_image">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostFirstWindow.change_image">[docs]</a>
+    <span class="k">def</span> <span class="nf">change_image</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">instance</span><span class="p">,</span> <span class="nb">id</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Ändert das Bild des Karteikartenordners, wenn dieser ausgewählt</span>
+<span class="sd">        wird.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">image_widget</span> <span class="o">=</span> <span class="n">instance</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># The Image widget is a child of the Button</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="s2">&quot;box_open&quot;</span> <span class="ow">in</span> <span class="n">image_widget</span><span class="o">.</span><span class="n">source</span> <span class="p">:</span>
+                <span class="n">image_widget</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;ressources\kartei_</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">_box_closed.png&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">del_filter_number</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span> 
+                
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">image_widget</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;ressources\kartei_</span><span class="si">{</span><span class="nb">id</span><span class="si">}</span><span class="s1">_box_open.png&#39;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">add_filter_number</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">cards_left</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">))</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nextCard</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">))</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">cardList</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeQuestion</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span><span class="o">.</span><span class="n">question</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeAnswer</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">learnmodeCategory</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="n">BrainBoostFirstWindow</span><span class="o">.</span><span class="n">card</span><span class="o">.</span><span class="n">category</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">show_answer</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">toggle_image</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s2">&quot;ressources/eye-closed.png&quot;</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">toggle_eye_label</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Antwort anzeigen&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">cardIndex</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">final_len</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_len</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">start_len</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nextCard</span><span class="p">()</span>
+            
+        <span class="n">image_widget</span><span class="o">.</span><span class="n">reload</span><span class="p">()</span></div>
+</div>
+
+
+
+
+
+<span class="c1"># Klasse für das Popup der Toolbar</span>
+<div class="viewcode-block" id="PopupToolbar">
+<a class="viewcode-back" href="../../views.html#views.frontend.PopupToolbar">[docs]</a>
+<span class="k">class</span> <span class="nc">PopupToolbar</span><span class="p">(</span><span class="n">FloatLayout</span><span class="p">):</span>
+    <span class="n">folder_name_input</span> <span class="o">=</span> <span class="n">ObjectProperty</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parent_widget</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">PopupToolbar</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parent_widget</span> <span class="o">=</span> <span class="n">parent_widget</span>
+
+    <span class="c1"># Methode, um einen neuen Ordner zu erstellen</span>
+<div class="viewcode-block" id="PopupToolbar.create_folder">
+<a class="viewcode-back" href="../../views.html#views.frontend.PopupToolbar.create_folder">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder_name</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Erstellt einen neuen Ordner mit dem Namen, der im Textfeld</span>
+<span class="sd">        eingegeben wurde.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">folder_name</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">parent_widget</span><span class="o">.</span><span class="n">add_folder_to_toolbar</span><span class="p">(</span><span class="n">folder_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No folder name provided.&quot;</span><span class="p">)</span></div>
+</div>
+
+
+
+<span class="c1"># Klasse für die Ordner</span>
+<div class="viewcode-block" id="Folder">
+<a class="viewcode-back" href="../../views.html#views.frontend.Folder">[docs]</a>
+<span class="k">class</span> <span class="nc">Folder</span><span class="p">(</span><span class="n">BoxLayout</span><span class="p">):</span>
+    <span class="n">folder_name</span> <span class="o">=</span> <span class="n">StringProperty</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="n">first_window</span> <span class="o">=</span> <span class="n">ObjectProperty</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">last_folder</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">first_start</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">folder_name</span><span class="p">,</span> <span class="n">first_window</span><span class="p">:</span><span class="n">BrainBoostFirstWindow</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Folder</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">folder_name</span> <span class="o">=</span> <span class="n">folder_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_window</span> <span class="o">=</span> <span class="n">first_window</span>
+        <span class="k">if</span> <span class="n">Folder</span><span class="o">.</span><span class="n">first_start</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">first_window</span><span class="o">.</span><span class="n">open_all_container</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">first_window</span><span class="o">.</span><span class="n">nextCard</span><span class="p">()</span>
+            <span class="n">Folder</span><span class="o">.</span><span class="n">first_start</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># Methode, um Inhalte zum Ordner hinzuzufügen</span>
+<div class="viewcode-block" id="Folder.add_content">
+<a class="viewcode-back" href="../../views.html#views.frontend.Folder.add_content">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_content</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Fügt dem Ordner den Inhalt hinzu.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">Label</span><span class="p">(</span><span class="n">text</span><span class="o">=</span><span class="n">content</span><span class="p">,</span> <span class="n">size_hint_y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">30</span><span class="p">))</span></div>
+
+
+    <span class="c1"># Methode, um das Ordner-Icon zu ändern</span>
+<div class="viewcode-block" id="Folder.change_icon_folder">
+<a class="viewcode-back" href="../../views.html#views.frontend.Folder.change_icon_folder">[docs]</a>
+    <span class="k">def</span> <span class="nf">change_icon_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Ändert das Ordner-Icon, wenn der Ordner geöffnet wird.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># Die Icons sollen sich abwechseln</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close_last_folder</span><span class="p">()</span>
+        <span class="n">current_icon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">folder_icon</span><span class="o">.</span><span class="n">source</span>
+        <span class="n">new_icon</span> <span class="o">=</span> <span class="s1">&#39;ressources/folder.png&#39;</span> <span class="k">if</span> <span class="n">current_icon</span> <span class="o">==</span> <span class="s1">&#39;ressources/folderclosed.png&#39;</span> <span class="k">else</span> <span class="s1">&#39;ressources/folderclosed.png&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">folder_icon</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="n">new_icon</span>
+        <span class="n">Folder</span><span class="o">.</span><span class="n">last_folder</span> <span class="o">=</span> <span class="bp">self</span></div>
+
+
+    <span class="c1"># Methode, um das Icon des letzten geöffneten Ordners zu schließen</span>
+<div class="viewcode-block" id="Folder.close_last_folder">
+<a class="viewcode-back" href="../../views.html#views.frontend.Folder.close_last_folder">[docs]</a>
+    <span class="k">def</span> <span class="nf">close_last_folder</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Schließt den letzten geöffneten Ordner, indem das Icon geändert wird</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="n">Folder</span><span class="o">.</span><span class="n">last_folder</span> <span class="o">!=</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">Folder</span><span class="o">.</span><span class="n">last_folder</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">folder_icon</span><span class="o">.</span><span class="n">source</span> <span class="o">=</span> <span class="s1">&#39;ressources/folderclosed.png&#39;</span></div>
+
+
+    <span class="c1"># Methode, um beim Klick auf einen Ordner die Karteninhalte zu löschen</span>
+<div class="viewcode-block" id="Folder.reset_cards">
+<a class="viewcode-back" href="../../views.html#views.frontend.Folder.reset_cards">[docs]</a>
+    <span class="k">def</span> <span class="nf">reset_cards</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Löscht die Karteninhalte, wenn ein Ordner geöffnet wird.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">first_window</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">first_window</span><span class="o">.</span><span class="n">resetLearnmode</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;BrainBoostFirstWindow instance not set.&quot;</span><span class="p">)</span></div>
+
+
+    <span class="c1"># In der Folder Klasse</span>
+<div class="viewcode-block" id="Folder.get_all_cards_for_category">
+<a class="viewcode-back" href="../../views.html#views.frontend.Folder.get_all_cards_for_category">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_all_cards_for_category</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">category</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Gibt alle Karten für eine bestimmte Kategorie zurück.</span>
+<span class="sd">        :param category: Die Kategorie, für die die Karten zurückgegeben werden sollen.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="c1"># globale Kategorie kann im Gesamten Programm immer abgerufen werden. </span>
+        <span class="n">MyFloatLayout</span><span class="o">.</span><span class="n">globalCategory</span> <span class="o">=</span> <span class="n">category</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_window</span><span class="o">.</span><span class="n">get_all_cards_for_category</span><span class="p">(</span><span class="n">category</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">first_window</span><span class="o">.</span><span class="n">open_all_container</span><span class="p">()</span></div>
+</div>
+
+        <span class="c1">#self.first_window.nextCard()</span>
+
+
+<span class="c1"># Klasse für das zweite Fenster</span>
+<div class="viewcode-block" id="SecondWindow">
+<a class="viewcode-back" href="../../views.html#views.frontend.SecondWindow">[docs]</a>
+<span class="k">class</span> <span class="nc">SecondWindow</span><span class="p">(</span><span class="n">Screen</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<span class="c1">#--------- USER LOGIN --------------------</span>
+
+<span class="c1"># Hauptklasse der Anwendung</span>
+<div class="viewcode-block" id="BrainBoostApp">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostApp">[docs]</a>
+<span class="k">class</span> <span class="nc">BrainBoostApp</span><span class="p">(</span><span class="n">App</span><span class="p">):</span>
+<div class="viewcode-block" id="BrainBoostApp.build">
+<a class="viewcode-back" href="../../views.html#views.frontend.BrainBoostApp.build">[docs]</a>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Lädt die Kivy-Datei, die das Layout definiert</span>
+        <span class="n">kv</span> <span class="o">=</span> <span class="n">Builder</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;views/first_window.kv&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">icon</span> <span class="o">=</span> <span class="s1">&#39;ressources\Logo_big.jpeg&#39;</span>
+        <span class="k">return</span> <span class="n">kv</span></div>
+</div>
+
+
+    
+
+<div class="viewcode-block" id="LoginScreen">
+<a class="viewcode-back" href="../../views.html#views.frontend.LoginScreen">[docs]</a>
+<span class="k">class</span> <span class="nc">LoginScreen</span><span class="p">(</span><span class="n">Screen</span><span class="p">):</span>
+    <span class="n">username</span> <span class="o">=</span> <span class="n">ObjectProperty</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+    <span class="n">password</span> <span class="o">=</span> <span class="n">ObjectProperty</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LoginScreen.verify_credentials">
+<a class="viewcode-back" href="../../views.html#views.frontend.LoginScreen.verify_credentials">[docs]</a>
+    <span class="k">def</span> <span class="nf">verify_credentials</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Überprüft die Eingaben des Benutzers.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">pwd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">text</span>
+
+        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">user</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Rot</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Der Benutzername darf keine Leerzeichen enthalten.&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">pwd</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># Rot</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Das Passwort darf keine Leerzeichen enthalten.&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="k">return</span>
+
+        <span class="n">verfified</span><span class="p">,</span> <span class="n">userid</span> <span class="o">=</span> <span class="n">Controller</span><span class="o">.</span><span class="n">verify_credentials</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">pwd</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">verfified</span><span class="p">:</span>
+            <span class="n">Controller</span><span class="o">.</span><span class="n">create_user</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">pwd</span><span class="p">,</span> <span class="n">userid</span><span class="p">)</span>
+            <span class="n">LoginApp</span><span class="p">()</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+            <span class="n">BrainBoostApp</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Invalid username or password&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span></div>
+
+<div class="viewcode-block" id="LoginScreen.register_user">
+<a class="viewcode-back" href="../../views.html#views.frontend.LoginScreen.register_user">[docs]</a>
+    <span class="k">def</span> <span class="nf">register_user</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">        Registriert einen neuen Benutzer.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">username</span><span class="o">.</span><span class="n">text</span>
+        <span class="n">pwd</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">password</span><span class="o">.</span><span class="n">text</span>
+        <span class="k">if</span> <span class="n">user</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span> <span class="o">!=</span> <span class="n">pwd</span><span class="p">:</span>
+            <span class="n">Controller</span><span class="o">.</span><span class="n">register_user</span><span class="p">(</span><span class="n">user</span><span class="p">,</span><span class="n">pwd</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;green&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Now, login!&quot;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;red&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ids</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">text</span> <span class="o">=</span> <span class="s2">&quot;Username and/or password are missing&quot;</span></div>
+</div>
+
+
+<div class="viewcode-block" id="WelcomeScreen">
+<a class="viewcode-back" href="../../views.html#views.frontend.WelcomeScreen">[docs]</a>
+<span class="k">class</span> <span class="nc">WelcomeScreen</span><span class="p">(</span><span class="n">Screen</span><span class="p">):</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="LoginApp">
+<a class="viewcode-back" href="../../views.html#views.frontend.LoginApp">[docs]</a>
+<span class="k">class</span> <span class="nc">LoginApp</span><span class="p">(</span><span class="n">App</span><span class="p">):</span>
+<div class="viewcode-block" id="LoginApp.build">
+<a class="viewcode-back" href="../../views.html#views.frontend.LoginApp.build">[docs]</a>
+    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">sm</span> <span class="o">=</span> <span class="n">ScreenManager</span><span class="p">()</span>
+        <span class="n">Builder</span><span class="o">.</span><span class="n">load_file</span><span class="p">(</span><span class="s1">&#39;views/userlogin.kv&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">icon</span> <span class="o">=</span> <span class="s1">&#39;ressources\Logo_big.jpeg&#39;</span>
+        <span class="n">sm</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">LoginScreen</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;login&#39;</span><span class="p">))</span>
+        <span class="n">sm</span><span class="o">.</span><span class="n">add_widget</span><span class="p">(</span><span class="n">WelcomeScreen</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;welcome&#39;</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">sm</span></div>
+</div>
+
+
+
+
+
+<span class="c1"># Startet die Anwendung</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">LoginApp</span><span class="p">()</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, team-BB
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=4e2eecee"></script>
+    </body>
+</html>

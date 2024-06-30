@@ -1,5 +1,9 @@
 import requests # Importiert die requests-Bibliothek, die HTTP-Anfragen ermöglicht
 from configparser import ConfigParser # Importiert ConfigParser, um Konfigurationsdateien zu lesen
+import os
+
+
+
 class Database:
     '''
     Klasse, die Methoden bereitstellt, um die Verwendung einer Supabase Datenbank zu ermöglichen
@@ -85,9 +89,8 @@ class Database:
         '''
         setzt das __apikey Attribut auf den Wert des API-Keys aus der Config
         '''
-        cfp = ConfigParser()
         try:
-            cfp.read("./config.ini")
+            cfp = self.__get_config_path()
             self.__apikey = cfp.get("Database", "apikey")
         except:
             print("config.ini is missing or wrong")
@@ -97,9 +100,8 @@ class Database:
         '''
         setzt das __url Attribut auf den Wert der URL aus der Config
         '''
-        cfp = ConfigParser()
         try:
-            cfp.read("config.ini")
+            cfp = self.__get_config_path()
             self.__url = cfp.get("Database", "url")
         except:
             print("config.ini is missing or wrong")
@@ -109,9 +111,21 @@ class Database:
         '''
         setzt das __password Attribut auf den Wert des Passworts aus der Config
         '''
-        cfp = ConfigParser()
         try:
-            cfp.read("config.ini")
+            cfp = self.__get_config_path()
             self.__password = cfp.get("Database", "password")
         except:
             print("config.ini is missing or wrong")
+
+    
+    def __get_config_path(self):
+        '''
+        Ändert den Pfad zur config.ini, je nach Arbeitsverzeichnis
+        :return: Pfad zur Config
+        '''
+        cfp = ConfigParser()
+        if "docs" in os.getcwd():
+            cfp.read("../config.ini")
+        else:
+            cfp.read("config.ini")
+        return cfp

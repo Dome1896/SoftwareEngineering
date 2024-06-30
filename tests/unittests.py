@@ -1,5 +1,5 @@
 import unittest
-from models.database import *
+from models.database.database import *
 from models.card import *
 from controller.controller import * 
 
