@@ -69,7 +69,7 @@ class Controller():
         # Gibt die Liste der Karten zurück.
         return cardList
 
-    # Definiert eine Klassenmethode, die eine Karte aus einer Kartenliste extrahiert.
+    # Definiert eine KlassenmeCathode, die eine Karte aus einer Kartenliste extrahiert.
     @classmethod
     def extractOneCardFromCardList(cls, cardList:dict[Card]):
         '''

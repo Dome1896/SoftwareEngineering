@@ -57,8 +57,12 @@ class MyFloatLayout(FloatLayout):
         '''
         Diese Methode erstellt alle Ordner, die bei Start benötigt werden.
         '''
-        for category in MyFloatLayout.get_categories():
-            self.add_folder_to_toolbar(category)
+        all_unique_categories = MyFloatLayout.get_categories()
+        if len(all_unique_categories) != 0:
+            for category in MyFloatLayout.get_categories():
+                self.add_folder_to_toolbar(category)
+        else:
+            self.add_folder_to_toolbar("---")
 
     # Methode, um alle Karten für eine bestimmte Kategorie abzurufen
     def get_all_cards_for_category(self, category: str):
@@ -150,6 +154,8 @@ class MyFloatLayout(FloatLayout):
         # Erstellt ein neues Folder-Widget
         first_window = self.manager.get_screen('first_window')
         folder = Folder(folder_name=folder_name, first_window=first_window)
+        if folder.folder_name == "---":
+            return
         self.ids.folder_box.add_widget(folder, index=0)
 
     # Methode, um einen Ordner auszuwählen
@@ -212,6 +218,8 @@ class BrainBoostFirstWindow(Screen, MyFloatLayout):
         self.get_all_cards_for_category("*")
         self.show_answer = False
         self.folder_instance = None
+        self.start_len = 0
+        self.final_len = 0
 
     # Methode, um die Instanz des Ordners zu setzen
     def set_folder_instance(self, folder_instance):
