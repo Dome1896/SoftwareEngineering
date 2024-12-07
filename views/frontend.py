@@ -16,6 +16,11 @@ from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.scrollview import ScrollView
 
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
+
+from views.card_editor import EditorApp
+
 import os
 
 # Importiert die Controller-Klasse, die vermutlich Logik oder Datenzugriff beinhaltet
@@ -76,6 +81,7 @@ class MyFloatLayout(FloatLayout):
     # Zustandsvariable, ob die Toolbar erweitert ist oder nicht
     toolbar_expanded = True
 
+
     # Methode, um die Toolbar ein- und auszublenden
     def toggle_toolbar(self):
         '''
@@ -106,6 +112,34 @@ class MyFloatLayout(FloatLayout):
     # Methode, die bei Klick auf einen Button aufgerufen wird
     def btn(self):
         self.show_popup()
+
+    # Methode zum Importieren einer CSV-Datei, lädt die Datei gleichzeitig hoch
+    def import_csv(self):
+        popupWindow = Popup(title="Kategorie, Frage, Antwort", size_hint=(None, None), size=(400, 400))
+        popupWindow.open()
+
+        root = Tk()
+        root.withdraw()  # Versteckt das Hauptfenster von Tkinter
+        root.attributes('-topmost', True)  # Bringt den Dialog in den Vordergrund
+
+        # Datei auswählen
+        file_path = askopenfilename(title="Datei auswählen", 
+                                    filetypes=[("csv", "*.csv")])
+        if file_path.endswith(".csv"):
+            popupWindow.dismiss()
+            Controller.upload_csv(csv_path=file_path)
+        self.ids.folder_box.clear_widgets()
+        self.on_startup_create_all_folders()
+        BrainBoostFirstWindow.resetLearnmode(self)
+    # Methode zum neuladen der Anwendung
+    def refresh(self):
+        pass
+
+    def open_editor(self):
+        #TODO- IMPLEMENTIERUNG DES KARTEN-EDITOR FENSTERS
+        pass
+        #EditorApp().run()
+
 
     # Methode, um ein Popup anzuzeigen
     def show_popup(self):
@@ -333,7 +367,7 @@ class BrainBoostFirstWindow(Screen, MyFloatLayout):
                 # Ändert das Icon zu offenem Auge
                 self.ids.toggle_image.source = "ressources/eye-open.png"
                 self.ids.toggle_eye_label.text = "Antwort verbergen"
-            else:
+            else: 
                 self.ids.learnmodeAnswer.text = ""
                 self.show_answer = False
                 # Versteckt die Bewertungsbuttons
@@ -541,13 +575,13 @@ class LoginScreen(Screen):
         '''
         user = self.username.text
         pwd = self.password.text
-        if user != "" != pwd:
+        if user != "" != pwd and Controller.is_username_available(user):
             Controller.register_user(user,pwd)
             self.ids.message.color = "green"
             self.ids.message.text = "Now, login!"
         else:
             self.ids.message.color = "red"
-            self.ids.message.text = "Username and/or password are missing"
+            self.ids.message.text = "Username and/or password are missing or already used"
 
 class WelcomeScreen(Screen):
     pass

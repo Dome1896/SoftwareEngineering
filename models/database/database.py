@@ -71,7 +71,8 @@ class Database:
         headers = self.__headers
         headers["Prefer"] = "return=minimal"
         # Führt eine POST-Anfrage aus, um die Daten zu senden
-        requests.post(url=url, headers=headers, json=object.makeRequestBody())
+        response =requests.post(url=url, headers=headers, json=object.makeRequestBody())
+        print(response.text)
 
     # Methode, um alle einzigartigen Werte aus einer Spalte zu erhalten
     def getAllUniqueValuesFromColumn(self, tableName:str, columnName:str):

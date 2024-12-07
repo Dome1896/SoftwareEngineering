@@ -7,6 +7,8 @@ from models.card.card import Card
 from models.apiHandler.apihandler import APIHandler
 from models.user.user import User
 
+from models.database.csv_parser import CSVParser
+
 
 # Definiert die Klasse Controller, die von Kivy's App-Klasse erbt.
 class Controller():
@@ -45,7 +47,8 @@ class Controller():
         '''
         cls.user = User(username, password, userID)
         cls.userID = userID
-    # Definiert eine Klassenmethode, die alle Karten für eine bestimmte Kategorie zurückgibt.
+    # Definiert eine Klassenmethode, die alle Karten für eine bestimmte Kategorie zurückgibt
+
     @classmethod
     def getAllCardsForCategory(cls, category: str):
         '''
@@ -68,6 +71,15 @@ class Controller():
                 cardList.append(Card(cardID=card["cardID"], question=card["question"], answer=card["answer"], category=card["category"], container_number=card["container_number"]))
         # Gibt die Liste der Karten zurück.
         return cardList
+
+    # Definiert eine Klassenmethode, die die Importierte CSV-Datei in dem Datenbank hochlädt
+    @classmethod
+    def upload_csv(cls, csv_path):
+        csv_parser = CSVParser(csv_path)
+        card_list = csv_parser.create_card_object_list(owner_id = Controller.userID)
+        for card in card_list:
+            cls.db.setDataToDB(card)
+
 
     # Definiert eine KlassenmeCathode, die eine Karte aus einer Kartenliste extrahiert.
     @classmethod
@@ -147,6 +159,15 @@ class Controller():
             return True, cls.userID
         else:
             return False, 0
+
+    def is_username_available(cls, username: str):
+        user = cls.db.getDataFromTableWithFilter(tableName="User",attributeKey="username", attribute=username)
+        if user:
+            return False
+        else:
+            return True
+        
+
     @classmethod
     def register_user(cls, username:str, password:str):
         cls.db.setDataToDB(User(username, password))

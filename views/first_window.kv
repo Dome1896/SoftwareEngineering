@@ -82,6 +82,30 @@ WindowManager:
                 center_y: self.parent.center_y
                 size_hint: None, None
                 size: 55,55
+        Button:
+            pos_hint: {"x": 0.87, "y": 0.90}
+            size_hint: (0.13, 0.1)
+            font_size: 20
+            background_color: 0,0,0,0
+            on_release: root.import_csv()
+            Image:
+                source: "ressources/import-export.png"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size_hint: None, None
+                size: 55,55
+        Button:
+            pos_hint: {"x": 0.75, "y": 0.90}
+            size_hint: (0.13, 0.1)
+            font_size: 20
+            background_color: 0,0,0,0
+            on_release: root.open_editor()
+            Image:
+                source: "ressources/editor.png"
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size_hint: None, None
+                size: 55,55
 
 
 
