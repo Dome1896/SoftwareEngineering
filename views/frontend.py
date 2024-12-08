@@ -20,6 +20,7 @@ from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
 from views.card_editor import EditorApp
+from views.import_export_menu import ImportExportPopUp
 
 import os
 
@@ -115,22 +116,8 @@ class MyFloatLayout(FloatLayout):
 
     # Methode zum Importieren einer CSV-Datei, lädt die Datei gleichzeitig hoch
     def import_csv(self):
-        popupWindow = Popup(title="Kategorie, Frage, Antwort", size_hint=(None, None), size=(400, 400))
-        popupWindow.open()
+        ImportExportPopUp.show_popup(self)
 
-        root = Tk()
-        root.withdraw()  # Versteckt das Hauptfenster von Tkinter
-        root.attributes('-topmost', True)  # Bringt den Dialog in den Vordergrund
-
-        # Datei auswählen
-        file_path = askopenfilename(title="Datei auswählen", 
-                                    filetypes=[("csv", "*.csv")])
-        if file_path.endswith(".csv"):
-            popupWindow.dismiss()
-            Controller.upload_csv(csv_path=file_path)
-        self.ids.folder_box.clear_widgets()
-        self.on_startup_create_all_folders()
-        BrainBoostFirstWindow.resetLearnmode(self)
     # Methode zum neuladen der Anwendung
     def refresh(self):
         pass

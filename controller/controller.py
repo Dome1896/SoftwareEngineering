@@ -80,6 +80,11 @@ class Controller():
         for card in card_list:
             cls.db.setDataToDB(card)
 
+    @classmethod
+    def export_csv(cls):
+        cards = cls.getAllCardsForCategory("*")
+        return CSVParser().create_csv_string_from_cards(cards)
+
 
     # Definiert eine KlassenmeCathode, die eine Karte aus einer Kartenliste extrahiert.
     @classmethod
